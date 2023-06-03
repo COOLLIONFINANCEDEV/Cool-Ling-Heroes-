@@ -18,6 +18,15 @@ const theme = createTheme({
         }),
       },
     },
+    MuiTypography: {
+      styleOverrides: {
+        root: ({ ownerState }) => ({
+          ...{
+           color: '#3f3d56',
+          },
+        }),
+      },
+    },
   },
 });
 

@@ -3,10 +3,10 @@ import React from "react";
 import { width } from "../Theme/size";
 import Redirect from "../Helpers/Redirect";
 import routes from "../Router/routes";
+import Simulator from "./Simulator";
 
 const Landing = () => {
   const LandingStyle = {
-    minHeight: { xs: "70vh", sm: "55vh" },
     width: width,
     margin: "0 auto",
     padding: "0",
@@ -17,6 +17,7 @@ const Landing = () => {
       <Stack
         sx={{
           width: "100vw",
+          minHeight:{xs:'80vh',sm:'initial'},
           zIndex: "3",
           background:
             "linear-gradient(0deg, rgba(6,152,129,1) 27%, rgba(2,199,150,1) 68%, rgba(238,248,246,1) 100%)",
@@ -28,8 +29,7 @@ const Landing = () => {
           <Stack
             sx={{
               width: { xs: "100%", sm: "45%" },
-              minHeight: { xs: "70vh", sm: "55vh" },
-              justifyContent: { xs: "center", sm: "flex-end" },
+              justifyContent: { xs: "center", sm: "center" },
               alignItems: { xs: "center", sm: "flex-start" },
             }}
             spacing={2}
@@ -52,7 +52,8 @@ const Landing = () => {
               justifyContent={"flex-start"}
               alignItems={"center"}
               spacing={2}
-              width={'100%'}
+              width={"100%"}
+              sx={{ zIndex: "1" }}
             >
               <Redirect link={routes.login}>
                 <Button color="secondary" variant="outlined" size="large">
@@ -70,11 +71,11 @@ const Landing = () => {
             sx={{
               display: { xs: "none", sm: "flex" },
               width: "55%",
-              maxHeight: { xs: "70vh", sm: "55vh" },
               backgroundRepeat: "no-repeat",
               backgroundImage: `url(Assets/Illustrations/Blob.svg)`,
               backgroundPosition: "100%",
               backgroundAttachment: "inherit",
+              zIndex: "1",
             }}
           >
             <img
@@ -88,16 +89,17 @@ const Landing = () => {
       <Stack
         sx={{
           width: "100vw",
-          maxHeight: "10vh",
           transform: { xs: "translate(0,-10px)", sm: "translate(0,-80px)" },
+          overflow: "hidden",
         }}
       >
         <img
           src="Assets/Illustrations/wave.svg"
           alt="wave"
-          style={{ zIndex: "1", height: "100%", width: "100%" }}
+          style={{ zIndex: "-1" }}
         />
       </Stack>
+      <Simulator />
     </>
   );
 };
