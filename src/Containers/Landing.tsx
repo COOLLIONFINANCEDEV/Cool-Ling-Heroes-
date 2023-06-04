@@ -45,7 +45,8 @@ const Landing = () => {
               </Typography>
               <img src="Assets/Illustrations/underline.svg" alt="underline" />
               <Typography color={"secondary"} fontSize={14}>
-              Cross-border real estate investments with monthly returns in a stable currency
+                Cross-border real estate investments with monthly returns in a
+                stable currency
               </Typography>
             </Box>
             <Stack
@@ -90,7 +91,7 @@ const Landing = () => {
       <Stack
         sx={{
           width: "100vw",
-          transform: { xs: "translate(0,-10px)", sm: "translate(0,-80px)" },
+          transform: "translate(0,-1px)",
           overflow: "hidden",
         }}
       >

@@ -21,7 +21,7 @@ const Navbar = () => {
   const menuList = [
     { name: "about us", link: routes.home },
     { name: "how it works", link: routes.home },
-    { name: "learn", link: "/" },
+    { name: "Simulate Investment", link: "/" },
     { name: "contact us", link: "/" },
   ];
   return (
@@ -29,9 +29,7 @@ const Navbar = () => {
       <AppBar
         component={"nav"}
         position="static"
-        color={
-          location.pathname === routes.home ? "secondary" : "primary"
-        }
+        color={location.pathname === routes.home ? "secondary" : "primary"}
       >
         <Toolbar
           sx={{

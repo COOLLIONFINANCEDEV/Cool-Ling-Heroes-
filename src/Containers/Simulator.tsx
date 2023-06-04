@@ -106,6 +106,7 @@ const Simulator = () => {
         background:
           "linear-gradient(150deg, rgba(253,255,255,0.8118529524539877) 57%, rgba(177,223,215,1) 100%)",
       }}
+      pt={10}
     >
       <Stack
         sx={{ width: width, flexDirection: { xs: "column", sm: "row" } }}
@@ -252,7 +253,9 @@ const Simulator = () => {
           </Button>
         </Stack>
       </Stack>
-      {newsLetter >= 2 && <CreateModal makeOpen ModalContent={NewsLetter} closeButton/>}
+      {newsLetter >= 2 && (
+        <CreateModal makeOpen ModalContent={NewsLetter} closeButton />
+      )}
     </Stack>
   );
 };
