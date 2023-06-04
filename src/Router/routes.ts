@@ -7,6 +7,7 @@ const routes: Routes = {
   login: "/login",
   register: "/register",
   notFound: "*",
+  aboutUs:'#aboutUs',
 };
 
 export default routes;

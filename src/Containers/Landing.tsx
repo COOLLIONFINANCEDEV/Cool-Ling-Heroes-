@@ -4,6 +4,7 @@ import { width } from "../Theme/size";
 import Redirect from "../Helpers/Redirect";
 import routes from "../Router/routes";
 import Simulator from "./Simulator";
+import About from "./About";
 
 const Landing = () => {
   const LandingStyle = {
@@ -17,7 +18,7 @@ const Landing = () => {
       <Stack
         sx={{
           width: "100vw",
-          minHeight:{xs:'80vh',sm:'initial'},
+          minHeight: { xs: "80vh", sm: "initial" },
           zIndex: "3",
           background:
             "linear-gradient(0deg, rgba(6,152,129,1) 27%, rgba(2,199,150,1) 68%, rgba(238,248,246,1) 100%)",
@@ -100,6 +101,7 @@ const Landing = () => {
         />
       </Stack>
       <Simulator />
+      <About />
     </>
   );
 };

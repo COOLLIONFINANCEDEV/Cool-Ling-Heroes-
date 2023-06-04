@@ -7,7 +7,7 @@
 // };
 
 export const width = {
-  xs: "95vw",
+  xs: "90vw",
   sm: "95vw",
   md: "90vw",
   lg: "80vw",
