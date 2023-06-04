@@ -105,7 +105,6 @@ const Simulator = () => {
       sx={{
         background:
           "linear-gradient(150deg, rgba(253,255,255,0.8118529524539877) 57%, rgba(177,223,215,1) 100%)",
-        minHeight: "100vh",
       }}
     >
       <Stack

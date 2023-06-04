@@ -5,6 +5,7 @@ import Redirect from "../Helpers/Redirect";
 import routes from "../Router/routes";
 import Simulator from "./Simulator";
 import About from "./About";
+import HowItWorks from "./HowItWorks";
 
 const Landing = () => {
   const LandingStyle = {
@@ -44,8 +45,7 @@ const Landing = () => {
               </Typography>
               <img src="Assets/Illustrations/underline.svg" alt="underline" />
               <Typography color={"secondary"} fontSize={14}>
-                Fueling Economic Expansion: Providing Investors with Fixed
-                Returns and Enabling Market Growth.
+              Cross-border real estate investments with monthly returns in a stable currency
               </Typography>
             </Box>
             <Stack
@@ -102,6 +102,7 @@ const Landing = () => {
       </Stack>
       <Simulator />
       <About />
+      <HowItWorks />
     </>
   );
 };
