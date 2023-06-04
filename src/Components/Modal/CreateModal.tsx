@@ -4,7 +4,7 @@ import Modal from "@mui/material/Modal";
 import Fade from "@mui/material/Fade";
 import GenerateModalButton from "./GenerateModalButton";
 import { Box, IconButton, Stack } from "@mui/material";
-import CloseIcon from "@mui/icons-material/Close";
+import HighlightOffTwoToneIcon from '@mui/icons-material/HighlightOffTwoTone';
 
 interface CREATEMODAL {
   children?: React.ReactNode;
@@ -72,10 +72,10 @@ const CreateModal: React.FC<CREATEMODAL> = ({
                 justifyContent={"flex-start"}
                 alignItems={"flex-end"}
                 direction={"row"}
-                sx={{ margin: "0" }}
+                sx={{ m: 0, p:'3px',position:'absolute' }}
               >
                 <IconButton onClick={handleClose}>
-                  <CloseIcon fontSize="medium" />
+                  <HighlightOffTwoToneIcon color={'primary'} fontSize="large"  />
                 </IconButton>
               </Stack>
             )}

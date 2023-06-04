@@ -253,7 +253,7 @@ const Simulator = () => {
           </Button>
         </Stack>
       </Stack>
-      {newsLetter >= 2 && <CreateModal makeOpen ModalContent={NewsLetter}/>}
+      {newsLetter >= 2 && <CreateModal makeOpen ModalContent={NewsLetter} closeButton/>}
     </Stack>
   );
 };

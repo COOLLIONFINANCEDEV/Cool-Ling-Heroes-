@@ -4,10 +4,11 @@ import React from "react";
 const NewsLetter = () => {
   return (
     <Stack
-      p={6}
       sx={{
         background:
           "linear-gradient(221deg, rgba(253,255,255,0.8118529524539877) 69%, rgba(177,223,215,1) 100%)",
+          p:{xs:2,sm:6},
+          width:{xs:'85vw',sm:"auto"}
       }}
     >
       <Typography variant="h4">Early birds get the alpha</Typography>
