@@ -24,7 +24,7 @@ const SelectInteret: React.FC<SELECTINTERET> = ({
   React.useEffect(() => {
     let values = 0;
     const newMap: MarksArray = [];
-    SimulatorData.map((item, key) => {
+    SimulatorData.forEach((item, key) => {
       const newObject: marksItem = {
         value: values,
         key: key,
@@ -79,9 +79,6 @@ const SelectInteret: React.FC<SELECTINTERET> = ({
       value={value}
       step={null}
       marks={marks}
-      sx={{
-        height: "20px !important",
-      }}
     />
   );
 };

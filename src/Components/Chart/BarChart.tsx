@@ -11,7 +11,6 @@ interface BARCHART {
 
 const BarChart: React.FC<BARCHART> = ({ amount, rule }) => {
   const amountWithPercentage = amount + amount * (rule.interet / 100);
-  const nextAmount = Math.ceil(amountWithPercentage / 1000) * 1000;
   return (
     <Box className="chart_wrapper__K6wh8">
       <Typography className="chart_title__ZlbWg" fontWeight={800}>
@@ -21,20 +20,23 @@ const BarChart: React.FC<BARCHART> = ({ amount, rule }) => {
         <Box className="graph_lines_wrapper____Yuk">
           <Box className="graph_right_labels__6OJ02">
             <Box className="graph_graph_amount_label__ME8m4">
-              <Typography>${FormatMoney(nextAmount)}</Typography>
+              <Typography>
+                ${FormatMoney(amountWithPercentage + 2000)}
+              </Typography>
+            </Box>
+            <Box className="graph_graph_amount_label__ME8m4">
+              <Typography>
+                ${FormatMoney(amountWithPercentage + 1000)}
+              </Typography>
             </Box>
             <Box className="graph_graph_amount_label__ME8m4">
               <Typography>${FormatMoney(amountWithPercentage)}</Typography>
-            </Box>
-            <Box className="graph_graph_amount_label__ME8m4">
-              <Typography>${FormatMoney(amount)}</Typography>
             </Box>
             <Box className="graph_graph_amount_label__ME8m4">
               <Typography>$0</Typography>
             </Box>
           </Box>
           <Box className="graph_graph_lines__AC5Nb">
-            <Box className="graph_line__hMapg"></Box>
             <Box className="graph_line__hMapg"></Box>
             <Box className="graph_line__hMapg"></Box>
             <Box className="graph_line__hMapg"></Box>
@@ -72,11 +74,11 @@ const BarChart: React.FC<BARCHART> = ({ amount, rule }) => {
             </Box>
             <Box
               className="graph_chartItem_total__AoFas"
-              style={{ height: "25px", marginTop: "-105px" }}
+              style={{ height: "30px", marginTop: "-110px" }}
             ></Box>
             <Box className="graph_chartItemSecond__rHPgB"></Box>
             <Box className="graph_underChart_label_months__0yCzN">
-              <Typography fontWeight={600}> 18 months</Typography>
+              <Typography fontWeight={600}> {rule.month} Months</Typography>
             </Box>
           </Box>
         </Box>

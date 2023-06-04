@@ -4,7 +4,6 @@ import {
   FormControl,
   FormHelperText,
   InputAdornment,
-  InputLabel,
   OutlinedInput,
   Stack,
   Typography,
@@ -18,6 +17,8 @@ import SelectDuration from "../Components/InvestCalculator/SelectDuration";
 import SelectAprAndDuration from "../Components/InvestCalculator/SelectAprAndDuration";
 import FormatMoney from "../Helpers/FormatMoney";
 import removeThousandsSeparator from "../Helpers/RemoveFormatMoney";
+import NewsLetter from "../Components/Newsletter/NewsLetter";
+import CreateModal from "../Components/Modal/CreateModal";
 
 export type SimulatorData = Array<SimulatorItem>;
 export type SimulatorItem = {
@@ -58,6 +59,7 @@ const Simulator = () => {
     },
   ]);
   const [amount, setAmount] = React.useState(1000);
+  const [newsLetter, setNewsLetter] = React.useState(0);
   const [error, setError] = React.useState<Error>({
     state: false,
     content: "",
@@ -68,7 +70,6 @@ const Simulator = () => {
   const handleChangeAmount = (event: ChangeEvent<HTMLInputElement>) => {
     const content = removeThousandsSeparator(event.target.value);
     const value = content ? content : 0;
-    console.log(content);
     setAmount(value);
     if (value < minAmount) {
       setError({
@@ -92,6 +93,7 @@ const Simulator = () => {
         newData.push(newObject);
       });
       setSimulatorData(newData);
+      setNewsLetter((state) => state + 1);
     },
     [SimulatorData]
   );
@@ -130,10 +132,13 @@ const Simulator = () => {
             rowGap={2}
           >
             <Typography fontWeight={"600"}>Investment amount</Typography>
-            <FormControl sx={{ width: { xs: "100%", sm: "150px" } }}>
-              <InputLabel htmlFor="outlined-adornment-amount">
-                Amount
-              </InputLabel>
+            <FormControl
+              sx={{
+                width: { xs: "100%", sm: "100%" },
+                alignItems: "flex-end",
+                position: "relative",
+              }}
+            >
               <OutlinedInput
                 id="outlined-adornment-amount"
                 value={FormatMoney(amount)}
@@ -142,11 +147,17 @@ const Simulator = () => {
                 startAdornment={
                   <InputAdornment position="start">$</InputAdornment>
                 }
-                label="Amount"
                 type="text"
+                size="small"
+                sx={{ width: { xs: "100%", sm: "150px" } }}
               />
               <FormHelperText
-                sx={{ color: palette.error.main, wordBreak: "break-all" }}
+                sx={{
+                  color: palette.error.main,
+                  position: "absolute",
+                  bottom: "-15px",
+                  right: "-15px",
+                }}
               >
                 {error.content}
               </FormHelperText>
@@ -242,6 +253,7 @@ const Simulator = () => {
           </Button>
         </Stack>
       </Stack>
+      {newsLetter >= 2 && <CreateModal makeOpen ModalContent={NewsLetter}/>}
     </Stack>
   );
 };

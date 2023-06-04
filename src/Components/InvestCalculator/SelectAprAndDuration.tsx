@@ -1,4 +1,4 @@
-import { Button, Stack, ToggleButton, ToggleButtonGroup } from "@mui/material";
+import { Stack, ToggleButton, ToggleButtonGroup } from "@mui/material";
 import React from "react";
 import { SimulatorData } from "../../Containers/Simulator";
 
@@ -11,7 +11,6 @@ const SelectAprAndDuration: React.FC<SELECAPRANDDURATION> = ({
   SimulatorData,
   onChangeSimulatorStatus,
 }) => {
-  const [value, setValue] = React.useState();
   const handleChange = (
     event: React.MouseEvent<HTMLElement, MouseEvent>,
     newValue: any
@@ -33,12 +32,17 @@ const SelectAprAndDuration: React.FC<SELECAPRANDDURATION> = ({
 
   return (
     <Stack sx={{ width: "100%" }}>
-      <ToggleButtonGroup fullWidth onChange={handleChange}>
+      <ToggleButtonGroup
+        fullWidth
+        onChange={handleChange}
+        sx={{ flexWrap: "wrap" }}
+      >
         {SimulatorData.map((item) => (
           <ToggleButton
             value={item.month}
             key={item.interet}
             selected={item.status}
+            sx={{ width: "calc(100% / 3)" }}
           >
             {item.interet + " %"} <br /> {item.month + " month"}
           </ToggleButton>
