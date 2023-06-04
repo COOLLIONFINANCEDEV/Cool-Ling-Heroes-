@@ -14,6 +14,6 @@ function App() {
       </ThemeProvider>
     </Stack>
   );
-}
+} 
 
 export default App;
