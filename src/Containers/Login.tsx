@@ -20,6 +20,7 @@ const Login = () => {
     justifyContent: "center",
     alignItems: "center",
     flexDirection: "column",
+    pb: 15,
   };
 
   const LoginFormStyle = {

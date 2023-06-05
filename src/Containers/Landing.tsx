@@ -37,9 +37,9 @@ const Landing = () => {
             spacing={2}
           >
             <Box>
-              <Typography variant="h3" color={"secondary"}>
+              <Typography variant="h3" color={"secondary"} sx={{fontSize:{xs:'2.5rem',sm:'initial'}}}>
                 Transforming the Investment Landscape:{" "}
-                <Typography component={"span"} variant="h3" color={"secondary"}>
+                <Typography component={"span"} variant="h3" color={"secondary"} sx={{fontSize:{xs:'2.5rem',sm:'initial'}}}>
                   A New Approach
                 </Typography>
               </Typography>

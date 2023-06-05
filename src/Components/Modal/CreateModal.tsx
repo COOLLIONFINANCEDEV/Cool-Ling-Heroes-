@@ -4,7 +4,7 @@ import Modal from "@mui/material/Modal";
 import Fade from "@mui/material/Fade";
 import GenerateModalButton from "./GenerateModalButton";
 import { Box, IconButton, Stack } from "@mui/material";
-import HighlightOffTwoToneIcon from '@mui/icons-material/HighlightOffTwoTone';
+import CancelOutlinedIcon from "@mui/icons-material/CancelOutlined";
 
 interface CREATEMODAL {
   children?: React.ReactNode;
@@ -69,13 +69,13 @@ const CreateModal: React.FC<CREATEMODAL> = ({
           <Box sx={CenterContent}>
             {closeButton && (
               <Stack
-                justifyContent={"flex-start"}
+                justifyContent={"flex-end"}
                 alignItems={"flex-end"}
                 direction={"row"}
-                sx={{ m: 0, p:'3px',position:'absolute' }}
+                sx={{ m: 0, p: "3px", position: "absolute" }}
               >
                 <IconButton onClick={handleClose}>
-                  <HighlightOffTwoToneIcon color={'primary'} fontSize="large"  />
+                  <CancelOutlinedIcon color={"primary"} fontSize="large" />
                 </IconButton>
               </Stack>
             )}

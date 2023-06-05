@@ -131,10 +131,15 @@ const Simulator = () => {
             sx={{ width: "100%", flexDirection: { xs: "column", sm: "row" } }}
             rowGap={2}
           >
-            <Typography fontWeight={"600"}>Investment amount</Typography>
+            <Typography
+              fontWeight={"600"}
+              sx={{ width: "max-content !important" }}
+            >
+              Investment amount
+            </Typography>
             <FormControl
               sx={{
-                width: { xs: "100%", sm: "100%" },
+                width: { xs: "100%", sm: "60%" },
                 alignItems: "flex-end",
                 position: "relative",
               }}
@@ -155,8 +160,9 @@ const Simulator = () => {
                 sx={{
                   color: palette.error.main,
                   position: "absolute",
-                  bottom: "-15px",
-                  right: "-15px",
+                  bottom: "-50%",
+                  m: 0,
+                  p: 0,
                 }}
               >
                 {error.content}
@@ -199,7 +205,7 @@ const Simulator = () => {
               display: { xs: "none", sm: "flex" },
             }}
           >
-            <Typography fontWeight={"600"}>Annual Percentage Rate</Typography>
+            <Typography fontWeight={"600"}>Percentage Rate</Typography>
             <Box alignSelf={"flex-end"} sx={{ width: "100%" }}>
               <SelectInteret
                 SimulatorData={SimulatorData}

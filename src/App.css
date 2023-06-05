@@ -2,4 +2,6 @@ body {
   margin: 0 !important;
   padding: 0 !important;
   background-color: #f9fdfc !important;
+  overflow-x: hidden !important;
+  width: 100vw;
 }

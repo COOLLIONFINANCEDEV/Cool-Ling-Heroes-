@@ -103,7 +103,7 @@ const HowItWorks = () => {
                   pl: { xs: "20px", sm: "30px" },
                 }}
               >
-                {HowItWorksData.map((item, key) => (
+                {HowItWorksData.map((item) => (
                   <Box
                     component={"li"}
                     sx={{
@@ -112,7 +112,7 @@ const HowItWorks = () => {
                         sm: "calc(48% - 30px)",
                       },
                     }}
-                    key={key}
+                    key={item.title}
                   >
                     <Typography
                       variant="h6"
