@@ -1,10 +1,4 @@
-import {
-  Box,
-  MenuItem,
-  Select,
-  Stack,
-  Typography,
-} from "@mui/material";
+import { Box, MenuItem, Select, Stack, Typography } from "@mui/material";
 import React from "react";
 import { Formik, Form, Field } from "formik";
 import * as yup from "yup";
@@ -55,12 +49,16 @@ const Register: React.FC<REGISTER> = ({ hanbleChange }) => {
         initialValues={initialValues}
         validationSchema={yup.object().shape({
           email: yup.string().email().required(),
-          phone: yup.string().matches(/^\d{8,12}$/, "Invalid phone number"),
+          phone: yup
+            .string()
+            .matches(/^\d{8,12}$/, "Invalid phone number")
+            .required(),
           password: yup.string().min(8).required(),
           confirmPassword: yup
             .string()
             .oneOf([yup.ref("password"), "ll"], "Passwords must match")
             .required(),
+          prefixe: yup.string().required("required"),
         })}
         onSubmit={handleSubmit}
       >
@@ -74,6 +72,7 @@ const Register: React.FC<REGISTER> = ({ hanbleChange }) => {
               flexDirection: "column",
               rowGap: "20px",
             }}
+            method="post"
           >
             <Field
               label="Email"
@@ -145,7 +144,6 @@ const Register: React.FC<REGISTER> = ({ hanbleChange }) => {
               type="submit"
               loading={isSubmitting}
               loadingPosition="center"
-              loadingIndicator="...loading"
               size="large"
             >
               Sign up
