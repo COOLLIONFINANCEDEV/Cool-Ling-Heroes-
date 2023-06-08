@@ -1,12 +1,13 @@
-import React from 'react'
-import { Layout } from '../Containers/layout'
+import React from "react";
+import { Layout } from "../Containers/layout";
+import { Outlet } from "react-router-dom";
 
 const Dashboard = () => {
   return (
     <Layout>
-        <h1>hh</h1>
+      <Outlet />
     </Layout>
-  )
-}
+  );
+};
 
-export default Dashboard
+export default Dashboard;

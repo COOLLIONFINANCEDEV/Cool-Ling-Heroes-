@@ -5,6 +5,7 @@ import Login from "../Containers/Login";
 import NotFound from "../Pages/NotFound";
 import Landing from "../Containers/Landing";
 import Dashboard from "../Pages/Dashboard";
+import OverView from "../Pages/OverView";
 
 const router = createBrowserRouter([
   {
@@ -22,13 +23,20 @@ const router = createBrowserRouter([
     ],
   },
   {
+    path: routes.dashboard,
+    element: <Dashboard />,
+    children: [
+      {
+        path: routes.dashboard,
+        element: <OverView />,
+      },
+    ],
+  },
+  {
     path: routes.notFound,
     element: <NotFound />,
   },
-  {
-    path: routes.dashboard,
-    element: <Dashboard />,
-  },
+ 
 ]);
 
 export default router;

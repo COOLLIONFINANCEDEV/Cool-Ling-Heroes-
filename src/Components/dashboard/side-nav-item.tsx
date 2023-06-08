@@ -63,7 +63,7 @@ export const SideNavItem: React.FC<SIDENAVITEM> = ({
               display: "inline-flex",
               justifyContent: "center",
               mr: 2,
-              color: palette.primary.main,
+              color: palette.info.main,
             }}
           >
             {icon}

@@ -3,9 +3,6 @@ import { styled } from "@mui/material/styles";
 import { SideNav } from "../Components/dashboard/side-nav";
 import TopNav from "../Components/dashboard/TopNav";
 import { useLocation } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { selectLogin } from "../Toolkit/Login/LoginSlice";
-import Roles from "../Seeds/Roles";
 
 const SIDE_NAV_WIDTH = 280;
 
@@ -13,7 +10,7 @@ const LayoutRoot = styled("div")(({ theme }) => ({
   display: "flex",
   flex: "1 1 auto",
   maxWidth: "100%",
-  [theme.breakpoints.up("lg")]: {
+  [theme.breakpoints.up("sm")]: {
     paddingLeft: SIDE_NAV_WIDTH,
   },
 }));
@@ -32,7 +29,6 @@ interface LAYOUT {
 export const Layout: React.FC<LAYOUT> = ({ children }) => {
   const pathname = useLocation().pathname;
   const [openNav, setOpenNav] = useState(false);
-  const { user } = useSelector(selectLogin);
 
   const handlePathnameChange = useCallback(() => {
     if (openNav) {
@@ -51,9 +47,7 @@ export const Layout: React.FC<LAYOUT> = ({ children }) => {
   return (
     <>
       <TopNav onNavOpen={() => setOpenNav(true)} />
-      {user.role !== Roles.lender && (
-        <SideNav onClose={() => setOpenNav(false)} open={openNav} />
-      )}
+      <SideNav onClose={() => setOpenNav(false)} open={openNav} />
       <LayoutRoot>
         <LayoutContainer>{children}</LayoutContainer>
       </LayoutRoot>

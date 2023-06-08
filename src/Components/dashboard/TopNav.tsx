@@ -11,9 +11,6 @@ import { alpha } from "@mui/material/styles";
 import { AccountPopover } from "./account-popover";
 import { usePopover } from "../../hooks/use-popover";
 import Logo from "../Navbar/Logo";
-import Roles from "../../Seeds/Roles";
-import { useSelector } from "react-redux";
-import { selectLogin } from "../../Toolkit/Login/LoginSlice";
 
 const SIDE_NAV_WIDTH = 280;
 const TOP_NAV_HEIGHT = 64;
@@ -25,7 +22,6 @@ interface TOPNAV {
 const TopNav: React.FC<TOPNAV> = ({ onNavOpen }) => {
   const lgUp = useMediaQuery((theme: any) => theme.breakpoints.up("sm"));
   const accountPopover = usePopover();
-  const { user } = useSelector(selectLogin);
 
   return (
     <>
@@ -57,7 +53,7 @@ const TopNav: React.FC<TOPNAV> = ({ onNavOpen }) => {
           }}
         >
           <Stack alignItems="center" direction="row" spacing={2}>
-            {!lgUp && user.role !== Roles.lender && (
+            {!lgUp && (
               <IconButton onClick={onNavOpen}>
                 <SvgIcon fontSize="small">
                   <Bars3Icon />
