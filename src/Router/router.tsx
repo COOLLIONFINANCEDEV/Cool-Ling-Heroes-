@@ -4,6 +4,7 @@ import Home from "../Pages/Home";
 import Login from "../Containers/Login";
 import NotFound from "../Pages/NotFound";
 import Landing from "../Containers/Landing";
+import Dashboard from "../Pages/Dashboard";
 
 const router = createBrowserRouter([
   {
@@ -20,10 +21,13 @@ const router = createBrowserRouter([
       },
     ],
   },
-
   {
     path: routes.notFound,
     element: <NotFound />,
+  },
+  {
+    path: routes.dashboard,
+    element: <Dashboard />,
   },
 ]);
 

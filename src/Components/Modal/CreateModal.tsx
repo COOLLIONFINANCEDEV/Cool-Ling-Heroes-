@@ -9,7 +9,7 @@ import CancelOutlinedIcon from "@mui/icons-material/CancelOutlined";
 interface CREATEMODAL {
   children?: React.ReactNode;
   ModalContent: any;
-  contentProps?: Array<{ [key: string]: string | number }>;
+  contentProps?: {};
   makeOpen?: boolean;
   noLeave?: boolean;
   closeButton?: boolean;

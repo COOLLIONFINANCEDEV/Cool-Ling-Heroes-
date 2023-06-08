@@ -1,6 +1,8 @@
 const ApiRoutes = {
   auth: {
-    register: "/",
+    register: "/auth/signup",
+    connect: "/auth/login",
+    refreshToken: "/auth/refresh-access",
   },
 };
 

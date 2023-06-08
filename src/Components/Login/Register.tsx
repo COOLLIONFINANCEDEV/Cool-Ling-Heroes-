@@ -1,22 +1,29 @@
 import { Box, MenuItem, Select, Stack, Typography } from "@mui/material";
 import React from "react";
-import { Formik, Form, Field } from "formik";
+import { Formik, Form, Field, FormikHelpers } from "formik";
 import * as yup from "yup";
 import { FormTextField } from "../Formik/FormTextField";
 import { LoadingButton } from "@mui/lab";
 import countriesList from "../../Seeds/Country";
+import ApiSession from "../../Service/ApiSession";
+import { RESPONSELAYOUT } from "../../Helpers/FormatResponse";
+import { useDispatch } from "react-redux";
+import { setAlert } from "../../Toolkit/Alert/AlertSlice";
+import { setPoppu } from "../../Toolkit/Poppu/PoppuSlice";
+import AppMessage from "../../Seeds/AppMessage";
 interface REGISTER {
   hanbleChange?: Function;
 }
 
+interface INITIALVALUES {
+  email: string;
+  password: string;
+  confirmPassword: string;
+  phone: string;
+  prefixe: string;
+}
+
 const Register: React.FC<REGISTER> = ({ hanbleChange }) => {
-  interface INITIALVALUES {
-    email: string;
-    password: string;
-    confirmPassword: string;
-    phone: string;
-    prefixe: string;
-  }
   const initialValues: INITIALVALUES = {
     email: "",
     password: "",
@@ -25,9 +32,48 @@ const Register: React.FC<REGISTER> = ({ hanbleChange }) => {
     prefixe: "",
   };
 
-  const handleSubmit = (values: INITIALVALUES) => {
-    // same shape as initial values
-    console.log(values);
+  const dispatch = useDispatch();
+
+  const handleSubmit = async (
+    values: INITIALVALUES,
+    helper: FormikHelpers<INITIALVALUES>
+  ) => {
+    const phone = (values.prefixe + values.phone).replace(/\s/g, "");
+    const response = await ApiSession.auth.register({
+      email: values.email,
+      password: values.password,
+      phone_number: phone,
+    });
+
+    if (response) {
+      if (response?.error) {
+        handleSubmitError(response, helper.setFieldError);
+      } else {
+        dispatch(
+          setPoppu({
+            state: "success",
+            message: AppMessage.Poppu.register,
+            noLeave: true,
+          })
+        );
+      }
+    }
+  };
+
+  const handleSubmitError = (
+    response: RESPONSELAYOUT,
+    setFieldError: (fields: string, message: string | undefined) => void
+  ) => {
+    dispatch(setAlert({ state: "error", message: response.message }));
+    if (response.errors) {
+      response.errors.forEach((item: any) => {
+        if (Object.keys(initialValues).includes(item.field)) {
+          setFieldError(item.field, item.description);
+        } else {
+          setFieldError("phone", item.description);
+        }
+      });
+    }
   };
 
   return (
@@ -84,7 +130,7 @@ const Register: React.FC<REGISTER> = ({ hanbleChange }) => {
             <Stack
               direction={"row"}
               justifyContent={"space-between"}
-              alignItems={"center"}
+              alignItems={"flex-start"}
               width={"95%"}
             >
               <Field
@@ -140,7 +186,7 @@ const Register: React.FC<REGISTER> = ({ hanbleChange }) => {
 
             <LoadingButton
               variant="contained"
-              sx={{ width: "95%" }}
+              sx={{ width: "95%", borderRadius: "5px" }}
               type="submit"
               loading={isSubmitting}
               loadingPosition="center"

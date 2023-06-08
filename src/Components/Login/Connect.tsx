@@ -1,9 +1,15 @@
 import { Box, Typography } from "@mui/material";
-import { Formik, Form, Field } from "formik";
+import { Formik, Form, Field, FormikHelpers } from "formik";
 import * as yup from "yup";
 import { FormTextField } from "../Formik/FormTextField";
 import { LoadingButton } from "@mui/lab";
-import React from "react";
+import React, { useCallback } from "react";
+import ApiSession from "../../Service/ApiSession";
+import { useDispatch } from "react-redux";
+import { RESPONSELAYOUT } from "../../Helpers/FormatResponse";
+import { setAlert } from "../../Toolkit/Alert/AlertSlice";
+import { hashValue } from "../../Helpers/Hash/HashValue";
+import { useLocation } from "react-router-dom";
 
 interface INITIALVALUES {
   email: string;
@@ -15,11 +21,63 @@ const Connect = () => {
     email: "",
     password: "",
   };
+  const dispatch = useDispatch();
+  const location = useLocation();
 
-  const handleSubmit = (values: INITIALVALUES) => {
-    // same shape as initial values
-    console.log(values);
-  };
+  const handleSubmitSuccess = React.useCallback(
+    (response: RESPONSELAYOUT) => {
+      dispatch(setAlert({ state: "success", message: response.message }));
+      const accessToken = hashValue(response.data.accessToken);
+      const refreshToken = hashValue(response.data.refreshToken);
+
+      if (accessToken && refreshToken) {
+        localStorage.setItem("accessToken", accessToken);
+        localStorage.setItem("refreshToken", refreshToken);
+      }
+    },
+    [dispatch]
+  );
+
+  const handleSubmitError = React.useCallback(
+    (
+      response: RESPONSELAYOUT,
+      setFieldError: (fields: string, message: string | undefined) => void
+    ) => {
+      if (response.errors) {
+        response.errors.forEach((item: any) => {
+          setFieldError(item.field, item.description);
+        });
+      }
+    },
+    []
+  );
+
+  const handleSubmit = useCallback(
+    async (
+      values: INITIALVALUES | { magicLink: string },
+      helpers: FormikHelpers<INITIALVALUES> | undefined
+    ) => {
+      const response = await ApiSession.auth.connect(values);
+      if (response.error) {
+        dispatch(setAlert({ state: "error", message: response.message }));
+        if (helpers) {
+          handleSubmitError(response, helpers?.setFieldError);
+        }
+      } else {
+        handleSubmitSuccess(response);
+      }
+    },
+    [dispatch, handleSubmitError, handleSubmitSuccess]
+  );
+
+  React.useEffect(() => {
+    const search = location.search;
+    const UrlParam = new URLSearchParams(search);
+    const param = UrlParam.get("magiclink");
+    if (param) {
+      handleSubmit({ magicLink: param }, undefined);
+    }
+  }, [handleSubmit, location]);
 
   return (
     <Box
@@ -41,7 +99,6 @@ const Connect = () => {
         validationSchema={yup.object().shape({
           email: yup.string().email().required(),
           password: yup.string().min(8).required(),
-       
         })}
         onSubmit={handleSubmit}
       >

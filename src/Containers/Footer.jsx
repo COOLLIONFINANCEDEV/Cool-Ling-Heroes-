@@ -6,6 +6,9 @@ import InstagramIcon from "@mui/icons-material/Instagram";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import YouTubeIcon from "@mui/icons-material/YouTube";
 import TwitterIcon from "@mui/icons-material/Twitter";
+import Redirect from "../Helpers/Redirect";
+import { menuList } from "./NavBar";
+import routes from "../Router/routes";
 const Footer = () => {
   const { palette } = useTheme();
   return (
@@ -76,15 +79,7 @@ const Footer = () => {
               flexDirection: "column",
             }}
           >
-            <FooterBlock
-              Title={"PAGES"}
-              Items={[
-                "About Us",
-                "How It Works",
-                "Simulate Investment",
-                "Contact Us",
-              ]}
-            />
+            <FooterBlock Title={"PAGES"} Items={menuList} />
           </Box>
 
           <Box
@@ -134,7 +129,7 @@ const Footer = () => {
                 flexWrap: "wrap",
               }}
             >
-              <Typography variant="h6" fontWeight={800} color={'secondary'}>
+              <Typography variant="h6" fontWeight={800} color={"secondary"}>
                 Follow Us
               </Typography>
               <IconButton size="medium" color="secondary" variant="contained">
@@ -161,9 +156,7 @@ const Footer = () => {
                 flexDirection: "row",
                 columnGap: "10px",
               }}
-            >
-             
-            </Box>
+            ></Box>
           </Box>
           <Divider color={palette.secondary.main} />
           <Box
@@ -187,19 +180,25 @@ const Footer = () => {
 const FooterItems = ({ Items }) => {
   return (
     <>
-      {Items.map((item) => {
+      {Items.map((item,key) => {
         return (
-          <Typography
-            key={item}
-            sx={{
-              "&:hover": { textDecoration: "underline" },
-              textTransform: "capitalize",
-              fontSize: "0.8rem",
-            }}
-            color={"secondary"}
+          <Redirect
+            link={item.link}
+            key={key}
+            target={[routes.contact, routes.videoChat].includes(item.link)}
           >
-            {item}
-          </Typography>
+            <Typography
+              sx={{
+                "&:hover": { textDecoration: "underline" },
+                textTransform: "capitalize",
+                fontSize: "0.8rem",
+                cursor: "pointer",
+              }}
+              color={"secondary"}
+            >
+              {item.name}
+            </Typography>
+          </Redirect>
         );
       })}
     </>

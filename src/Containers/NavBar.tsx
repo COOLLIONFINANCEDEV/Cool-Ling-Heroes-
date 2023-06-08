@@ -6,6 +6,15 @@ import routes from "../Router/routes";
 import { width } from "../Theme/size";
 import { useLocation } from "react-router-dom";
 
+
+export const menuList = [
+  { name: "about us", link: routes.aboutUs },
+  { name: "how it works", link: routes.howItWorks },
+  { name: "Simulate Investment", link: routes.simulator },
+  { name: "contact us", link: routes.contact },
+];
+
+
 const Navbar = () => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
@@ -18,12 +27,6 @@ const Navbar = () => {
     setAnchorEl(null);
   };
 
-  const menuList = [
-    { name: "about us", link: routes.home },
-    { name: "how it works", link: routes.home },
-    { name: "Simulate Investment", link: "/" },
-    { name: "contact us", link: "/" },
-  ];
   return (
     <Box component={"div"} sx={{ overflow: "hidden" }}>
       <AppBar

@@ -12,6 +12,7 @@ const About = () => {
           "linear-gradient(30deg, rgba(253,255,255,0.8118529524539877) 57%, rgba(177,223,215,1) 100%)",
       }}
       pt={15}
+      id="about"
     >
       <Stack
         sx={{ width: width, flexDirection: { xs: "column", sm: "row" } }}

@@ -1,9 +1,20 @@
 import axios from "axios";
-import FormatResponse from "../Helpers/FormatResponse";
+import FormatResponse, { RESPONSELAYOUT } from "../Helpers/FormatResponse";
+import { dehashValue } from "../Helpers/Hash/HashValue";
 
-
-const ApiService = (path: string, method: string, body: Object) => {
-  const accessToken = localStorage.getItem("accessToken");
+const ApiService = (
+  path: string,
+  method: string,
+  body: Object
+): Promise<RESPONSELAYOUT> => {
+  const accessTokenHash = localStorage.getItem("accessToken");
+  let accessToken = "";
+  if (accessTokenHash) {
+    const value = dehashValue(accessTokenHash);
+    if (value) {
+      accessToken = value;
+    }
+  }
   const url = process.env.REACT_APP_API_URL + path;
 
   const options = {
@@ -35,7 +46,12 @@ const ApiService = (path: string, method: string, body: Object) => {
           return error;
         }
       })
-      .then(resolve);
+      .then((data) => {
+        if (data) {
+          const formatData: RESPONSELAYOUT = data;
+          resolve(formatData);
+        }
+      });
   });
 };
 

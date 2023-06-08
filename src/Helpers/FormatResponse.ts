@@ -1,3 +1,4 @@
+
 interface AXIOSRESPONSE {
   data: APIRESPONSE;
 }
@@ -15,10 +16,18 @@ type APIRESPONSE = {
   metadata: {};
 };
 
+export interface RESPONSELAYOUT {
+  error: boolean;
+  message: string;
+  errors: Array<{}> | undefined;
+  data: any;
+  metadata: any;
+}
+
 const FormatResponse = (AllData: AXIOSRESPONSE) => {
   const data: APIRESPONSE = AllData.data;
 
-  const ResponseLayout = {
+  const ResponseLayout:RESPONSELAYOUT = {
     error: !data.success,
     message: data.message,
     errors: data.errors,
