@@ -1,6 +1,6 @@
 import { ReactElement, useCallback, useEffect, useState } from "react";
 import { styled } from "@mui/material/styles";
-import { SideNav } from "../Components/dashboard/side-nav";
+import { SideNav } from "../Components/dashboard/SideNav";
 import TopNav from "../Components/dashboard/TopNav";
 import { useLocation } from "react-router-dom";
 

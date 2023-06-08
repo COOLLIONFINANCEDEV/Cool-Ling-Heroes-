@@ -42,6 +42,16 @@ const theme = createTheme({
           [`& .${tableCellClasses.root}`]: {
             borderBottom: "none",
             backgroundColor: palette.secondary.main,
+            color:palette.primary.main,
+            fontSize: 12,
+            fontWeight: 600,
+            lineHeight: 1,
+            letterSpacing: 0.5,
+            textTransform: "uppercase",
+          },
+          [`& .${tableCellClasses.paddingCheckbox}`]: {
+            paddingTop: 4,
+            paddingBottom: 4,
           },
         },
       },
@@ -53,8 +63,8 @@ const theme = createTheme({
           [`& .${tableCellClasses.root}`]: {
             borderBottom: "none",
             backgroundColor: '#fff',
-            fontSize: 12,
-            fontWeight: 600,
+            fontSize: '0.75rem',
+            fontWeight: 500,
             lineHeight: 1,
             letterSpacing: 0.5,
             textTransform: "uppercase",

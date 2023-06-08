@@ -10,8 +10,12 @@ import CardGroupes from "../Containers/CardGroupes";
 import BlocTitle from "../Containers/BlocTitle";
 import { CustomersSearch } from "../Components/CustomerSeach";
 import TableCustomze from "../Containers/TableCustomze";
+import { selectLogin } from "../Toolkit/Login/LoginSlice";
+import { useSelector } from "react-redux";
+import Roles from "../Seeds/Roles";
+import React from "react";
 
-const LenderInfo = {
+const Info = {
   card: [
     {
       title: "Number of investments",
@@ -39,8 +43,16 @@ const LenderInfo = {
     },
   ],
 };
+export interface OVERVIEWCONTEXT {
+  state: boolean;
+  handle: React.Dispatch<React.SetStateAction<boolean>>;
+}
+export const OverViewContext = React.createContext<OVERVIEWCONTEXT | undefined>(undefined);
 
 const OverView = () => {
+  const [Loader, setLoader] = React.useState(false);
+  const { user } = useSelector(selectLogin);
+  const title = ["Manage Your Investments", "All Investments"];
   return (
     <Box
       component="main"
@@ -49,15 +61,18 @@ const OverView = () => {
         py: 4,
       }}
     >
-      <Container maxWidth="xl">
-        <BlocTitle
-          title="Manage Your Investments"
-          buttonContent={"invest now"}
-        />
-        <CardGroupes CardItemInfo={LenderInfo.card} />
-        <CustomersSearch />
-        <TableCustomze />
-      </Container>
+      <OverViewContext.Provider value={{ state: Loader, handle: setLoader }}>
+        <Container maxWidth="xl">
+          <BlocTitle
+            title={user.role !== Roles.lender ? title[1] : title[0]}
+            buttonContent={"invest now"}
+            disabled={user.role !== Roles.lender}
+          />
+          <CardGroupes CardItemInfo={Info.card} />
+          <CustomersSearch />
+          <TableCustomze />
+        </Container>
+      </OverViewContext.Provider>
     </Box>
   );
 };

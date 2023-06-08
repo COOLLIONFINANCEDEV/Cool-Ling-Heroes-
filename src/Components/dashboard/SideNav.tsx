@@ -9,11 +9,10 @@ import {
   useMediaQuery,
   useTheme,
 } from "@mui/material";
-import { items } from "./config";
-import {  SideNavItem } from "./side-nav-item";
+import {  SideNavItem } from "./SideNavitem";
 import { Scrollbar } from "../scrollbar";
 import Logo from "../Navbar/Logo";
-import { useLocation } from "react-router-dom";
+import SideBarItems from "./SideBarItems";
 
 interface SIDENAV {
   open: boolean;
@@ -23,7 +22,6 @@ interface SIDENAV {
 }
 
 export const SideNav: React.FC<SIDENAV> = ({ open, onClose }) => {
-  const location = useLocation();
   const lgUp = useMediaQuery((theme: any) => theme.breakpoints.up("sm"));
   const { palette } = useTheme();
 
@@ -89,16 +87,11 @@ export const SideNav: React.FC<SIDENAV> = ({ open, onClose }) => {
               m: 0,
             }}
           >
-            {items.map((item) => {
-              const active = item.path
-                ? location?.pathname === item.path
-                : false;
+            {SideBarItems().map((item) => {
+              
 
               return (
                 <SideNavItem
-                  active={active}
-                  disabled={item.disabled}
-                  external={item.external}
                   icon={item.icon}
                   key={item.title}
                   path={item.path}

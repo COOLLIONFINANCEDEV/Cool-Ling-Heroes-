@@ -43,27 +43,3 @@ export const ADMINKEY = () => {
     ],
   };
 };
-
-export const GROUPKEY = () => {
-  return {
-    head: [
-      "id",
-      "Community Name",
-      "Members",
-      "Email",
-      "Sector",
-      "website",
-      "Action",
-    ],
-    body: [
-      "id",
-      "projectTitle",
-      "Validate",
-      "amountRequested",
-      "companyName",
-      "country",
-      "Action",
-    ],
-  };
-};
-

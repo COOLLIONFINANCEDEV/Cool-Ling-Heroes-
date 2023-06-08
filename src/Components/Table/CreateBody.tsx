@@ -6,7 +6,12 @@ import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import StyledTableCell from "./StyledTableCell";
 
-const CreateBody = ({ row, mode = false }) => {
+interface CREATEBODY {
+  row: any;
+  mode: boolean;
+}
+
+const CreateBody: React.FC<CREATEBODY> = ({ row, mode = false }) => {
   const [open, setOpen] = React.useState(false);
   const rows = [];
   // console.log(row);
