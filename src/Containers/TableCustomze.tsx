@@ -11,7 +11,7 @@ import {
 } from "@mui/material";
 import CreateHead from "../Components/Table/CreateHead";
 import CreateBody from "../Components/Table/CreateBody";
-gimport { OverViewContext } from "../Context/OverViewContext";
+import { OverViewContext } from "../Context/OverViewContext";
 
 const TableCustomze = () => {
   const CreateData = new CreateRowData(LENDERKEY().body);
