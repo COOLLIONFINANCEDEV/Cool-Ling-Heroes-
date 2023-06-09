@@ -14,6 +14,8 @@ import { selectLogin } from "../Toolkit/Login/LoginSlice";
 import { useSelector } from "react-redux";
 import Roles from "../Seeds/Roles";
 import React from "react";
+import CreateModal from "../Components/Modal/CreateModal";
+import Investments from "../Components/Investments/Investments";
 
 const Info = {
   card: [
@@ -47,12 +49,20 @@ export interface OVERVIEWCONTEXT {
   state: boolean;
   handle: React.Dispatch<React.SetStateAction<boolean>>;
 }
-export const OverViewContext = React.createContext<OVERVIEWCONTEXT | undefined>(undefined);
+export const OverViewContext = React.createContext<OVERVIEWCONTEXT | undefined>(
+  undefined
+);
 
 const OverView = () => {
   const [Loader, setLoader] = React.useState(false);
+  const [investState, setInvestState] = React.useState(false);
   const { user } = useSelector(selectLogin);
   const title = ["Manage Your Investments", "All Investments"];
+
+  const handleInvestment = () => {
+    setInvestState(true);
+  };
+
   return (
     <Box
       component="main"
@@ -67,11 +77,21 @@ const OverView = () => {
             title={user.role !== Roles.lender ? title[1] : title[0]}
             buttonContent={"invest now"}
             disabled={user.role !== Roles.lender}
+            handleClick={handleInvestment}
           />
           <CardGroupes CardItemInfo={Info.card} />
           <CustomersSearch />
           <TableCustomze />
         </Container>
+        {investState && (
+          <CreateModal
+            makeOpen
+            ModalContent={Investments}
+            closeButton
+            closeButtonFunc={() => setInvestState(false)}
+            style={{ borderRadius: "0px" }}
+          />
+        )}
       </OverViewContext.Provider>
     </Box>
   );

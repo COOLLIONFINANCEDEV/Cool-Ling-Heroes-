@@ -19,6 +19,7 @@ import FormatMoney from "../Helpers/FormatMoney";
 import removeThousandsSeparator from "../Helpers/RemoveFormatMoney";
 import NewsLetter from "../Components/Newsletter/NewsLetter";
 import CreateModal from "../Components/Modal/CreateModal";
+import { INVESTINNFORMATIONITEM } from "../Components/Investments/InvestmentInformtion";
 
 export type SimulatorData = Array<SimulatorItem>;
 export type SimulatorItem = {
@@ -30,7 +31,14 @@ type Error = {
   state: boolean;
   content?: string;
 };
-const Simulator = () => {
+interface SIMULATOR {
+  backgroundColorState?: boolean;
+  handleClick?: Function;
+}
+const Simulator: React.FC<SIMULATOR> = ({
+  backgroundColorState = false,
+  handleClick,
+}) => {
   const [SimulatorData, setSimulatorData] = React.useState<SimulatorData>([
     {
       month: 3,
@@ -98,19 +106,35 @@ const Simulator = () => {
     [SimulatorData]
   );
 
+  const handleInvest = () => {
+    if (handleClick) {
+      const element = SimulatorData.filter((item) => item.status === true)[0];
+      const newElement: INVESTINNFORMATIONITEM = {
+        ...element,
+        amount: amount,
+      };
+      handleClick(newElement);
+    }
+  };
+
   return (
     <Stack
       justifyContent={"center"}
       alignItems={"center"}
       sx={{
-        background:
-          "linear-gradient(150deg, rgba(253,255,255,0.8118529524539877) 57%, rgba(177,223,215,1) 100%)",
+        background: backgroundColorState
+          ? "initial"
+          : "linear-gradient(150deg, rgba(253,255,255,0.8118529524539877) 57%, rgba(177,223,215,1) 100%)",
+        m : backgroundColorState ? "auto 20px" : "auto",
       }}
-      pt={10}
+      pt={backgroundColorState ? 5 : 15}
       id="simulator"
     >
       <Stack
-        sx={{ width: width, flexDirection: { xs: "column", sm: "row" } }}
+        sx={{
+          width: backgroundColorState ? "100%" : width,
+          flexDirection: { xs: "column", sm: "row" },
+        }}
         rowGap={5}
       >
         {/* first bloc */}
@@ -220,6 +244,7 @@ const Simulator = () => {
             variant="contained"
             size="large"
             sx={{ display: { xs: "none", sm: "initial" } }}
+            onClick={handleInvest}
           >
             <Typography m={1} color={"secondary"}>
               Start Investing
@@ -246,6 +271,7 @@ const Simulator = () => {
             color="primary"
             variant="contained"
             size="large"
+            onClick={handleInvest}
             sx={{
               display: { xs: "initial", sm: "none" },
               width: "80%",
