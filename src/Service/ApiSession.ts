@@ -27,6 +27,17 @@ const ApiSession = {
     }): Promise<RESPONSELAYOUT> =>
       ApiService(ApiRoutes.auth.refreshToken, "post", body),
   },
+  invest: {
+    create: (body: {
+      amount: number;
+      interet: number;
+      month: number;
+      img: string;
+    }): Promise<RESPONSELAYOUT> =>
+      ApiService(ApiRoutes.Invest.Create, "post", body),
+    list: (): Promise<RESPONSELAYOUT> =>
+      ApiService(ApiRoutes.Invest.List, "post", {}),
+  },
 };
 
 export default ApiSession;

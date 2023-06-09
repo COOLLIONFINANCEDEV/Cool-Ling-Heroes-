@@ -31,7 +31,7 @@ const FormatResponse = (AllData: AXIOSRESPONSE) => {
     error: !data.success,
     message: data.message,
     errors: data.errors,
-    data: data.data,
+    data: data?.data,
     metadata: data.metadata,
   };
 

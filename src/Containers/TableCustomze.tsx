@@ -11,8 +11,7 @@ import {
 } from "@mui/material";
 import CreateHead from "../Components/Table/CreateHead";
 import CreateBody from "../Components/Table/CreateBody";
-import Action from "../Components/Table/Action";
-import { OverViewContext } from "../Pages/OverView";
+gimport { OverViewContext } from "../Context/OverViewContext";
 
 const TableCustomze = () => {
   const CreateData = new CreateRowData(LENDERKEY().body);
@@ -27,17 +26,19 @@ const TableCustomze = () => {
     <Skeleton width={"100%"} height={"50px"} />,
     <Skeleton width={"100%"} height={"50px"} />,
     <Skeleton width={"100%"} height={"50px"} />,
+    <Skeleton width={"100%"} height={"50px"} />,
   ];
 
   const rows = [
     CreateData.create([
-      "Frozen yoghurt",
-      "15000$",
-      "1000$",
-      "agriculture",
-      "2020-05-22",
-      "2020-05-22",
-      <Action />,
+      <Skeleton width={"100%"} height={"50px"} animation="wave" />,
+      <Skeleton width={"100%"} height={"50px"} animation="wave" />,
+      <Skeleton width={"100%"} height={"50px"} animation="wave" />,
+      <Skeleton width={"100%"} height={"50px"} animation="wave" />,
+      <Skeleton width={"100%"} height={"50px"} animation="wave" />,
+      <Skeleton width={"100%"} height={"50px"} animation="wave" />,
+      <Skeleton width={"100%"} height={"50px"} animation="wave" />,
+      <Skeleton width={"100%"} height={"50px"} animation="wave" />,
     ]),
   ];
   if (state) {

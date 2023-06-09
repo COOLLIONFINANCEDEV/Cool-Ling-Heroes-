@@ -6,9 +6,17 @@ import Payments from "../Payments/Payments";
 import InvestmentInformtion, {
   INVESTINNFORMATIONITEM,
 } from "./InvestmentInformtion";
-import { OverViewContext } from "../../Pages/OverView";
+import ApiSession from "../../Service/ApiSession";
+import { useDispatch } from "react-redux";
+import { setAlert } from "../../Toolkit/Alert/AlertSlice";
+import { LoadingButton } from "@mui/lab";
+import { OverViewContext } from "../../Context/OverViewContext";
 
-const Investments = () => {
+interface INVESTMENTS {
+  handleClose: any;
+}
+
+const Investments: React.FC<INVESTMENTS> = ({ handleClose }) => {
   const [step, setStep] = React.useState(0);
   const [interetInformation, setInteretInformation] = React.useState<
     INVESTINNFORMATIONITEM | undefined
@@ -16,12 +24,35 @@ const Investments = () => {
   const [paymentInformation, setPaymentInformation] = React.useState("");
   const [next, setNext] = React.useState(false);
   const [submit, setSumbit] = React.useState(false);
+  const [loader,setLoader] = React.useState(false);
 
+  const dispatch = useDispatch();
   const OverViewContextValue = React.useContext(OverViewContext);
-  const stateLoader = OverViewContextValue ? OverViewContextValue.state : false;
-  const HandleLoader = OverViewContextValue
+  const handleLoader = OverViewContextValue
     ? OverViewContextValue.handle
     : () => {};
+
+  const handleInvest = async () => {
+    if (interetInformation) {
+      const body = {
+        amount: interetInformation.amount,
+        interet: interetInformation.interet,
+        month: interetInformation.month,
+        img: paymentInformation,
+      };
+      const response = await ApiSession.invest.create(body);
+      setLoader(true);
+      if (response.error) {
+        dispatch(setAlert({ state: "error", message: response.message }));
+      } else {
+        dispatch(setAlert({ state: "success", message: response.message }));
+        handleLoader(true);
+      }
+      handleClose();
+    }
+  };
+
+
 
   return (
     <Stack
@@ -80,6 +111,7 @@ const Investments = () => {
             setSumbit(false);
           }}
           disabled={step <= 0}
+          size='large'
         >
           Modify Order Setting
         </Button>
@@ -92,15 +124,23 @@ const Investments = () => {
               setStep((state) => (state += state));
               setSumbit(true);
             }}
+            size='large'
           >
             Continue
           </Button>
         )}
 
         {submit && (
-          <Button variant="contained" sx={{ borderRadius: "5px" }}>
+          <LoadingButton
+            variant="contained"
+            sx={{ borderRadius: "5px" }}
+            onClick={handleInvest}
+            loading={loader}
+            loadingIndicator='center'
+            size='large'
+          >
             Confirm and proceed
-          </Button>
+          </LoadingButton>
         )}
       </Stack>
     </Stack>

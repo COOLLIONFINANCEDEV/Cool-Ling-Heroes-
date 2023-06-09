@@ -9,7 +9,7 @@ const AlertCustomize = () => {
     margin: "2.5vh",
     position: "fixed",
     right: "0",
-    zIndex: "200",
+    zIndex: 999999999999999,
   };
 
   const alertItems: ALERTINITIALSTATE = useSelector(selectAlert);
@@ -21,7 +21,7 @@ const AlertCustomize = () => {
         if (lastItem.key) {
           dispatch(deleteAlert({ key: lastItem.key }));
         }
-      }, 5000);
+      }, 10000);
 
       return () => clearInterval(interval);
     }

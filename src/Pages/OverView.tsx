@@ -13,9 +13,11 @@ import TableCustomze from "../Containers/TableCustomze";
 import { selectLogin } from "../Toolkit/Login/LoginSlice";
 import { useSelector } from "react-redux";
 import Roles from "../Seeds/Roles";
-import React from "react";
+import React, { useContext, } from "react";
 import CreateModal from "../Components/Modal/CreateModal";
 import Investments from "../Components/Investments/Investments";
+import { OverViewContext } from "../Context/OverViewContext";
+import ApiSession from "../Service/ApiSession";
 
 const Info = {
   card: [
@@ -45,23 +47,21 @@ const Info = {
     },
   ],
 };
-export interface OVERVIEWCONTEXT {
-  state: boolean;
-  handle: React.Dispatch<React.SetStateAction<boolean>>;
-}
-export const OverViewContext = React.createContext<OVERVIEWCONTEXT | undefined>(
-  undefined
-);
 
 const OverView = () => {
   const [Loader, setLoader] = React.useState(false);
   const [investState, setInvestState] = React.useState(false);
+  const [information, setInformation] = React.useState();
   const { user } = useSelector(selectLogin);
   const title = ["Manage Your Investments", "All Investments"];
 
   const handleInvestment = () => {
     setInvestState(true);
   };
+
+  React.useEffect(() => {
+    console.log(information);
+  },[information])
 
   return (
     <Box
@@ -71,7 +71,14 @@ const OverView = () => {
         py: 4,
       }}
     >
-      <OverViewContext.Provider value={{ state: Loader, handle: setLoader }}>
+      <OverViewContext.Provider
+        value={{
+          state: Loader,
+          handle: setLoader,
+          information: setInformation,
+        }}
+      >
+        <GetData />
         <Container maxWidth="xl">
           <BlocTitle
             title={user.role !== Roles.lender ? title[1] : title[0]}
@@ -95,6 +102,30 @@ const OverView = () => {
       </OverViewContext.Provider>
     </Box>
   );
+};
+
+const GetData = () => {
+  const OverViewContextValue = useContext(OverViewContext);
+  const state = OverViewContextValue ? OverViewContextValue.state : false;
+  const handleLoader = OverViewContextValue
+    ? OverViewContextValue.handle
+    : false;
+  const handleInformation = OverViewContextValue
+    ? OverViewContextValue.information
+    : false;
+
+  const handleGetInformation = React.useCallback(async () => {
+    const response = await ApiSession.invest.list();
+    if (!response.error && handleInformation) handleInformation('ll');
+    if (handleLoader) handleLoader(false);
+  }, [handleInformation, handleLoader]);
+
+  React.useEffect(() => {
+    if (state) {
+      handleGetInformation();
+    }
+  }, [handleGetInformation, state]);
+  return <></>;
 };
 
 export default OverView;

@@ -6,8 +6,8 @@ import {
   OutlinedInput,
   SvgIcon,
 } from "@mui/material";
-import { OverViewContext } from "../Pages/OverView";
 import { useContext } from "react";
+import { OverViewContext } from "../Context/OverViewContext";
 
 export const CustomersSearch = () => { 
   const OverViewContextValue = useContext(OverViewContext);

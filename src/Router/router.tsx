@@ -1,4 +1,4 @@
-import { createBrowserRouter } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import routes from "./routes";
 import Home from "../Pages/Home";
 import Login from "../Containers/Login";
@@ -7,36 +7,20 @@ import Landing from "../Containers/Landing";
 import Dashboard from "../Pages/Dashboard";
 import OverView from "../Pages/OverView";
 
-const router = createBrowserRouter([
-  {
-    path: routes.home,
-    element: <Home />,
-    children: [
-      {
-        path: routes.home,
-        element: <Landing />,
-      },
-      {
-        path: routes.login,
-        element: <Login />,
-      },
-    ],
-  },
-  {
-    path: routes.dashboard,
-    element: <Dashboard />,
-    children: [
-      {
-        path: routes.dashboard,
-        element: <OverView />,
-      },
-    ],
-  },
-  {
-    path: routes.notFound,
-    element: <NotFound />,
-  },
- 
-]);
+const Router = () => {
+  return (
+    <Routes>
+      <Route path={routes.home} element={<Home />}>
+        <Route path={routes.home} element={<Landing />} />
+        <Route path={routes.login} element={<Login />} />
+      </Route>
+      <Route path={routes.dashboard} element={<Dashboard />}>
+        <Route path={routes.dashboard} element={<OverView />} />
+      </Route>
 
-export default router;
+      <Route path={routes.notFound} element={<NotFound />} />
+    </Routes>
+  );
+};
+
+export default Router;

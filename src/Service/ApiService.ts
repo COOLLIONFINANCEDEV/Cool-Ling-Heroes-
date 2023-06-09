@@ -40,7 +40,7 @@ const ApiService = (
         const error = FormatResponse(e.response);
 
         if ((status === 401 && accessToken) || status === 403) {
-          localStorage.removeItem("accessToken");
+          localStorage.clear();
           window.location.href = "/login";
         } else {
           return error;

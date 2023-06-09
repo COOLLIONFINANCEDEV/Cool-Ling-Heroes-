@@ -8,7 +8,7 @@ import {
   Typography,
 } from "@mui/material";
 import { useContext } from "react";
-import { OverViewContext } from "../../Pages/OverView";
+import { OverViewContext } from "../../Context/OverViewContext";
 
 export interface CARD {
   title: string;
@@ -35,22 +35,18 @@ const CardCustomze: React.FC<CARD> = ({ title, value, Icon, color }) => {
             justifyContent={"space-between"}
             sx={{ height: "100%" }}
           >
+            <Typography
+              color="text.secondary"
+              variant="overline"
+              textTransform={"capitalize"}
+            >
+              {" "}
+              {title}
+            </Typography>
             {!state ? (
-              <>
-                <Typography
-                  color="text.secondary"
-                  variant="overline"
-                  textTransform={"capitalize"}
-                >
-                  {title}
-                </Typography>
-                <Typography variant="h4">{value}</Typography>
-              </>
+              <Typography variant="h4">{value}</Typography>
             ) : (
-              <>
-                <Skeleton variant="rounded" width={"90px"} height={'100px'}/>
-                <Skeleton variant="rectangular" width={"90px"} height={'30px'}/>
-              </>
+              <Skeleton variant="rectangular" width={"90px"} height={"30px"} />
             )}
           </Stack>
           <Avatar
