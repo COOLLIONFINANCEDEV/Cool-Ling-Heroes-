@@ -7,8 +7,8 @@ import {
   Popover,
   Typography,
 } from "@mui/material";
-import { useSelector } from "react-redux";
-import { selectLogin } from "../../Toolkit/Login/LoginSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { LoginOut, selectLogin } from "../../Toolkit/Login/LoginSlice";
 
 interface ACCOUNTPOPOVER {
   anchorEl: Element | ((element: Element) => Element) | null | undefined;
@@ -24,8 +24,11 @@ export const AccountPopover: React.FC<ACCOUNTPOPOVER> = ({
   open,
 }) => {
   const { user } = useSelector(selectLogin);
+  const dispatch = useDispatch();
 
-  const handleSignOut = useCallback(() => {}, []);
+  const handleSignOut = useCallback(() => {
+    dispatch(LoginOut({}));
+  }, [dispatch]);
 
   return (
     <Popover
@@ -36,7 +39,7 @@ export const AccountPopover: React.FC<ACCOUNTPOPOVER> = ({
       }}
       onClose={onClose}
       open={open}
-      PaperProps={{ sx: { width: 200 } }}
+      PaperProps={{ sx: { width: 300 } }}
     >
       <Box
         sx={{
@@ -53,7 +56,7 @@ export const AccountPopover: React.FC<ACCOUNTPOPOVER> = ({
           account
         </Typography>
         <Typography color="text.secondary" variant="body2">
-          {user.name} {user.lastName}
+          {user.email}
         </Typography>
       </Box>
       <Divider />

@@ -20,6 +20,8 @@ import removeThousandsSeparator from "../Helpers/RemoveFormatMoney";
 import NewsLetter from "../Components/Newsletter/NewsLetter";
 import CreateModal from "../Components/Modal/CreateModal";
 import { INVESTINNFORMATIONITEM } from "../Components/Investments/InvestmentInformtion";
+import routes from "../Router/routes";
+import Redirect from "../Helpers/Redirect";
 
 export type SimulatorData = Array<SimulatorItem>;
 export type SimulatorItem = {
@@ -124,8 +126,8 @@ const Simulator: React.FC<SIMULATOR> = ({
       sx={{
         background: backgroundColorState
           ? "initial"
-          : "linear-gradient(150deg, rgba(253,255,255,0.8118529524539877) 57%, rgba(177,223,215,1) 100%)",
-        m : backgroundColorState ? "auto 20px" : "auto",
+          : "linear-gradient(145deg, rgba(253,255,255,0.8118529524539877) 57%, rgba(177,223,215,1) 100%)",
+        m: backgroundColorState ? "auto 20px" : "auto",
       }}
       pt={backgroundColorState ? 5 : 15}
       id="simulator"
@@ -239,17 +241,32 @@ const Simulator: React.FC<SIMULATOR> = ({
             </Box>
           </Stack>
 
-          <Button
-            color="primary"
-            variant="contained"
-            size="large"
-            sx={{ display: { xs: "none", sm: "initial" } }}
-            onClick={handleInvest}
-          >
-            <Typography m={1} color={"secondary"}>
-              Start Investing
-            </Typography>
-          </Button>
+          {backgroundColorState ? (
+            <Button
+              color="primary"
+              variant="contained"
+              size="large"
+              sx={{ display: { xs: "none", sm: "initial" } }}
+              onClick={handleInvest}
+            >
+              <Typography m={1} color={"secondary"}>
+                Start Investing
+              </Typography>
+            </Button>
+          ) : (
+            <Redirect link={routes.login}>
+              <Button
+                color="primary"
+                variant="contained"
+                size="large"
+                sx={{ display: { xs: "none", sm: "initial" } }}
+              >
+                <Typography m={1} color={"secondary"}>
+                  Start Investing
+                </Typography>
+              </Button>
+            </Redirect>
+          )}
         </Stack>
 
         {/* second bloc */}
@@ -260,30 +277,54 @@ const Simulator: React.FC<SIMULATOR> = ({
             borderRadius: "15px",
           }}
           justifyContent={"flex-end"}
-          alignItems={"flex-end"}
+          alignItems={"center"}
           rowGap={3}
         >
           <BarChart
             amount={amount}
             rule={SimulatorData.filter((item) => item.status === true)[0]}
           />
-          <Button
-            color="primary"
-            variant="contained"
-            size="large"
-            onClick={handleInvest}
-            sx={{
-              display: { xs: "initial", sm: "none" },
-              width: "80%",
-              margin: "auto",
-              mb: 3,
-            }}
-            fullWidth
-          >
-            <Typography m={1} color={"secondary"}>
-              Start Investing
-            </Typography>
-          </Button>
+
+          {backgroundColorState ? (
+            <Button
+              color="primary"
+              variant="contained"
+              size="large"
+              onClick={handleInvest}
+              sx={{
+                display: { xs: "initial", sm: "none" },
+                width: "80%",
+                margin: "auto",
+                mb: 3,
+              }}
+              fullWidth
+              LinkComponent={backgroundColorState ? undefined : "a"}
+              href={backgroundColorState ? undefined : routes.login}
+            >
+              <Typography m={1} color={"secondary"}>
+                Start Investing
+              </Typography>
+            </Button>
+          ) : (
+            <Redirect link={routes.login}>
+              <Button
+                color="primary"
+                variant="contained"
+                size="large"
+                sx={{
+                  display: { xs: "initial", sm: "none" },
+                  width: "100%",
+                  margin: "auto",
+                  mb: 3,
+                }}
+                fullWidth
+              >
+                <Typography m={1} color={"secondary"}>
+                  Start Investing
+                </Typography>
+              </Button>
+            </Redirect>
+          )}
         </Stack>
       </Stack>
       {newsLetter >= 2 && (
