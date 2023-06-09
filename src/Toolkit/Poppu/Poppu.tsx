@@ -28,7 +28,7 @@ const Poppu: React.FC<POPUU> = ({ status, message, handleClose }) => {
       alignItems="center"
       justifyContent={"space-between"}
       spacing={4}
-      p={2}
+      p={5}
     >
       {status === "success" && (
         <CheckCircleIcon sx={{ fontSize: 100 }} color={status} />

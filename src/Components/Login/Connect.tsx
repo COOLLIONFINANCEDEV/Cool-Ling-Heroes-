@@ -10,6 +10,7 @@ import { RESPONSELAYOUT } from "../../Helpers/FormatResponse";
 import { setAlert } from "../../Toolkit/Alert/AlertSlice";
 import { hashValue } from "../../Helpers/Hash/HashValue";
 import { useLocation } from "react-router-dom";
+import { CheckUser } from "../../Toolkit/Login/LoginSlice";
 
 interface INITIALVALUES {
   email: string;
@@ -23,17 +24,19 @@ const Connect = () => {
   };
   const dispatch = useDispatch();
   const location = useLocation();
+  const [loading, setLoading] = React.useState(false);
 
   const handleSubmitSuccess = React.useCallback(
     (response: RESPONSELAYOUT) => {
       dispatch(setAlert({ state: "success", message: response.message }));
-      const accessToken = hashValue(response.data.accessToken);
-      const refreshToken = hashValue(response.data.refreshToken);
+      const accessToken = hashValue(response.data[0].access_token);
+      const refreshToken = hashValue(response.data[0].refresh_token);
 
       if (accessToken && refreshToken) {
         localStorage.setItem("accessToken", accessToken);
         localStorage.setItem("refreshToken", refreshToken);
       }
+      dispatch(CheckUser({}));
     },
     [dispatch]
   );
@@ -57,7 +60,9 @@ const Connect = () => {
       values: INITIALVALUES | { magicLink: string },
       helpers: FormikHelpers<INITIALVALUES> | undefined
     ) => {
+      setLoading(true);
       const response = await ApiSession.auth.connect(values);
+      setLoading(false);
       if (response.error) {
         dispatch(setAlert({ state: "error", message: response.message }));
         if (helpers) {
@@ -73,7 +78,7 @@ const Connect = () => {
   React.useEffect(() => {
     const search = location.search;
     const UrlParam = new URLSearchParams(search);
-    const param = UrlParam.get("magiclink");
+    const param = UrlParam.get("magicLink");
     if (param) {
       handleSubmit({ magicLink: param }, undefined);
     }
@@ -137,7 +142,7 @@ const Connect = () => {
               variant="contained"
               sx={{ width: "95%" }}
               type="submit"
-              loading={isSubmitting}
+              loading={isSubmitting || loading}
               loadingPosition="center"
               size="large"
             >

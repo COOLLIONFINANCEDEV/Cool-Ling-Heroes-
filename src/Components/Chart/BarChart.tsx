@@ -1,6 +1,6 @@
 import React from "react";
 import "./BarChart.css";
-import { Box, Typography } from "@mui/material";
+import { Box, Paper, Typography } from "@mui/material";
 import { SimulatorItem } from "../../Containers/Simulator";
 import FormatMoney from "../../Helpers/FormatMoney";
 
@@ -12,7 +12,7 @@ interface BARCHART {
 const BarChart: React.FC<BARCHART> = ({ amount, rule }) => {
   const amountWithPercentage = amount + amount * (rule.interet / 100);
   return (
-    <Box className="chart_wrapper__K6wh8">
+    <Paper elevation={3} className="chart_wrapper__K6wh8">
       <Typography className="chart_title__ZlbWg" fontWeight={800}>
         Your return
       </Typography>
@@ -83,7 +83,7 @@ const BarChart: React.FC<BARCHART> = ({ amount, rule }) => {
           </Box>
         </Box>
       </Box>
-    </Box>
+    </Paper>
   );
 };
 

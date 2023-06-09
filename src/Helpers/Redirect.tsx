@@ -9,8 +9,8 @@ interface REDIRECT {
 }
 
 const Redirect: React.FC<REDIRECT> = ({ link, children, target = false }) => {
+  window.scrollTo(0,0);
   const navigate = useNavigate();
-
   const redirectFunction = useCallback(() => {
     if (target === false) {
       navigate(link);

@@ -195,9 +195,8 @@
     width: 600px;
     height: 100%;
     color: #202945;
-    border-radius: 15px;
+    border-radius: 15px !important;
     background-color: #fff;
-    box-shadow: 0 24px 80px rgba(23,33,57,.06),0 7.2353px 24.1177px rgba(23,33,57,.0390953),0 3.00517px 10.0172px rgba(23,33,57,.03),0 1.08691px 3.62304px rgba(23,33,57,.0209047);
 }
 
 .chart_income__QTl_B {
