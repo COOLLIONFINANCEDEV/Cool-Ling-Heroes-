@@ -25,6 +25,7 @@ export const LoginSlice = createSlice({
         if (accessToken) {
           state.isAuthenticated = true;
           const information: any = TokenDecode(accessToken);
+          console.log(information);
           if (information) {
             state.user.email = information?.user?.email;
             state.user.phone = information.user.phone_number;

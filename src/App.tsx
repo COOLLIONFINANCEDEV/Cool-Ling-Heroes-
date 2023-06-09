@@ -12,6 +12,7 @@ import { CheckUser, selectLogin } from "./Toolkit/Login/LoginSlice";
 import routes from "./Router/routes";
 import ApiSession from "./Service/ApiSession";
 import { dehashValue, hashValue } from "./Helpers/Hash/HashValue";
+import isExpired from "./Helpers/IsExpired";
 
 function App() {
   const dispatch = useDispatch();
@@ -30,7 +31,7 @@ function App() {
   }, [dispatch]);
   dispatch(CheckUser({}));
 
-  const handleRefresh = async () => {
+  const handleRefresh = React.useCallback(async () => {
     const accessToken =
       dehashValue(localStorage.getItem("accessToken") ?? "") ?? "";
     const refreshToken =
@@ -48,17 +49,21 @@ function App() {
       if (accessToken && refreshToken) {
         localStorage.setItem("accessToken", accessToken);
         localStorage.setItem("refreshToken", refreshToken);
+        dispatch(CheckUser({}));
       }
     }
-  };
+  }, [dispatch]);
 
   // Here it's for refresh token
   React.useEffect(() => {
-    if (new Date(user.exp) <= new Date(user.iat) && isAuthenticated) {
-      alert('l')
-      handleRefresh();
-    }
-  }, [isAuthenticated, user]);
+    const checkInspiredKey = setInterval(() => {
+      if (isExpired(user.exp, user.iat) && isAuthenticated) {
+        handleRefresh();
+      }
+    }, 1000);
+
+    return () => clearInterval(checkInspiredKey);
+  }, [handleRefresh, isAuthenticated, user]);
 
   // Here it's for is the use is auth the url is dashboard
   React.useEffect(() => {
