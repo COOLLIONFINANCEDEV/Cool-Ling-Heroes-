@@ -9,7 +9,7 @@ import {
   useMediaQuery,
   useTheme,
 } from "@mui/material";
-import {  SideNavItem } from "./SideNavitem";
+import { SideNavItem } from "./SideNavitem";
 import { Scrollbar } from "../scrollbar";
 import Logo from "../Navbar/Logo";
 import SideBarItems from "./SideBarItems";
@@ -88,8 +88,6 @@ export const SideNav: React.FC<SIDENAV> = ({ open, onClose }) => {
             }}
           >
             {SideBarItems().map((item) => {
-              
-
               return (
                 <SideNavItem
                   icon={item.icon}
@@ -143,7 +141,7 @@ export const SideNav: React.FC<SIDENAV> = ({ open, onClose }) => {
           width: 280,
         },
       }}
-      sx={{ zIndex: (theme) => theme.zIndex.appBar + 100 }}
+      sx={{zIndex:0}}
       variant="temporary"
     >
       {content}

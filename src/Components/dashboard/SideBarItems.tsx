@@ -18,9 +18,11 @@ type NAVBARITEMSCONFIG = Array<{
 }>;
 
 const lenderActiveList = ["overview", "account", "settings"];
+const adminActiveList = ["overview", "account", "settings", "customers"];
 
 const ActiveList = {
   [Roles.lender]: lenderActiveList,
+  [Roles.admin]: adminActiveList,
 };
 const List: NAVBARITEMSCONFIG = [
   {

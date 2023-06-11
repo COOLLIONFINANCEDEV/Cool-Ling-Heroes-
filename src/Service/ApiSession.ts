@@ -41,6 +41,11 @@ const ApiSession = {
       investmentId: number;
     }): Promise<RESPONSELAYOUT> =>
       ApiService(ApiRoutes.Invest.Reduce, "post", body),
+    checkUp: (body: {
+      accepted: boolean;
+      investmentId: number;
+    }): Promise<RESPONSELAYOUT> =>
+      ApiService(ApiRoutes.Invest.checkUp, "post", body),
   },
   user: {
     update: (body: {

@@ -9,6 +9,10 @@ import CreateModal from "../Modal/CreateModal";
 import ShowInvestment from "../Investments/ShowInvestement";
 import ReduceInvest from "../Payments/ReduceInvest";
 import DownhillSkiingIcon from "@mui/icons-material/DownhillSkiing";
+import Roles from "../../Seeds/Roles";
+import { selectLogin } from "../../Toolkit/Login/LoginSlice";
+import CheckInvestment from "../Investments/CheckInvestment";
+import { useSelector } from "react-redux";
 
 interface ACTION {
   information: any;
@@ -16,6 +20,7 @@ interface ACTION {
 
 const Action: React.FC<ACTION> = ({ information }) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const { user } = useSelector(selectLogin);
   const open = Boolean(anchorEl);
   const handleClick = (event: any) => {
     setAnchorEl(event.currentTarget);
@@ -24,7 +29,7 @@ const Action: React.FC<ACTION> = ({ information }) => {
     setAnchorEl(null);
   };
   const { palette } = useTheme();
- 
+
   return (
     <div>
       <IconButton
@@ -85,24 +90,47 @@ const Action: React.FC<ACTION> = ({ information }) => {
           </MenuItem>
         </CreateModal>
 
-        <CreateModal
-          ModalContent={ReduceInvest}
-          closeButton
-          contentProps={{ information: information }}
-          closeButtonFunc={handleClose}
-        >
-          <MenuItem color="info">
-            <ListItemIcon>
-              <DownhillSkiingIcon fontSize="small" color="info" />
-            </ListItemIcon>
-            <Typography
-              sx={{ fontWeight: 350, fontSize: "0.8rem" }}
-              color={palette.info.main}
-            >
-              reduces my investment
-            </Typography>
-          </MenuItem>
-        </CreateModal>
+        {user.role === Roles.lender && (
+          <CreateModal
+            ModalContent={ReduceInvest}
+            closeButton
+            contentProps={{ information: information }}
+            closeButtonFunc={handleClose}
+          >
+            <MenuItem color="info">
+              <ListItemIcon>
+                <DownhillSkiingIcon fontSize="small" color="info" />
+              </ListItemIcon>
+              <Typography
+                sx={{ fontWeight: 350, fontSize: "0.8rem" }}
+                color={palette.info.main}
+              >
+                reduces my investment
+              </Typography>
+            </MenuItem>
+          </CreateModal>
+        )}
+
+        {user.role !== Roles.lender && (
+          <CreateModal
+            ModalContent={CheckInvestment}
+            closeButton
+            contentProps={{ information: information }}
+            closeButtonFunc={handleClose}
+          >
+            <MenuItem color="info">
+              <ListItemIcon>
+                <DownhillSkiingIcon fontSize="small" color="info" />
+              </ListItemIcon>
+              <Typography
+                sx={{ fontWeight: 350, fontSize: "0.8rem" }}
+                color={palette.info.main}
+              >
+                Check payment
+              </Typography>
+            </MenuItem>
+          </CreateModal>
+        )}
 
         {/* <MenuItem disabled>
           <ListItemIcon>

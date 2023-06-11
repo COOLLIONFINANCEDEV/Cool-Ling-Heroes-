@@ -66,7 +66,7 @@ const CreateModal: React.FC<CREATEMODAL> = ({
           timeout: 500,
         }}
         sx={{
-          zIndex: 5000,
+          zIndex:'1300 !important',
         }}
       >
         <Fade in={open}>

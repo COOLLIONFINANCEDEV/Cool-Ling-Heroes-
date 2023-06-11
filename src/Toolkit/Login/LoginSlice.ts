@@ -29,14 +29,17 @@ export const LoginSlice = createSlice({
         if (accessToken) {
           state.isAuthenticated = true;
           const information: any = TokenDecode(accessToken);
+          if (information.user.role === Roles.admin) {
+            state.user.role = Roles.admin;
+          }
           if (information && !state.isUpdating) {
             state.user.email = information?.user?.email;
             state.user.phone = information.user.phone_number;
             state.user.id = information.user.id;
             state.user.exp = information.exp;
             state.user.iat = information.iat;
-            state.user.firstName = information.user.full_name?.split(' ')[0];
-            state.user.lastName = information.user.full_name?.split(' ')[1];
+            state.user.firstName = information.user.full_name?.split(" ")[0];
+            state.user.lastName = information.user.full_name?.split(" ")[1];
           }
         }
       }

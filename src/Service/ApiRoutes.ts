@@ -11,6 +11,7 @@ const ApiRoutes = {
     Create: "/investment/invest",
     List: (id: number) => `/investment/`,
     Reduce: "/investment/reduce",
+    checkUp: "/investment/check-up",
   },
 };
 
