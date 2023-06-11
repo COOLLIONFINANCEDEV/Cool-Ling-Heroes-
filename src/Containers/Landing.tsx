@@ -37,11 +37,18 @@ const Landing = () => {
             spacing={2}
           >
             <Box>
-              <Typography variant="h3" color={"secondary"} sx={{fontSize:{xs:'2.5rem',sm:'initial'}}}>
+              <Typography
+                variant="h3"
+                color={"secondary"}
+              >
                 Transforming the Investment Landscape:{" "}
-                <Typography component={"span"} variant="h3" color={"secondary"} sx={{fontSize:{xs:'2.5rem',sm:'initial'}}}>
-                  A New Approach
-                </Typography>
+              </Typography>
+              <Typography
+                component={"span"}
+                variant="h3"
+                color={"secondary"}
+              >
+                A New Approach
               </Typography>
               <img src="Assets/Illustrations/underline.svg" alt="underline" />
               <Typography color={"secondary"} fontSize={14}>
@@ -57,12 +64,12 @@ const Landing = () => {
               width={"100%"}
               sx={{ zIndex: "1" }}
             >
-              <Redirect link={routes.login}>
+              <Redirect link={routes.videoChat} target>
                 <Button color="secondary" variant="outlined" size="large">
                   Connect With Experts
                 </Button>
               </Redirect>
-              <Redirect link={routes.login}>
+              <Redirect link={routes.simulator}>
                 <Button color="secondary" variant="contained" size="large">
                   Start Investing
                 </Button>

@@ -3,7 +3,7 @@ import { Button, Typography, Stack } from "@mui/material";
 import Redirect from "../../Helpers/Redirect";
 import Logo from "./Logo";
 import routes from "../../Router/routes";
-import { NavLink, useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 interface MENUITEM {
   link: string;
   name: string;
@@ -48,7 +48,7 @@ const DesktopNavbarContent: React.FC<DESKTOPNAVBARCONTENT> = ({
         alignItems="center"
       >
         {menuList.map((item) => (
-          <NavLink
+          <Link
             to={item.link}
             style={{
               textDecoration: "none",
@@ -70,7 +70,7 @@ const DesktopNavbarContent: React.FC<DESKTOPNAVBARCONTENT> = ({
             >
               {item.name}
             </Typography>
-          </NavLink>
+          </Link>
         ))}
       </Stack>
 
@@ -97,7 +97,7 @@ const DesktopNavbarContent: React.FC<DESKTOPNAVBARCONTENT> = ({
               Log In
             </Button>
           </Redirect>
-          <Redirect link={routes.login}>
+          <Redirect link={routes.simulator}>
             <Button
               color={
                 location.pathname === routes.home ? "primary" : "secondary"

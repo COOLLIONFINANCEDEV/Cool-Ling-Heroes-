@@ -133,7 +133,7 @@ const ResponsiveNavbarContent: React.FC<RESPONSIVENAVBARCONTENT> = ({
                 Log In
               </Button>
             </Redirect>
-            <Redirect link={routes.login}>
+            <Redirect link={routes.Simulator}>
               <Button
                 color="primary"
                 variant="contained"

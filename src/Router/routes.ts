@@ -7,8 +7,12 @@ const routes: Routes = {
   login: "/login",
   register: "/register",
   notFound: "*",
-  aboutUs:'#aboutUs',
+  aboutUs: "/#about",
+  simulator: "/#simulator",
+  howItWorks: "/#howitwork",
+  contact: "https://wa.me/+2250506430832",
+  videoChat: "https://meet.google.com/zkm-vbix-kxr",
+  dashboard: "/dashbaord",
 };
 
 export default routes;
-  

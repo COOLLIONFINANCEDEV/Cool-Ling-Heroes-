@@ -9,11 +9,12 @@ import CancelOutlinedIcon from "@mui/icons-material/CancelOutlined";
 interface CREATEMODAL {
   children?: React.ReactNode;
   ModalContent: any;
-  contentProps?: Array<{ [key: string]: string | number }>;
+  contentProps?: {};
   makeOpen?: boolean;
   noLeave?: boolean;
   closeButton?: boolean;
   closeButtonFunc?: Function;
+  style?: {};
 }
 
 const CreateModal: React.FC<CREATEMODAL> = ({
@@ -24,6 +25,7 @@ const CreateModal: React.FC<CREATEMODAL> = ({
   noLeave = false,
   closeButton = false,
   closeButtonFunc = Function,
+  style,
 }) => {
   const [open, setOpen] = React.useState(makeOpen);
   const handleOpen = () => {
@@ -41,14 +43,16 @@ const CreateModal: React.FC<CREATEMODAL> = ({
     transform: "translate(-50%, -50%)",
     bgcolor: "background.paper",
     boxShadow: 24,
-    maxHeight: "80vh",
+    maxHeight: "100vh",
     overflowY: "scroll !important",
     overflow: "hidden",
     borderRadius: "15px",
+    ...style,
   };
 
   const ContentButton = <>{children}</>;
 
+ 
   return (
     <div>
       <GenerateModalButton handleOpen={handleOpen} content={ContentButton} />
@@ -62,7 +66,7 @@ const CreateModal: React.FC<CREATEMODAL> = ({
           timeout: 500,
         }}
         sx={{
-          zIndex: 100,
+          zIndex: 5000,
         }}
       >
         <Fade in={open}>
@@ -72,7 +76,7 @@ const CreateModal: React.FC<CREATEMODAL> = ({
                 justifyContent={"flex-end"}
                 alignItems={"flex-end"}
                 direction={"row"}
-                sx={{ m: 0, p: "3px", position: "absolute" }}
+                sx={{ m: 0, p: "5px", pl: "10px", position: "absolute" }}
               >
                 <IconButton onClick={handleClose}>
                   <CancelOutlinedIcon color={"primary"} fontSize="large" />
