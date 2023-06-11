@@ -48,7 +48,7 @@ const TableCustomze: React.FC<TABLECUSTOMZE> = ({ information }) => {
             item.id,
             FormatMoney(item.amount) + " $",
             item.term,
-            item.gain + " %",
+            FormatMoney(item.gain) + " $",
             <Chip
               label={item.status}
               variant="outlined"
@@ -65,7 +65,7 @@ const TableCustomze: React.FC<TABLECUSTOMZE> = ({ information }) => {
             ) : (
               <Chip label={"unavailable"} color="warning" variant="outlined" />
             ),
-            FormatMoney(item.amount + item.amount * (item.gain / 100)) + " $",
+            FormatMoney(item.amount + item.gain) + " $",
             <Action information={item} />,
           ])
         );
