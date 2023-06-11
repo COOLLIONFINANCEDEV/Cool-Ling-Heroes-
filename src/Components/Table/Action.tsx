@@ -4,11 +4,11 @@ import MenuItem from "@mui/material/MenuItem";
 import { IconButton, ListItemIcon, Typography } from "@mui/material";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
-import EditIcon from "@mui/icons-material/Edit";
-import DeleteIcon from "@mui/icons-material/Delete";
 import { useTheme } from "@emotion/react";
 import CreateModal from "../Modal/CreateModal";
 import ShowInvestment from "../Investments/ShowInvestement";
+import ReduceInvest from "../Payments/ReduceInvest";
+import DownhillSkiingIcon from "@mui/icons-material/DownhillSkiing";
 
 interface ACTION {
   information: any;
@@ -23,14 +23,8 @@ const Action: React.FC<ACTION> = ({ information }) => {
   const handleClose = () => {
     setAnchorEl(null);
   };
-
-
-  const editProject = () => {
-    handleClose();
-  };
-
   const { palette } = useTheme();
-
+ 
   return (
     <div>
       <IconButton
@@ -91,25 +85,40 @@ const Action: React.FC<ACTION> = ({ information }) => {
           </MenuItem>
         </CreateModal>
 
-        <MenuItem onClick={editProject}>
+        <CreateModal
+          ModalContent={ReduceInvest}
+          closeButton
+          contentProps={{ information: information }}
+          closeButtonFunc={handleClose}
+        >
+          <MenuItem color="info">
+            <ListItemIcon>
+              <DownhillSkiingIcon fontSize="small" color="info" />
+            </ListItemIcon>
+            <Typography
+              sx={{ fontWeight: 350, fontSize: "0.8rem" }}
+              color={palette.info.main}
+            >
+              reduces my investment
+            </Typography>
+          </MenuItem>
+        </CreateModal>
+
+        {/* <MenuItem disabled>
           <ListItemIcon>
-            <EditIcon color="warning" />
+            <DeleteIcon color="error" fontSize="small" />
           </ListItemIcon>
-          <Typography sx={{ color: palette.warning.main }}>
-            Enable/disable
+          <Typography
+            sx={{
+              color: palette.error.main,
+              fontWeight: 350,
+              fontSize: "0.8rem",
+            }}
+          >
+            {" "}
+            Delete
           </Typography>
-        </MenuItem>
-        {/* <CreateModal
-          OpenButton={GenerateModalButton}
-          ModalContent={DeleteProject}
-        > */}
-        <MenuItem disabled>
-          <ListItemIcon>
-            <DeleteIcon color="error" />
-          </ListItemIcon>
-          <Typography sx={{ color: palette.error.main }}> Delete</Typography>
-        </MenuItem>
-        {/* </CreateModal> */}
+        </MenuItem> */}
       </Menu>
     </div>
   );

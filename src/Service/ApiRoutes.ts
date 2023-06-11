@@ -10,6 +10,7 @@ const ApiRoutes = {
   Invest: {
     Create: "/investment/invest",
     List: (id: number) => `/investment/?id=${id}`,
+    Reduce: "/investment/reduce",
   },
 };
 
