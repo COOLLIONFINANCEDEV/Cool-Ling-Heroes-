@@ -2,6 +2,8 @@ import { Box, IconButton, useTheme } from "@mui/material";
 import React from "react";
 import Redirect from "../../Helpers/Redirect";
 import routes from "../../Router/routes";
+import { selectLogin } from "../../Toolkit/Login/LoginSlice";
+import { useSelector } from "react-redux";
 
 interface LOGO {
   dark?: boolean;
@@ -9,8 +11,10 @@ interface LOGO {
 
 const Logo: React.FC<LOGO> = ({ dark = false }) => {
   const { palette } = useTheme();
+  const { isAuthenticated } = useSelector(selectLogin);
+  const link = isAuthenticated ? routes.home + routes.dashboard : routes.home;
   return (
-    <Redirect link={routes.home}>
+    <Redirect link={link}>
       <IconButton>
         <Box
           sx={{

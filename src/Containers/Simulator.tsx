@@ -43,28 +43,18 @@ const Simulator: React.FC<SIMULATOR> = ({
 }) => {
   const [SimulatorData, setSimulatorData] = React.useState<SimulatorData>([
     {
-      month: 3,
-      interet: 3.5,
+      month: 6,
+      interet: 4,
       status: false,
     },
     {
-      month: 6,
+      month: 18,
       interet: 5,
       status: true,
     },
     {
-      month: 9,
+      month: 36,
       interet: 5.5,
-      status: false,
-    },
-    {
-      month: 12,
-      interet: 7,
-      status: false,
-    },
-    {
-      month: 19,
-      interet: 8,
       status: false,
     },
   ]);
@@ -103,13 +93,13 @@ const Simulator: React.FC<SIMULATOR> = ({
         newData.push(newObject);
       });
       setSimulatorData(newData);
-      setNewsLetter((state) => state + 1);
+      if (!backgroundColorState) setNewsLetter((state) => state + 1);
     },
-    [SimulatorData]
+    [SimulatorData, backgroundColorState]
   );
 
   const handleInvest = () => {
-    if (handleClick) {
+    if (handleClick && amount >= 200) {
       const element = SimulatorData.filter((item) => item.status === true)[0];
       const newElement: INVESTINNFORMATIONITEM = {
         ...element,

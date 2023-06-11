@@ -38,7 +38,7 @@ const Payments: React.FC<PAYMENTS> = ({ handleImage, defaultImage }) => {
     {
       id: 1,
       img: "Assets/Illustrations/Show.svg",
-      title: "See the different payment methods",
+      title: "different payment methods",
       content:
         "The Options allow you to view the different payment methods so you can pay.",
     },
@@ -50,7 +50,6 @@ const Payments: React.FC<PAYMENTS> = ({ handleImage, defaultImage }) => {
         "this option allows you to upload the payment receipt to activate your investment.",
     },
   ];
-
 
   return (
     <Stack
@@ -174,12 +173,10 @@ const Payments: React.FC<PAYMENTS> = ({ handleImage, defaultImage }) => {
       )}
       {steps.state === 2 && (
         <>
-          <Box>
+          <Box sx={{ width: "100%" }}>
             {choice === 2 ? (
               <UploadButton
-                imageSelected={(
-                  file: React.SetStateAction<string>
-                ) => {
+                imageSelected={(file: React.SetStateAction<string>) => {
                   if (file) {
                     setFile(file);
                   }
