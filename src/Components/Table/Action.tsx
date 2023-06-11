@@ -7,19 +7,23 @@ import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useTheme } from "@emotion/react";
+import CreateModal from "../Modal/CreateModal";
+import ShowInvestment from "../Investments/ShowInvestement";
 
-const Action = () => {
+interface ACTION {
+  information: any;
+}
+
+const Action: React.FC<ACTION> = ({ information }) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
-  const handleClick = (event:any) => {
+  const handleClick = (event: any) => {
     setAnchorEl(event.currentTarget);
   };
   const handleClose = () => {
     setAnchorEl(null);
   };
-  const SeeMoreButton = () => {
-    handleClose();
-  };
+
 
   const editProject = () => {
     handleClose();
@@ -30,8 +34,7 @@ const Action = () => {
   return (
     <div>
       <IconButton
-        id="demo-positioned-button"
-        aria-controls={open ? "demo-positioned-menu" : undefined}
+        aria-controls={open ? "" : undefined}
         aria-haspopup="true"
         aria-expanded={open ? "true" : undefined}
         onClick={handleClick}
@@ -39,8 +42,7 @@ const Action = () => {
         <MoreVertIcon color="primary" />
       </IconButton>
       <Menu
-        id="demo-positioned-menu"
-        aria-labelledby="demo-positioned-button"
+        aria-labelledby=""
         anchorEl={anchorEl}
         open={open}
         onClose={handleClose}
@@ -73,14 +75,23 @@ const Action = () => {
         transformOrigin={{ horizontal: "right", vertical: "top" }}
         anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
       >
-        <MenuItem onClick={SeeMoreButton}>
-          <ListItemIcon>
-            <OpenInNewIcon />
-          </ListItemIcon>
-          <Typography> See more info</Typography>
-        </MenuItem>
+        <CreateModal
+          ModalContent={ShowInvestment}
+          closeButton
+          contentProps={{ interetInformation: information }}
+          closeButtonFunc={handleClose}
+        >
+          <MenuItem>
+            <ListItemIcon>
+              <OpenInNewIcon fontSize="small" />
+            </ListItemIcon>
+            <Typography sx={{ fontWeight: 350, fontSize: "0.8rem" }}>
+              See more info
+            </Typography>
+          </MenuItem>
+        </CreateModal>
 
-        <MenuItem  onClick={editProject}>
+        <MenuItem onClick={editProject}>
           <ListItemIcon>
             <EditIcon color="warning" />
           </ListItemIcon>

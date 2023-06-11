@@ -41,14 +41,13 @@ const theme = createTheme({
           borderBottom: "none",
           [`& .${tableCellClasses.root}`]: {
             borderBottom: "none",
-            color: palette.primary.main,
+            color: palette.secondary.main,
             backgroundColor: palette.secondary.light,
             fontWeight: 500,
             lineHeight: 1,
             letterSpacing: 0.5,
             textTransform: "uppercase",
             fontSize:'12px',
-            fontStyle:'italic',
           },
           [`& .${tableCellClasses.paddingCheckbox}`]: {
             paddingTop: 4,
@@ -64,11 +63,11 @@ const theme = createTheme({
           [`& .${tableCellClasses.root}`]: {
             borderBottom: "none",
             backgroundColor: "#fff",
-            fontSize: "0.80rem",
-            fontWeight: 500,
+            fontSize: "10px",
+            fontWeight: 400,
             lineHeight: 1,
             letterSpacing: 0.5,
-            textTransform: "uppercase",
+            textTransform: "capitalize",
           },
           [`& .${tableCellClasses.paddingCheckbox}`]: {
             paddingTop: 4,

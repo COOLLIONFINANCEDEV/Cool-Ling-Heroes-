@@ -99,7 +99,7 @@ const Simulator: React.FC<SIMULATOR> = ({
   );
 
   const handleInvest = () => {
-    if (handleClick) {
+    if (handleClick && amount >= 200) {
       const element = SimulatorData.filter((item) => item.status === true)[0];
       const newElement: INVESTINNFORMATIONITEM = {
         ...element,

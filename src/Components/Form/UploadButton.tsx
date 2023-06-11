@@ -1,6 +1,6 @@
 import { PhotoCamera } from "@mui/icons-material";
-import {  Button, Typography } from "@mui/material";
-import React  from "react";
+import { Button, Typography } from "@mui/material";
+import React from "react";
 import ConvertFileInBase64 from "../../Helpers/ConvertFileInBase64";
 
 interface UPLOADEFORM {
@@ -20,10 +20,23 @@ const UploadForm: React.FC<UPLOADEFORM> = ({
   const uploadImg = async (e: any) => {
     if (e.target) {
       const file = e.target.files[0];
+      if (!validateFileType(file)) {
+        alert("Only image, PDF, or document files are allowed.");
+        return;
+      }
+      if (file.size > 1024 * 1024) {
+        alert("File size exceeds the limit of 1MB.");
+        return;
+      }
       const base64 = await ConvertFileInBase64(file);
       setBaseImage(base64);
       imageSelected(base64);
     }
+  };
+
+  const validateFileType = (file: File) => {
+    const allowedTypes = ["image/jpeg", "image/png", "application/pdf", "application/msword", "application/vnd.openxmlformats-officedocument.wordprocessingml.document"];
+    return allowedTypes.includes(file.type);
   };
 
   return (
@@ -38,22 +51,22 @@ const UploadForm: React.FC<UPLOADEFORM> = ({
     >
       <img
         src={baseImage ? baseImage : ""}
-        style={{ borderRadius: "20%", width: "25%", margin: "auto" }}
+        style={{ width: "200px", margin: "10px auto" }}
         alt=""
       />
       <Button
         variant="outlined"
         component="label"
         color={error ? "error" : "primary"}
-        sx={{ width: "100%", height: "100px", borderRadius: "100px" }}
+        sx={{ width: "100%", height: "100px", borderRadius: "5px" }}
         startIcon={<PhotoCamera />}
       >
         <Typography textAlign={"center"} component={"span"} fontSize={"0.8rem"}>
-          {title} <br /> (Must be a .jpg, .jpeg or .png)
+          {title} <br /> (Only image, PDF, or document files)
         </Typography>
         <input
           hidden
-          accept=".jpg, .jpeg, .png, .pdf,"
+          accept="image/jpeg, image/png, application/pdf, application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document"
           multiple
           type="file"
           onChange={uploadImg}

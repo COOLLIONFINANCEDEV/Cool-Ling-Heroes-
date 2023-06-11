@@ -19,8 +19,11 @@ import Investments from "../Components/Investments/Investments";
 import { OverViewContext } from "../Context/OverViewContext";
 import ApiSession from "../Service/ApiSession";
 
-const Info = {
-  card: [
+const OverView = () => {
+  const [Loader, setLoader] = React.useState(true);
+  const [investState, setInvestState] = React.useState(false);
+  const [information, setInformation] = React.useState([]);
+  const [card, setCard] = React.useState([
     {
       title: "Number of investments",
       value: formatNumberWithLeadingZero(),
@@ -45,13 +48,7 @@ const Info = {
       Icon: <GifIcon />,
       color: "error.main",
     },
-  ],
-};
-
-const OverView = () => {
-  const [Loader, setLoader] = React.useState(true);
-  const [investState, setInvestState] = React.useState(false);
-  const [information, setInformation] = React.useState();
+  ]);
   const { user } = useSelector(selectLogin);
   const title = ["Manage Your Investments", "All Investments"];
 
@@ -60,7 +57,57 @@ const OverView = () => {
   };
 
   React.useEffect(() => {
-    console.log(information);
+    if (information?.length >= 1) {
+      setCard([
+        {
+          title: "Number of investments",
+          value: formatNumberWithLeadingZero(information.length),
+          Icon: <ArrowTrendingUpIcon />,
+          color: "primary.main",
+        },
+        {
+          title: "Total investment amount",
+          value: formatNumberWithLeadingZero(
+            information
+              ?.map((item: any) => item?.amount)
+              .reduce(
+                (accumulator: any, current: any) => accumulator + current,
+                0
+              )
+          ),
+          Icon: <CurrencyDollarIcon />,
+          color: "warning.main",
+        },
+        {
+          title: "Total investment with interest,",
+          value: formatNumberWithLeadingZero(
+            information
+              ?.map(
+                (item: any) => item?.amount + item?.amount * (item?.gain / 100)
+              )
+              ?.reduce(
+                (accumulator: any, current: any) => accumulator + current,
+                0
+              )
+          ),
+          Icon: <BanknotesIcon />,
+          color: "info.main",
+        },
+        {
+          title: "Total change in investment",
+          value: formatNumberWithLeadingZero(
+            information
+              .map((item: any) => item?.ChangeRequest?.length)
+              .reduce(
+                (accumulator: any, current: any) => accumulator + current,
+                0
+              )
+          ),
+          Icon: <GifIcon />,
+          color: "error.main",
+        },
+      ]);
+    }
   }, [information]);
 
   return (
@@ -86,9 +133,9 @@ const OverView = () => {
             disabled={user.role !== Roles.lender}
             handleClick={handleInvestment}
           />
-          <CardGroupes CardItemInfo={Info.card} />
+          <CardGroupes CardItemInfo={card} />
           <CustomersSearch />
-          <TableCustomze />
+          <TableCustomze information={information}/>
         </Container>
         {investState && (
           <CreateModal
@@ -117,7 +164,7 @@ const GetData = () => {
 
   const handleGetInformation = React.useCallback(async () => {
     const response = await ApiSession.invest.list(user.id);
-    if (!response.error && handleInformation) handleInformation("ll");
+    if (!response.error && handleInformation) handleInformation([]);
     if (handleLoader) handleLoader(false);
   }, [handleInformation, handleLoader, user.id]);
 
