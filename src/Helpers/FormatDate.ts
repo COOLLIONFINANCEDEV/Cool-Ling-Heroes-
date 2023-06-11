@@ -1,7 +1,8 @@
-function FormatDate(date: Date): string {
+function FormatDate(dateParams: Date): string {
+  const date = new Date(dateParams);
   const options: Intl.DateTimeFormatOptions = {
-    day: "numeric",
-    month: "numeric",
+    day: "2-digit",
+    month: "2-digit",
     year: "numeric",
   };
 

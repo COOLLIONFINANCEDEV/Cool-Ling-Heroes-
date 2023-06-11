@@ -36,6 +36,16 @@ const ApiSession = {
       ApiService(ApiRoutes.Invest.Create, "post", body),
     list: (id: number): Promise<RESPONSELAYOUT> =>
       ApiService(ApiRoutes.Invest.List(id), "get", {}),
+    reduce: (body: {
+      reducedAmount: number;
+      investmentId: number;
+    }): Promise<RESPONSELAYOUT> =>
+      ApiService(ApiRoutes.Invest.Reduce, "post", body),
+    checkUp: (body: {
+      accepted: boolean;
+      investmentId: number;
+    }): Promise<RESPONSELAYOUT> =>
+      ApiService(ApiRoutes.Invest.checkUp, "post", body),
   },
   user: {
     update: (body: {

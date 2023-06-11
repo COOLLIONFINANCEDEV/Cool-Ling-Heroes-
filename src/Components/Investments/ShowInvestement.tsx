@@ -26,8 +26,7 @@ const ShowInvestment: React.FC<INVESTMENTINFORMATION> = ({
   interetInformation,
 }) => {
   const amountWithPercentage =
-    interetInformation.amount +
-    interetInformation?.amount * (interetInformation?.gain / 100);
+    interetInformation.amount + interetInformation?.gain;
   const amountInteret = amountWithPercentage - interetInformation.amount;
   return (
     <Box mt={4}>
@@ -88,7 +87,7 @@ const ShowInvestment: React.FC<INVESTMENTINFORMATION> = ({
               interetInformation.accepted ? (
                 FormatDate(interetInformation.refunded_at)
               ) : (
-                <Chip label={"pending"} color="info" variant="outlined" />
+                <Chip label={"pending"} color="warning" variant="outlined" />
               )
             }
           />
@@ -117,7 +116,7 @@ const ShowInvestment: React.FC<INVESTMENTINFORMATION> = ({
               interetInformation.accepted ? (
                 FormatDate(interetInformation.accepted_at)
               ) : (
-                <Chip label={"pending"} variant="outlined" color="info" />
+                <Chip label={"pending"} variant="outlined" color="warning" />
               )
             }
           />
@@ -133,7 +132,10 @@ const ShowInvestment: React.FC<INVESTMENTINFORMATION> = ({
           />
           <Row
             title="Investment interet"
-            value={interetInformation?.gain + " %" ?? 0}
+            value={
+              (interetInformation?.gain / interetInformation.amount) * 100 +
+                " $" ?? 0
+            }
           />
           <Row title="Earnings" value={FormatMoney(amountInteret) + " $"} />
         </List>
@@ -142,10 +144,20 @@ const ShowInvestment: React.FC<INVESTMENTINFORMATION> = ({
           value={FormatMoney(amountWithPercentage) + " $"}
           dark
         />
-        <Divider sx={{ fontWeight: 500, mb: 5 }} />
-        <Typography variant="h5" fontWeight={500} fontSize={"1.5rem"} mt={1}>
-          withdrawal request
-        </Typography>
+        {interetInformation.ChangeRequest.length >= 1 && (
+          <>
+            <Divider sx={{ fontWeight: 500, mb: 5 }} />
+            <Typography
+              variant="h5"
+              fontWeight={500}
+              fontSize={"1.5rem"}
+              mt={1}
+            >
+              withdrawal request
+            </Typography>
+          </>
+        )}
+
         <Divider sx={{ fontWeight: 500 }} />
         {interetInformation.ChangeRequest?.map((item: any, key: number) => {
           return (

@@ -83,7 +83,7 @@ const OverView = () => {
           value: formatNumberWithLeadingZero(
             information
               ?.map(
-                (item: any) => item?.amount + item?.amount * (item?.gain / 100)
+                (item: any) => item?.amount + item?.gain
               )
               ?.reduce(
                 (accumulator: any, current: any) => accumulator + current,
@@ -164,7 +164,7 @@ const GetData = () => {
 
   const handleGetInformation = React.useCallback(async () => {
     const response = await ApiSession.invest.list(user.id);
-    if (!response.error && handleInformation) handleInformation([]);
+    if (!response.error && handleInformation) handleInformation(response.data);
     if (handleLoader) handleLoader(false);
   }, [handleInformation, handleLoader, user.id]);
 
