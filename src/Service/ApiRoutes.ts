@@ -4,9 +4,12 @@ const ApiRoutes = {
     connect: "/auth/login",
     refreshToken: "/auth/refresh-access",
   },
+  user: {
+    update: "/users",
+  },
   Invest: {
-    Create: "/invest/create",
-    List:"/invest/list",
+    Create: "/investment/invest",
+    List: (id: number) => `/investment/?id=${id}`,
   },
 };
 

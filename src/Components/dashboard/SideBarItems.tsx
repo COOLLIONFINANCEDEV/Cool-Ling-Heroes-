@@ -25,7 +25,7 @@ const ActiveList = {
 const List: NAVBARITEMSCONFIG = [
   {
     title: "Overview",
-    path: routes.dashboard,
+    path: routes.home + routes.dashboard,
     icon: (
       <SvgIcon fontSize="small">
         <ChartBarIcon />
@@ -43,7 +43,7 @@ const List: NAVBARITEMSCONFIG = [
   },
   {
     title: "Account",
-    path: "/account",
+    path: routes.account,
     icon: (
       <SvgIcon fontSize="small">
         <UserIcon />
@@ -52,7 +52,7 @@ const List: NAVBARITEMSCONFIG = [
   },
   {
     title: "Settings",
-    path: "/settings",
+    path: routes.setting,
     icon: (
       <SvgIcon fontSize="small">
         <CogIcon />

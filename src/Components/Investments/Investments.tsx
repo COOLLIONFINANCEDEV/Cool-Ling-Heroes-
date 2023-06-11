@@ -24,24 +24,22 @@ const Investments: React.FC<INVESTMENTS> = ({ handleClose }) => {
   const [paymentInformation, setPaymentInformation] = React.useState("");
   const [next, setNext] = React.useState(false);
   const [submit, setSumbit] = React.useState(false);
-  const [loader,setLoader] = React.useState(false);
+  const [loader, setLoader] = React.useState(false);
 
   const dispatch = useDispatch();
   const OverViewContextValue = React.useContext(OverViewContext);
   const handleLoader = OverViewContextValue
     ? OverViewContextValue.handle
     : () => {};
-
   const handleInvest = async () => {
+    setLoader(true);
     if (interetInformation) {
       const body = {
         amount: interetInformation.amount,
-        interet: interetInformation.interet,
-        month: interetInformation.month,
-        img: paymentInformation,
+        term: interetInformation.month,
+        proof: paymentInformation,
       };
       const response = await ApiSession.invest.create(body);
-      setLoader(true);
       if (response.error) {
         dispatch(setAlert({ state: "error", message: response.message }));
       } else {
@@ -51,8 +49,6 @@ const Investments: React.FC<INVESTMENTS> = ({ handleClose }) => {
       handleClose();
     }
   };
-
-
 
   return (
     <Stack
@@ -111,7 +107,7 @@ const Investments: React.FC<INVESTMENTS> = ({ handleClose }) => {
             setSumbit(false);
           }}
           disabled={step <= 0}
-          size='large'
+          size="large"
         >
           Modify Order Setting
         </Button>
@@ -121,10 +117,10 @@ const Investments: React.FC<INVESTMENTS> = ({ handleClose }) => {
             sx={{ borderRadius: "5px", width: "150px" }}
             onClick={() => {
               setNext(false);
-              setStep((state) => (state += state));
+              setStep((state) => (state += 1));
               setSumbit(true);
             }}
-            size='large'
+            size="large"
           >
             Continue
           </Button>
@@ -136,8 +132,7 @@ const Investments: React.FC<INVESTMENTS> = ({ handleClose }) => {
             sx={{ borderRadius: "5px" }}
             onClick={handleInvest}
             loading={loader}
-            loadingIndicator='center'
-            size='large'
+            size="large"
           >
             Confirm and proceed
           </LoadingButton>

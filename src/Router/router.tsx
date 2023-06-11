@@ -6,6 +6,8 @@ import NotFound from "../Pages/NotFound";
 import Landing from "../Containers/Landing";
 import Dashboard from "../Pages/Dashboard";
 import OverView from "../Pages/OverView";
+import Account from "../Pages/Account";
+import Settings from "../Pages/Settings";
 
 const Router = () => {
   return (
@@ -15,7 +17,9 @@ const Router = () => {
         <Route path={routes.login} element={<Login />} />
       </Route>
       <Route path={routes.dashboard} element={<Dashboard />}>
-        <Route path={routes.dashboard} element={<OverView />} />
+        <Route index element={<OverView />} />
+        <Route path={routes.account} element={<Account />} />
+        <Route path={routes.setting} element={<Settings />} />
       </Route>
 
       <Route path={routes.notFound} element={<NotFound />} />

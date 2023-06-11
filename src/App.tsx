@@ -8,7 +8,7 @@ import { deleteLoader } from "./Toolkit/Loader/LoaderSlice";
 import ScrollToHashElement from "./Helpers/ScrollToHashElement";
 import AlertCustomize from "./Toolkit/Alert/AlertCustomze";
 import PoppuContext from "./Toolkit/Poppu/PoppuCustomize";
-import { CheckUser, selectLogin } from "./Toolkit/Login/LoginSlice";
+import { CheckUser, DisalbeUpdating, selectLogin } from "./Toolkit/Login/LoginSlice";
 import routes from "./Router/routes";
 import ApiSession from "./Service/ApiSession";
 import { dehashValue, hashValue } from "./Helpers/Hash/HashValue";
@@ -17,7 +17,7 @@ import isExpired from "./Helpers/IsExpired";
 function App() {
   const dispatch = useDispatch();
   const [visible, setVisible] = React.useState(false);
-  const { isAuthenticated, user } = useSelector(selectLogin);
+  const { isAuthenticated, user, isUpdating } = useSelector(selectLogin);
   const location = useLocation();
 
   // Here it's the First Auto Loader
@@ -29,7 +29,10 @@ function App() {
       }, 2000);
     });
   }, [dispatch]);
-  dispatch(CheckUser({}));
+
+  React.useEffect(() => {
+    dispatch(CheckUser({}));
+  });
 
   const handleRefresh = React.useCallback(async () => {
     const accessToken =
@@ -49,6 +52,7 @@ function App() {
       if (accessToken && refreshToken) {
         localStorage.setItem("accessToken", accessToken);
         localStorage.setItem("refreshToken", refreshToken);
+        dispatch(DisalbeUpdating({}));
         dispatch(CheckUser({}));
       }
     }
@@ -57,13 +61,13 @@ function App() {
   // Here it's for refresh token
   React.useEffect(() => {
     const checkInspiredKey = setInterval(() => {
-      if (isExpired(user.exp, user.iat) && isAuthenticated) {
+      if ((isExpired(user.exp, user.iat) && isAuthenticated) || isUpdating) {
         handleRefresh();
       }
-    }, 1000);
+    }, 5000);
 
     return () => clearInterval(checkInspiredKey);
-  }, [handleRefresh, isAuthenticated, user]);
+  }, [handleRefresh, isAuthenticated, isUpdating, user]);
 
   // Here it's for is the use is auth the url is dashboard
   React.useEffect(() => {

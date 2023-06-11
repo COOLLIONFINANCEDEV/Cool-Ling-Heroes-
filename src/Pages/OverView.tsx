@@ -13,7 +13,7 @@ import TableCustomze from "../Containers/TableCustomze";
 import { selectLogin } from "../Toolkit/Login/LoginSlice";
 import { useSelector } from "react-redux";
 import Roles from "../Seeds/Roles";
-import React, { useContext, } from "react";
+import React, { useContext } from "react";
 import CreateModal from "../Components/Modal/CreateModal";
 import Investments from "../Components/Investments/Investments";
 import { OverViewContext } from "../Context/OverViewContext";
@@ -49,7 +49,7 @@ const Info = {
 };
 
 const OverView = () => {
-  const [Loader, setLoader] = React.useState(false);
+  const [Loader, setLoader] = React.useState(true);
   const [investState, setInvestState] = React.useState(false);
   const [information, setInformation] = React.useState();
   const { user } = useSelector(selectLogin);
@@ -61,7 +61,7 @@ const OverView = () => {
 
   React.useEffect(() => {
     console.log(information);
-  },[information])
+  }, [information]);
 
   return (
     <Box
@@ -105,6 +105,7 @@ const OverView = () => {
 };
 
 const GetData = () => {
+  const { user } = useSelector(selectLogin);
   const OverViewContextValue = useContext(OverViewContext);
   const state = OverViewContextValue ? OverViewContextValue.state : false;
   const handleLoader = OverViewContextValue
@@ -115,10 +116,10 @@ const GetData = () => {
     : false;
 
   const handleGetInformation = React.useCallback(async () => {
-    const response = await ApiSession.invest.list();
-    if (!response.error && handleInformation) handleInformation('ll');
+    const response = await ApiSession.invest.list(user.id);
+    if (!response.error && handleInformation) handleInformation("ll");
     if (handleLoader) handleLoader(false);
-  }, [handleInformation, handleLoader]);
+  }, [handleInformation, handleLoader, user.id]);
 
   React.useEffect(() => {
     if (state) {

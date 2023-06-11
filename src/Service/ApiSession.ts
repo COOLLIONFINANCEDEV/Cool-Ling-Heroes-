@@ -30,13 +30,20 @@ const ApiSession = {
   invest: {
     create: (body: {
       amount: number;
-      interet: number;
-      month: number;
-      img: string;
+      term: number;
+      proof: string;
     }): Promise<RESPONSELAYOUT> =>
       ApiService(ApiRoutes.Invest.Create, "post", body),
-    list: (): Promise<RESPONSELAYOUT> =>
-      ApiService(ApiRoutes.Invest.List, "post", {}),
+    list: (id: number): Promise<RESPONSELAYOUT> =>
+      ApiService(ApiRoutes.Invest.List(id), "get", {}),
+  },
+  user: {
+    update: (body: {
+      full_name?: string;
+      phone_number?: string;
+      password?: string;
+    }): Promise<RESPONSELAYOUT> =>
+      ApiService(ApiRoutes.user.update, "put", body),
   },
 };
 

@@ -53,7 +53,7 @@ const UploadForm: React.FC<UPLOADEFORM> = ({
         </Typography>
         <input
           hidden
-          accept=".jpg, .jpeg, .png,"
+          accept=".jpg, .jpeg, .png, .pdf,"
           multiple
           type="file"
           onChange={uploadImg}
