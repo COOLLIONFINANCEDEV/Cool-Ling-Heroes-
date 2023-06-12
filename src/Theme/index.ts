@@ -139,18 +139,7 @@ const theme = createTheme({
           height: "100%",
           width: "100%",
         },
-        "#nprogress": {
-          pointerEvents: "none",
-        },
-        "#nprogress .bar": {
-          backgroundColor: palette.primary.main,
-          height: 3,
-          left: 0,
-          position: "fixed",
-          top: 0,
-          width: "100%",
-          zIndex: 2000,
-        },
+       
       },
     },
     MuiInputBase: {

@@ -13,6 +13,8 @@ import Roles from "../../Seeds/Roles";
 import { selectLogin } from "../../Toolkit/Login/LoginSlice";
 import CheckInvestment from "../Investments/CheckInvestment";
 import { useSelector } from "react-redux";
+import VerifiedUserIcon from "@mui/icons-material/VerifiedUser";
+import ChangeCircleIcon from "@mui/icons-material/ChangeCircle";
 
 interface ACTION {
   information: any;
@@ -117,16 +119,45 @@ const Action: React.FC<ACTION> = ({ information }) => {
             closeButton
             contentProps={{ information: information }}
             closeButtonFunc={handleClose}
+            noOpen={![Roles.moderator, Roles.admin].includes(user.role)}
           >
-            <MenuItem color="info">
+            <MenuItem
+              color="info"
+              disabled={![Roles.moderator, Roles.admin].includes(user.role)}
+            >
               <ListItemIcon>
-                <DownhillSkiingIcon fontSize="small" color="info" />
+                <VerifiedUserIcon fontSize="small" color="info" />
               </ListItemIcon>
               <Typography
                 sx={{ fontWeight: 350, fontSize: "0.8rem" }}
                 color={palette.info.main}
               >
                 Check payment
+              </Typography>
+            </MenuItem>
+          </CreateModal>
+        )}
+
+        {user.role !== Roles.lender && (
+          <CreateModal
+            ModalContent={CheckInvestment}
+            closeButton
+            contentProps={{ information: information }}
+            closeButtonFunc={handleClose}
+            noOpen={![Roles.moderator, Roles.admin].includes(user.role)}
+          >
+            <MenuItem
+              color="warning"
+              disabled={![Roles.moderator, Roles.admin].includes(user.role)}
+            >
+              <ListItemIcon>
+                <ChangeCircleIcon fontSize="small" color="warning" />
+              </ListItemIcon>
+              <Typography
+                sx={{ fontWeight: 350, fontSize: "0.8rem" }}
+                color={palette.warning.main}
+              >
+                Refund
               </Typography>
             </MenuItem>
           </CreateModal>

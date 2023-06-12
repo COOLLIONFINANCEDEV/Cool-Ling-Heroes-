@@ -15,6 +15,7 @@ interface CREATEMODAL {
   closeButton?: boolean;
   closeButtonFunc?: Function;
   style?: {};
+  noOpen?: boolean;
 }
 
 const CreateModal: React.FC<CREATEMODAL> = ({
@@ -26,6 +27,7 @@ const CreateModal: React.FC<CREATEMODAL> = ({
   closeButton = false,
   closeButtonFunc = Function,
   style,
+  noOpen = false,
 }) => {
   const [open, setOpen] = React.useState(makeOpen);
   const handleOpen = () => {
@@ -52,10 +54,15 @@ const CreateModal: React.FC<CREATEMODAL> = ({
 
   const ContentButton = <>{children}</>;
 
- 
   return (
     <div>
-      <GenerateModalButton handleOpen={handleOpen} content={ContentButton} />
+      <GenerateModalButton
+        handleOpen={() => {
+          // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+          !noOpen ? handleOpen() : undefined;
+        }}
+        content={ContentButton}
+      />
       <Modal
         open={open}
         onClose={noLeave === false ? handleClose : () => {}}
@@ -66,7 +73,7 @@ const CreateModal: React.FC<CREATEMODAL> = ({
           timeout: 500,
         }}
         sx={{
-          zIndex:'1300 !important',
+          zIndex: "1300 !important",
         }}
       >
         <Fade in={open}>
