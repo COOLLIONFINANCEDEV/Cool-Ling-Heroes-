@@ -42,7 +42,7 @@ const theme = createTheme({
           [`& .${tableCellClasses.root}`]: {
             borderBottom: "none",
             color: palette.secondary.main,
-            backgroundColor: palette.secondary.light,
+            backgroundColor: palette.primary.main,
             fontWeight: 500,
             lineHeight: 1,
             letterSpacing: 0.5,
@@ -63,7 +63,7 @@ const theme = createTheme({
           [`& .${tableCellClasses.root}`]: {
             borderBottom: "none",
             backgroundColor: "#fff",
-            fontSize: "10px",
+            fontSize: "1rem",
             fontWeight: 400,
             lineHeight: 1,
             letterSpacing: 0.5,
