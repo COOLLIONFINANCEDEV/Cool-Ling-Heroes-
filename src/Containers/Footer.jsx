@@ -1,5 +1,11 @@
-import { useTheme } from "@emotion/react";
-import { Box, Button, Divider, IconButton, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  Divider,
+  IconButton,
+  Typography,
+  useTheme,
+} from "@mui/material";
 import React from "react";
 import FacebookTwoToneIcon from "@mui/icons-material/FacebookTwoTone";
 import InstagramIcon from "@mui/icons-material/Instagram";
@@ -180,7 +186,7 @@ const Footer = () => {
 const FooterItems = ({ Items }) => {
   return (
     <>
-      {Items.map((item,key) => {
+      {Items.map((item, key) => {
         return (
           <Redirect
             link={item.link}
