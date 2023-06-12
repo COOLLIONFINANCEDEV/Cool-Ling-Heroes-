@@ -18,12 +18,10 @@ import CreateModal from "../Components/Modal/CreateModal";
 import Investments from "../Components/Investments/Investments";
 import { OverViewContext } from "../Context/OverViewContext";
 import ApiSession from "../Service/ApiSession";
-import { InvestmentData } from "../Seeds/ApiTest";
-
 const OverView = () => {
-  const [Loader, setLoader] = React.useState(false);
+  const [Loader, setLoader] = React.useState(true);
   const [investState, setInvestState] = React.useState(false);
-  const [information, setInformation] = React.useState(InvestmentData);
+  const [information, setInformation] = React.useState([]);
   const [card, setCard] = React.useState([
     {
       title: "Number of investments",

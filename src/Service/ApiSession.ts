@@ -62,6 +62,8 @@ const ApiSession = {
           }
     ): Promise<RESPONSELAYOUT> =>
       ApiService(ApiRoutes.Invest.refund, "post", body),
+    disable: (body: { investmentId: number }): Promise<RESPONSELAYOUT> =>
+      ApiService(ApiRoutes.Invest.disable, "post", body),
   },
   user: {
     update: (body: {

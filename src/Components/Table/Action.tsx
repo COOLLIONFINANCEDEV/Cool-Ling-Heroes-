@@ -16,6 +16,8 @@ import { useSelector } from "react-redux";
 import VerifiedUserIcon from "@mui/icons-material/VerifiedUser";
 import ChangeCircleIcon from "@mui/icons-material/ChangeCircle";
 import Refund from "../Investments/Refund";
+import DeleteIcon from "@mui/icons-material/Delete";
+import DeleteInvestment from "../Investments/DeleteInvestment";
 
 interface ACTION {
   information: any;
@@ -164,21 +166,30 @@ const Action: React.FC<ACTION> = ({ information }) => {
           </CreateModal>
         )}
 
-        {/* <MenuItem disabled>
-          <ListItemIcon>
-            <DeleteIcon color="error" fontSize="small" />
-          </ListItemIcon>
-          <Typography
-            sx={{
-              color: palette.error.main,
-              fontWeight: 350,
-              fontSize: "0.8rem",
-            }}
+        {user.role !== Roles.lender && (
+          <CreateModal
+            ModalContent={DeleteInvestment}
+            closeButton
+            contentProps={{ information: information }}
+            closeButtonFunc={handleClose}
+            noOpen={![Roles.moderator, Roles.admin].includes(user.role)}
           >
-            {" "}
-            Delete
-          </Typography>
-        </MenuItem> */}
+            <MenuItem>
+              <ListItemIcon>
+                <DeleteIcon color="error" fontSize="small" />
+              </ListItemIcon>
+              <Typography
+                sx={{
+                  color: palette.error.main,
+                  fontWeight: 350,
+                  fontSize: "0.8rem",
+                }}
+              >
+                Disable
+              </Typography>
+            </MenuItem>
+          </CreateModal>
+        )}
       </Menu>
     </div>
   );
