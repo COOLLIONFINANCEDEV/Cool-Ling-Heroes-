@@ -15,6 +15,7 @@ import CheckInvestment from "../Investments/CheckInvestment";
 import { useSelector } from "react-redux";
 import VerifiedUserIcon from "@mui/icons-material/VerifiedUser";
 import ChangeCircleIcon from "@mui/icons-material/ChangeCircle";
+import Refund from "../Investments/Refund";
 
 interface ACTION {
   information: any;
@@ -140,7 +141,7 @@ const Action: React.FC<ACTION> = ({ information }) => {
 
         {user.role !== Roles.lender && (
           <CreateModal
-            ModalContent={CheckInvestment}
+            ModalContent={Refund}
             closeButton
             contentProps={{ information: information }}
             closeButtonFunc={handleClose}

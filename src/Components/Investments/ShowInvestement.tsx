@@ -262,7 +262,7 @@ interface ROW {
   value: string | ReactNode;
   dark?: boolean;
 }
-const Row: React.FC<ROW> = ({ title, value, dark = false }) => {
+export const Row: React.FC<ROW> = ({ title, value, dark = false }) => {
   return (
     <ListItem sx={{ width: "100%" }}>
       <Stack
