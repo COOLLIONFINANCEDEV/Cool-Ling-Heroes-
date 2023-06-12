@@ -1,10 +1,14 @@
 /* eslint-disable no-new-wrappers */
-import { Collapse, IconButton, TableBody, TableCell } from "@mui/material";
+import {
+  Collapse,
+  IconButton,
+  TableBody,
+  TableCell,
+  TableRow,
+} from "@mui/material";
 import React from "react";
-import StyledTableRow from "./StyledTableRow";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
-import StyledTableCell from "./StyledTableCell";
 
 interface CREATEBODY {
   row: any;
@@ -27,7 +31,7 @@ const CreateBody: React.FC<CREATEBODY> = ({ row, mode = false }) => {
     <TableBody>
       {!mode ? (
         <React.Fragment>
-          <StyledTableRow sx={{ "& > *": { borderBottom: "unset" } }}>
+          <TableRow sx={{ "& > *": { borderBottom: "unset" } }}>
             <TableCell>
               <IconButton
                 aria-label="expand row"
@@ -38,29 +42,26 @@ const CreateBody: React.FC<CREATEBODY> = ({ row, mode = false }) => {
               </IconButton>
             </TableCell>
             {rows.map((item, key) => (
-              <StyledTableCell key={key}>{item}</StyledTableCell>
+              <TableCell key={key}>{item}</TableCell>
             ))}
-          </StyledTableRow>
-          <StyledTableRow>
-            <StyledTableCell
-              style={{ paddingBottom: 0, paddingTop: 0 }}
-              colSpan={12}
-            >
+          </TableRow>
+          <TableRow>
+            <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={12}>
               <Collapse in={open} timeout="auto" unmountOnExit>
                 {row.Content}
               </Collapse>
-            </StyledTableCell>
-          </StyledTableRow>
+            </TableCell>
+          </TableRow>
         </React.Fragment>
       ) : (
         <>
-          <StyledTableRow key={row.name}>
+          <TableRow key={row.name}>
             {rows.map((item, key) => (
-              <StyledTableCell sx={{ textTransform: "capitalize" }} key={key}>
+              <TableCell sx={{ textTransform: "capitalize" }} key={key}>
                 {typeof item === "string" ? item.toLowerCase() : item}
-              </StyledTableCell>
+              </TableCell>
             ))}
-          </StyledTableRow>
+          </TableRow>
         </>
       )}
     </TableBody>
