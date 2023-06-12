@@ -1,10 +1,9 @@
 import * as React from "react";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
-import { IconButton, ListItemIcon, Typography } from "@mui/material";
+import { IconButton, ListItemIcon, Typography, useTheme } from "@mui/material";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
-import { useTheme } from "@emotion/react";
 import CreateModal from "../Modal/CreateModal";
 import ShowInvestment from "../Investments/ShowInvestement";
 import ReduceInvest from "../Payments/ReduceInvest";
