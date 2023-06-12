@@ -11,9 +11,9 @@ import {
   ListItem,
   Stack,
   Typography,
+  useTheme,
 } from "@mui/material";
 import React from "react";
-import { useTheme } from "@emotion/react";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import UploadButton from "../Form/UploadButton";
 import PaymentsInformation from "./PaymentsInformation";
