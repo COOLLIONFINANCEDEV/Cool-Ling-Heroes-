@@ -18,7 +18,7 @@ type APIRESPONSE = {
 export interface RESPONSELAYOUT {
   error: boolean;
   message: string;
-  errors: Array<{}> | undefined;
+  errors: Array<{field:string,description:string}> | undefined;
   data: any;
   metadata: any;
 }

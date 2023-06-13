@@ -102,7 +102,7 @@ const ShowInvestment: React.FC<INVESTMENTINFORMATION> = ({
                   color={
                     interetInformation.status.toLowerCase() === "pending"
                       ? "info"
-                      : interetInformation.status.toLowerCase() === "completed"
+                      : interetInformation.status.toLowerCase() === "confirmed"
                       ? "success"
                       : "warning"
                   }
@@ -126,11 +126,16 @@ const ShowInvestment: React.FC<INVESTMENTINFORMATION> = ({
                   variant="contained"
                   color="info"
                   onClick={() =>
-                    Dowloadile(interetInformation.proof, "receitp.png")
+                    window.open(
+                      "https:api.investKori.com" + interetInformation.proof,
+                      "_blank"
+                    )
                   }
                   sx={{ borderRadius: "5px" }}
                 >
-                  Download your receipt
+                 {user.role === Roles.lender
+                          ? " View your receipt"
+                          : " View this receipt"}
                 </Button>
               }
             />
@@ -202,18 +207,15 @@ const ShowInvestment: React.FC<INVESTMENTINFORMATION> = ({
                   <Typography>request {item?.id}</Typography>
                 </AccordionSummary>
                 <AccordionDetails>
-                  <Row
-                    title="Request amount"
-                    value={interetInformation?.amount + " $"}
-                  />
+                  <Row title="Request amount" value={item?.amount + " $"} />
                   <Row
                     title="amount receivable"
-                    value={interetInformation?.amount_to_refund + " $"}
+                    value={item?.amount_to_refund + " $"}
                   />
                   <Row
                     title="Request status"
                     value={
-                      !interetInformation?.treated ? (
+                      !item?.treated ? (
                         <Chip
                           label={"pending"}
                           variant="outlined"
@@ -235,14 +237,17 @@ const ShowInvestment: React.FC<INVESTMENTINFORMATION> = ({
                         variant="contained"
                         color="info"
                         onClick={() =>
-                          Dowloadile(
-                            interetInformation.refund_proof,
-                            "receitp.png"
+                          window.open(
+                            "https:api.investKori.com" + item.refund_proof,
+                            "_blank"
                           )
                         }
                         sx={{ borderRadius: "5px" }}
+                        disabled={item.treated && !item.refund_proof}
                       >
-                        Download your receipt
+                        {user.role === Roles.lender
+                          ? " View your receipt"
+                          : " View this receipt"}
                       </Button>
                     }
                   />

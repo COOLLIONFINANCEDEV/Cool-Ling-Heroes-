@@ -29,19 +29,17 @@ const TableCustomze: React.FC<TABLECUSTOMZE> = ({ information }) => {
   const { user } = useSelector(selectLogin);
   const [rows, setRows] = React.useState<Array<{}>>([]);
   const OverViewContextValue = React.useContext(OverViewContext);
-  const state = OverViewContextValue ? OverViewContextValue.state : false;
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  const LoaderContent = [
-    <Skeleton width={"100%"} height={"50px"} animation="wave" />,
-    <Skeleton width={"100%"} height={"50px"} animation="wave" />,
-    <Skeleton width={"100%"} height={"50px"} animation="wave" />,
-    <Skeleton width={"100%"} height={"50px"} animation="wave" />,
-    <Skeleton width={"100%"} height={"50px"} animation="wave" />,
-    <Skeleton width={"100%"} height={"50px"} animation="wave" />,
-    <Skeleton width={"100%"} height={"50px"} animation="wave" />,
-    <Skeleton width={"100%"} height={"50px"} animation="wave" />,
-    <Skeleton width={"100%"} height={"50px"} animation="wave" />,
-  ];
+  const skeletonGroupe =
+    user.role === Roles.lender
+      ? LENDERKEY().head.map((item) => (
+          <Skeleton width={"100%"} height={"50px"} animation="wave" />
+        ))
+      : ADMINKEY().head.map((item) => (
+          <Skeleton width={"100%"} height={"50px"} animation="wave" />
+        ));
+
+  const LoaderContent = CreateData.create(skeletonGroupe);
 
   React.useEffect(() => {
     if (information) {
@@ -60,7 +58,7 @@ const TableCustomze: React.FC<TABLECUSTOMZE> = ({ information }) => {
                 color={
                   item.status.toLowerCase() === "pending"
                     ? "info"
-                    : item.status.toLowerCase() === "completed"
+                    : item.status.toLowerCase() === "confirmed"
                     ? "success"
                     : "warning"
                 }
@@ -94,7 +92,7 @@ const TableCustomze: React.FC<TABLECUSTOMZE> = ({ information }) => {
                 color={
                   item.status.toLowerCase() === "pending"
                     ? "info"
-                    : item.status.toLowerCase() === "completed"
+                    : item.status.toLowerCase() === "confirmed"
                     ? "success"
                     : "warning"
                 }
@@ -120,12 +118,11 @@ const TableCustomze: React.FC<TABLECUSTOMZE> = ({ information }) => {
   }, [information]);
 
   React.useEffect(() => {
-    if (state) {
-      const table = rows;
-      rows.unshift(LoaderContent);
-      setRows(table);
+    if (OverViewContextValue?.state) {
+      setRows([LoaderContent, ...rows]);
     }
-  }, [LoaderContent, rows, state]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [OverViewContextValue?.state]);
 
   return (
     <Box mt={4}>

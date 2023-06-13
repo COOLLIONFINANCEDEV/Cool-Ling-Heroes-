@@ -16,6 +16,7 @@ import ApiSession from "../Service/ApiSession";
 import { setAlert } from "../Toolkit/Alert/AlertSlice";
 
 interface INITIALVALUES {
+  lastPassword: string;
   password: string;
   confirmPassword: string;
 }
@@ -23,6 +24,7 @@ interface INITIALVALUES {
 const SettingsPassword = () => {
   const dispatch = useDispatch();
   const initialValues: INITIALVALUES = {
+    lastPassword: "",
     password: "",
     confirmPassword: "",
   };
@@ -30,12 +32,15 @@ const SettingsPassword = () => {
   const handleSubmit = React.useCallback(
     async (values: INITIALVALUES, helper: FormikHelpers<INITIALVALUES>) => {
       const body = {
-        password: values.password,
+        password: values.lastPassword,
+        newPassword: values.password,
       };
-      const response = await ApiSession.user.update(body);
+      const response = await ApiSession.auth.UpdatePassword(body);
 
       if (response.error) {
         dispatch(setAlert({ state: "error", message: response.message }));
+        if (response.errors)
+          helper.setFieldError("password", response.errors[0]?.description);
       } else {
         dispatch(setAlert({ state: "success", message: response.message }));
       }
@@ -76,12 +81,19 @@ const SettingsPassword = () => {
                   <Field
                     label="Password"
                     type={"password"}
+                    name={"lastPassword"}
+                    sx={{ width: "100%" }}
+                    component={FormTextField}
+                  />
+                  <Field
+                    label="New password"
+                    type={"password"}
                     name={"password"}
                     sx={{ width: "100%" }}
                     component={FormTextField}
                   />
                   <Field
-                    label="Confirm Password"
+                    label="Confirm new password"
                     type={"password"}
                     name="confirmPassword"
                     sx={{ width: "100%" }}

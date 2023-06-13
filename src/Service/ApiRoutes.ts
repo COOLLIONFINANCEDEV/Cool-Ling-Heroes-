@@ -3,6 +3,7 @@ const ApiRoutes = {
     register: "/auth/signup",
     connect: "/auth/login",
     refreshToken: "/auth/refresh-access",
+    updatePassword: "/auth/update-password",
   },
   user: {
     update: "/users",
@@ -13,7 +14,7 @@ const ApiRoutes = {
     Reduce: "/investment/reduce",
     checkUp: "/investment/check-up",
     refund: "/investment/change-check-up",
-    disable:"/investment/abort"
+    disable: "/investment/abort",
   },
 };
 

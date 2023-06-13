@@ -26,6 +26,11 @@ const ApiSession = {
       refresh_token: string;
     }): Promise<RESPONSELAYOUT> =>
       ApiService(ApiRoutes.auth.refreshToken, "post", body),
+    UpdatePassword: (body: {
+      password: string;
+      newPassword: string;
+    }): Promise<RESPONSELAYOUT> =>
+      ApiService(ApiRoutes.auth.updatePassword, "post", body),
   },
   invest: {
     create: (body: {

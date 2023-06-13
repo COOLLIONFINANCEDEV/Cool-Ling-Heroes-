@@ -141,8 +141,8 @@ const Refund: React.FC<REFUND> = ({ information, handleClose }) => {
               Be careful with any actions you take here, as they are
               irreversible.
             </Alert>
-            {information.ChangeRequest?.length >= 1 && (
-              <Box sx={{ width: "100%" }}>
+            {information.ChangeRequest?.filter((item:any) => item.treated === false)?.length >= 1 && (
+              <Box sx={{ width: "100%" }} mb={5}>
                 <Accordion expanded>
                   <AccordionSummary expandIcon={<ExpandMoreIcon />}>
                     <Typography fontWeight={500}>
@@ -167,16 +167,16 @@ const Refund: React.FC<REFUND> = ({ information, handleClose }) => {
                             <AccordionDetails>
                               <Row
                                 title="Request amount"
-                                value={information?.amount + " $"}
+                                value={item?.amount + " $"}
                               />
                               <Row
                                 title="amount receivable"
-                                value={information?.amount_to_refund + " $"}
+                                value={item?.amount_to_refund + " $"}
                               />
                               <Row
                                 title="Request status"
                                 value={
-                                  !information?.treated ? (
+                                  !item?.treated ? (
                                     <Chip
                                       label={"pending"}
                                       variant="outlined"
@@ -230,7 +230,6 @@ const Refund: React.FC<REFUND> = ({ information, handleClose }) => {
             <Stack
               spacing={1}
               sx={{ width: "100%" }}
-              mt={information.ChangeRequest?.length >= 1 ? 5 : 0}
             >
               <UploadForm
                 imageSelected={(file: React.SetStateAction<string>) => {
