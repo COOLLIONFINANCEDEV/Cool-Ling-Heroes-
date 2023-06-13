@@ -15,7 +15,6 @@ import {
 import React, { ReactNode } from "react";
 import FormatMoney from "../../Helpers/FormatMoney";
 import FormatDate from "../../Helpers/FormatDate";
-import Dowloadile from "../../Helpers/DowloadFile";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { useSelector } from "react-redux";
 import { selectLogin } from "../../Toolkit/Login/LoginSlice";
@@ -113,7 +112,7 @@ const ShowInvestment: React.FC<INVESTMENTINFORMATION> = ({
               title="Maturity date"
               value={
                 interetInformation.accepted ? (
-                  FormatDate(interetInformation.refunded_at)
+                  FormatDate(interetInformation.date_of_refund)
                 ) : (
                   <Chip label={"pending"} color="warning" variant="outlined" />
                 )
@@ -133,9 +132,9 @@ const ShowInvestment: React.FC<INVESTMENTINFORMATION> = ({
                   }
                   sx={{ borderRadius: "5px" }}
                 >
-                 {user.role === Roles.lender
-                          ? " View your receipt"
-                          : " View this receipt"}
+                  {user.role === Roles.lender
+                    ? " View your receipt"
+                    : " View this receipt"}
                 </Button>
               }
             />
@@ -243,7 +242,7 @@ const ShowInvestment: React.FC<INVESTMENTINFORMATION> = ({
                           )
                         }
                         sx={{ borderRadius: "5px" }}
-                        disabled={item.treated && !item.refund_proof}
+                        disabled={!item.treated}
                       >
                         {user.role === Roles.lender
                           ? " View your receipt"

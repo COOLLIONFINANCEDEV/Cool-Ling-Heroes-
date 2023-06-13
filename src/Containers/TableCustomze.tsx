@@ -57,14 +57,16 @@ const TableCustomze: React.FC<TABLECUSTOMZE> = ({ information }) => {
                 variant="outlined"
                 color={
                   item.status.toLowerCase() === "pending"
-                    ? "info"
-                    : item.status.toLowerCase() === "confirmed"
-                    ? "success"
-                    : "warning"
+                  ? "info"
+                  : item.status.toLowerCase() === "confirmed"
+                  ? "success"
+                  : item.status.toLowerCase() === "rejected"
+                  ? "error"
+                  : "warning"
                 }
               />,
               item.accepted ? (
-                FormatDate(item.refunded_at)
+                FormatDate(item.date_of_refund)
               ) : (
                 <Chip
                   label={"unavailable"}
@@ -94,11 +96,13 @@ const TableCustomze: React.FC<TABLECUSTOMZE> = ({ information }) => {
                     ? "info"
                     : item.status.toLowerCase() === "confirmed"
                     ? "success"
+                    : item.status.toLowerCase() === "rejected"
+                    ? "error"
                     : "warning"
                 }
               />,
               item.accepted ? (
-                FormatDate(item.refunded_at)
+                FormatDate(item.date_of_refund)
               ) : (
                 <Chip
                   label={"unavailable"}

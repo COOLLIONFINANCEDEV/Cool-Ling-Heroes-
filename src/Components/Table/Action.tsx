@@ -100,8 +100,9 @@ const Action: React.FC<ACTION> = ({ information }) => {
             closeButton
             contentProps={{ information: information }}
             closeButtonFunc={handleClose}
+            noOpen={!information.accepted}
           >
-            <MenuItem color="info">
+            <MenuItem color="info" disabled={!information.accepted}>
               <ListItemIcon>
                 <DownhillSkiingIcon fontSize="small" color="info" />
               </ListItemIcon>
@@ -121,11 +122,17 @@ const Action: React.FC<ACTION> = ({ information }) => {
             closeButton
             contentProps={{ information: information }}
             closeButtonFunc={handleClose}
-            noOpen={![Roles.moderator, Roles.admin].includes(user.role)}
+            noOpen={
+              ![Roles.moderator, Roles.admin].includes(user.role) ||
+              information.accepted
+            }
           >
             <MenuItem
               color="info"
-              disabled={![Roles.moderator, Roles.admin].includes(user.role)}
+              disabled={
+                ![Roles.moderator, Roles.admin].includes(user.role) ||
+                information.accepted
+              }
             >
               <ListItemIcon>
                 <VerifiedUserIcon fontSize="small" color="info" />
@@ -134,7 +141,7 @@ const Action: React.FC<ACTION> = ({ information }) => {
                 sx={{ fontWeight: 350, fontSize: "0.8rem" }}
                 color={palette.info.main}
               >
-                Check payment
+                Activate investment
               </Typography>
             </MenuItem>
           </CreateModal>
@@ -146,11 +153,17 @@ const Action: React.FC<ACTION> = ({ information }) => {
             closeButton
             contentProps={{ information: information }}
             closeButtonFunc={handleClose}
-            noOpen={![Roles.moderator, Roles.admin].includes(user.role)}
+            noOpen={
+              ![Roles.moderator, Roles.admin].includes(user.role) ||
+              !information.accepted
+            }
           >
             <MenuItem
               color="warning"
-              disabled={![Roles.moderator, Roles.admin].includes(user.role)}
+              disabled={
+                ![Roles.moderator, Roles.admin].includes(user.role) ||
+                !information.accepted
+              }
             >
               <ListItemIcon>
                 <ChangeCircleIcon fontSize="small" color="warning" />
@@ -159,21 +172,21 @@ const Action: React.FC<ACTION> = ({ information }) => {
                 sx={{ fontWeight: 350, fontSize: "0.8rem" }}
                 color={palette.warning.main}
               >
-                Refund
+                Refund investment
               </Typography>
             </MenuItem>
           </CreateModal>
         )}
 
-        {user.role !== Roles.lender && (
+        {user.role === Roles.lender && (
           <CreateModal
             ModalContent={DeleteInvestment}
             closeButton
             contentProps={{ information: information }}
             closeButtonFunc={handleClose}
-            noOpen={![Roles.moderator, Roles.admin].includes(user.role)}
+            noOpen={!(user.role === Roles.lender) && !information.accepted}
           >
-            <MenuItem>
+            <MenuItem disabled={!information.accepted}>
               <ListItemIcon>
                 <DeleteIcon color="error" fontSize="small" />
               </ListItemIcon>
@@ -184,7 +197,7 @@ const Action: React.FC<ACTION> = ({ information }) => {
                   fontSize: "0.8rem",
                 }}
               >
-                Disable
+                Stop investment
               </Typography>
             </MenuItem>
           </CreateModal>
