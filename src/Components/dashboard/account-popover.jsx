@@ -10,15 +10,8 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { LoginOut, selectLogin } from "../../Toolkit/Login/LoginSlice";
 
-interface ACCOUNTPOPOVER {
-  anchorEl: Element | ((element: Element) => Element) | null | undefined;
-  onClose:
-    | ((event: {}, reason: "backdropClick" | "escapeKeyDown") => void)
-    | undefined;
-  open: boolean;
-}
 
-export const AccountPopover: React.FC<ACCOUNTPOPOVER> = ({
+export const AccountPopover= ({
   anchorEl,
   onClose,
   open,
