@@ -46,6 +46,24 @@ const ApiSession = {
       investmentId: number;
     }): Promise<RESPONSELAYOUT> =>
       ApiService(ApiRoutes.Invest.checkUp, "post", body),
+    refund: (
+      body:
+        | {
+            accepted: boolean;
+            investmentId: number;
+            refundProof: string;
+            changeRequestId: number;
+          }
+        | {
+            accepted: boolean;
+            investmentId: number;
+            refundProof: string;
+            amount: number;
+          }
+    ): Promise<RESPONSELAYOUT> =>
+      ApiService(ApiRoutes.Invest.refund, "post", body),
+    disable: (body: { investmentId: number }): Promise<RESPONSELAYOUT> =>
+      ApiService(ApiRoutes.Invest.disable, "post", body),
   },
   user: {
     update: (body: {

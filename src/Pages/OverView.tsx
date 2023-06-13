@@ -18,7 +18,6 @@ import CreateModal from "../Components/Modal/CreateModal";
 import Investments from "../Components/Investments/Investments";
 import { OverViewContext } from "../Context/OverViewContext";
 import ApiSession from "../Service/ApiSession";
-
 const OverView = () => {
   const [Loader, setLoader] = React.useState(true);
   const [investState, setInvestState] = React.useState(false);

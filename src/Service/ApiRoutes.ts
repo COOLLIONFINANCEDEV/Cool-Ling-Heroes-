@@ -12,6 +12,8 @@ const ApiRoutes = {
     List: (id: number) => `/investment/`,
     Reduce: "/investment/reduce",
     checkUp: "/investment/check-up",
+    refund: "/investment/change-check-up",
+    disable:"/investment/abort"
   },
 };
 

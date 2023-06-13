@@ -12,6 +12,11 @@ import Roles from "../../Seeds/Roles";
 import { selectLogin } from "../../Toolkit/Login/LoginSlice";
 import CheckInvestment from "../Investments/CheckInvestment";
 import { useSelector } from "react-redux";
+import VerifiedUserIcon from "@mui/icons-material/VerifiedUser";
+import ChangeCircleIcon from "@mui/icons-material/ChangeCircle";
+import Refund from "../Investments/Refund";
+import DeleteIcon from "@mui/icons-material/Delete";
+import DeleteInvestment from "../Investments/DeleteInvestment";
 
 interface ACTION {
   information: any;
@@ -116,10 +121,14 @@ const Action: React.FC<ACTION> = ({ information }) => {
             closeButton
             contentProps={{ information: information }}
             closeButtonFunc={handleClose}
+            noOpen={![Roles.moderator, Roles.admin].includes(user.role)}
           >
-            <MenuItem color="info">
+            <MenuItem
+              color="info"
+              disabled={![Roles.moderator, Roles.admin].includes(user.role)}
+            >
               <ListItemIcon>
-                <DownhillSkiingIcon fontSize="small" color="info" />
+                <VerifiedUserIcon fontSize="small" color="info" />
               </ListItemIcon>
               <Typography
                 sx={{ fontWeight: 350, fontSize: "0.8rem" }}
@@ -131,21 +140,55 @@ const Action: React.FC<ACTION> = ({ information }) => {
           </CreateModal>
         )}
 
-        {/* <MenuItem disabled>
-          <ListItemIcon>
-            <DeleteIcon color="error" fontSize="small" />
-          </ListItemIcon>
-          <Typography
-            sx={{
-              color: palette.error.main,
-              fontWeight: 350,
-              fontSize: "0.8rem",
-            }}
+        {user.role !== Roles.lender && (
+          <CreateModal
+            ModalContent={Refund}
+            closeButton
+            contentProps={{ information: information }}
+            closeButtonFunc={handleClose}
+            noOpen={![Roles.moderator, Roles.admin].includes(user.role)}
           >
-            {" "}
-            Delete
-          </Typography>
-        </MenuItem> */}
+            <MenuItem
+              color="warning"
+              disabled={![Roles.moderator, Roles.admin].includes(user.role)}
+            >
+              <ListItemIcon>
+                <ChangeCircleIcon fontSize="small" color="warning" />
+              </ListItemIcon>
+              <Typography
+                sx={{ fontWeight: 350, fontSize: "0.8rem" }}
+                color={palette.warning.main}
+              >
+                Refund
+              </Typography>
+            </MenuItem>
+          </CreateModal>
+        )}
+
+        {user.role !== Roles.lender && (
+          <CreateModal
+            ModalContent={DeleteInvestment}
+            closeButton
+            contentProps={{ information: information }}
+            closeButtonFunc={handleClose}
+            noOpen={![Roles.moderator, Roles.admin].includes(user.role)}
+          >
+            <MenuItem>
+              <ListItemIcon>
+                <DeleteIcon color="error" fontSize="small" />
+              </ListItemIcon>
+              <Typography
+                sx={{
+                  color: palette.error.main,
+                  fontWeight: 350,
+                  fontSize: "0.8rem",
+                }}
+              >
+                Disable
+              </Typography>
+            </MenuItem>
+          </CreateModal>
+        )}
       </Menu>
     </div>
   );
