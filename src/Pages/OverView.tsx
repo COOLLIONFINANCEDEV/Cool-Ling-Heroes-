@@ -6,10 +6,8 @@ import {
   GifIcon,
 } from "@heroicons/react/24/solid";
 import { formatNumberWithLeadingZero } from "../Helpers/FormatMoney";
-import CardGroupes from "../Containers/CardGroupes";
 import BlocTitle from "../Containers/BlocTitle";
 import { CustomersSearch } from "../Components/CustomerSeach";
-import TableCustomze from "../Containers/TableCustomze";
 import { selectLogin } from "../Toolkit/Login/LoginSlice";
 import { useSelector } from "react-redux";
 import Roles from "../Seeds/Roles";
@@ -18,6 +16,8 @@ import CreateModal from "../Components/Modal/CreateModal";
 import Investments from "../Components/Investments/Investments";
 import { OverViewContext } from "../Context/OverViewContext";
 import ApiSession from "../Service/ApiSession";
+import OverViewTable from "../Containers/OverViewTable";
+import CardGroupesOverView from "../Containers/CardGroupesOverView";
 const OverView = () => {
   const [Loader, setLoader] = React.useState(true);
   const [investState, setInvestState] = React.useState(false);
@@ -132,9 +132,9 @@ const OverView = () => {
             disabled={user.role !== Roles.lender}
             handleClick={handleInvestment}
           />
-          <CardGroupes CardItemInfo={card} />
+          <CardGroupesOverView CardItemInfo={card} />
           <CustomersSearch />
-          <TableCustomze information={information}/>
+          <OverViewTable information={information}/>
         </Container>
         {investState && (
           <CreateModal

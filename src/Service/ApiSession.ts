@@ -77,6 +77,13 @@ const ApiSession = {
       password?: string;
     }): Promise<RESPONSELAYOUT> =>
       ApiService(ApiRoutes.user.update, "put", body),
+    changeRole: (body: {
+      role: string;
+      user_id: number;
+    }): Promise<RESPONSELAYOUT> =>
+      ApiService(ApiRoutes.user.update, "put", body),
+    list: (): Promise<RESPONSELAYOUT> =>
+      ApiService(ApiRoutes.user.list, "get", {}),
   },
 };
 

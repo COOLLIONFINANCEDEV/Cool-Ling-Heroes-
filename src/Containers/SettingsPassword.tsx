@@ -53,8 +53,8 @@ const SettingsPassword = () => {
       <Formik
         initialValues={initialValues}
         validationSchema={yup.object().shape({
-          lastPassword: yup.string(),
-          password: yup.string().min(8).required(),
+          lastPassword: yup.string().min(10).required(),
+          password: yup.string().min(10).required(),
           confirmPassword: yup
             .string()
             .oneOf([yup.ref("password"), "ll"], "Passwords must match")

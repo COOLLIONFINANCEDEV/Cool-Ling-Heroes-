@@ -1,7 +1,13 @@
 import * as React from "react";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
-import { IconButton, ListItemIcon, Typography, useTheme } from "@mui/material";
+import {
+  Box,
+  IconButton,
+  ListItemIcon,
+  Typography,
+  useTheme,
+} from "@mui/material";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 import CreateModal from "../Modal/CreateModal";
@@ -17,6 +23,9 @@ import ChangeCircleIcon from "@mui/icons-material/ChangeCircle";
 import Refund from "../Investments/Refund";
 import DeleteIcon from "@mui/icons-material/Delete";
 import DeleteInvestment from "../Investments/DeleteInvestment";
+import { useLocation } from "react-router-dom";
+import routes from "../../Router/routes";
+import ChangeRole from "../Customers/ChangeRole";
 
 interface ACTION {
   information: any;
@@ -24,7 +33,10 @@ interface ACTION {
 
 const Action: React.FC<ACTION> = ({ information }) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const [route, setRoute] = React.useState("");
   const { user } = useSelector(selectLogin);
+  const location = useLocation();
+
   const open = Boolean(anchorEl);
   const handleClick = (event: any) => {
     setAnchorEl(event.currentTarget);
@@ -33,6 +45,13 @@ const Action: React.FC<ACTION> = ({ information }) => {
     setAnchorEl(null);
   };
   const { palette } = useTheme();
+
+  React.useEffect(() => {
+    const route = location.pathname.split("/").at(-1);
+    if (route) {
+      setRoute(route);
+    }
+  }, [location.pathname]);
 
   return (
     <div>
@@ -78,129 +97,172 @@ const Action: React.FC<ACTION> = ({ information }) => {
         transformOrigin={{ horizontal: "right", vertical: "top" }}
         anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
       >
-        <CreateModal
-          ModalContent={ShowInvestment}
-          closeButton
-          contentProps={{ interetInformation: information }}
-          closeButtonFunc={handleClose}
-        >
-          <MenuItem>
-            <ListItemIcon>
-              <OpenInNewIcon fontSize="small" />
-            </ListItemIcon>
-            <Typography sx={{ fontWeight: 350, fontSize: "0.8rem" }}>
-              See more info
-            </Typography>
-          </MenuItem>
-        </CreateModal>
-
-        {user.role === Roles.lender && (
-          <CreateModal
-            ModalContent={ReduceInvest}
-            closeButton
-            contentProps={{ information: information }}
-            closeButtonFunc={handleClose}
-            noOpen={!information.accepted}
-          >
-            <MenuItem color="info" disabled={!information.accepted}>
-              <ListItemIcon>
-                <DownhillSkiingIcon fontSize="small" color="info" />
-              </ListItemIcon>
-              <Typography
-                sx={{ fontWeight: 350, fontSize: "0.8rem" }}
-                color={palette.info.main}
+        {/* overView Items */}
+        {route === routes.dashboard && (
+          <Box>
+            {user.role === Roles.admin && (
+              <CreateModal
+                ModalContent={ShowInvestment}
+                closeButton
+                contentProps={{ interetInformation: information }}
+                closeButtonFunc={handleClose}
               >
-                reduces my investment
-              </Typography>
-            </MenuItem>
-          </CreateModal>
+                <MenuItem>
+                  <ListItemIcon>
+                    <OpenInNewIcon fontSize="small" />
+                  </ListItemIcon>
+                  <Typography sx={{ fontWeight: 350, fontSize: "0.8rem" }}>
+                    See more info
+                  </Typography>
+                </MenuItem>
+              </CreateModal>
+            )}
+
+            {user.role === Roles.lender && (
+              <CreateModal
+                ModalContent={ReduceInvest}
+                closeButton
+                contentProps={{ information: information }}
+                closeButtonFunc={handleClose}
+                noOpen={!information.accepted}
+              >
+                <MenuItem color="info" disabled={!information.accepted}>
+                  <ListItemIcon>
+                    <DownhillSkiingIcon fontSize="small" color="info" />
+                  </ListItemIcon>
+                  <Typography
+                    sx={{ fontWeight: 350, fontSize: "0.8rem" }}
+                    color={palette.info.main}
+                  >
+                    reduces my investment
+                  </Typography>
+                </MenuItem>
+              </CreateModal>
+            )}
+
+            {user.role !== Roles.lender && (
+              <CreateModal
+                ModalContent={CheckInvestment}
+                closeButton
+                contentProps={{ information: information }}
+                closeButtonFunc={handleClose}
+                noOpen={
+                  ![Roles.moderator, Roles.admin].includes(user.role) ||
+                  information.accepted
+                }
+              >
+                <MenuItem
+                  color="info"
+                  disabled={
+                    ![Roles.moderator, Roles.admin].includes(user.role) ||
+                    information.accepted
+                  }
+                >
+                  <ListItemIcon>
+                    <VerifiedUserIcon fontSize="small" color="info" />
+                  </ListItemIcon>
+                  <Typography
+                    sx={{ fontWeight: 350, fontSize: "0.8rem" }}
+                    color={palette.info.main}
+                  >
+                    Activate investment
+                  </Typography>
+                </MenuItem>
+              </CreateModal>
+            )}
+
+            {user.role !== Roles.lender && (
+              <CreateModal
+                ModalContent={Refund}
+                closeButton
+                contentProps={{ information: information }}
+                closeButtonFunc={handleClose}
+                noOpen={
+                  ![Roles.moderator, Roles.admin].includes(user.role) ||
+                  !information.accepted
+                }
+              >
+                <MenuItem
+                  color="warning"
+                  disabled={
+                    ![Roles.moderator, Roles.admin].includes(user.role) ||
+                    !information.accepted
+                  }
+                >
+                  <ListItemIcon>
+                    <ChangeCircleIcon fontSize="small" color="warning" />
+                  </ListItemIcon>
+                  <Typography
+                    sx={{ fontWeight: 350, fontSize: "0.8rem" }}
+                    color={palette.warning.main}
+                  >
+                    Refund investment
+                  </Typography>
+                </MenuItem>
+              </CreateModal>
+            )}
+
+            {user.role === Roles.lender && (
+              <CreateModal
+                ModalContent={DeleteInvestment}
+                closeButton
+                contentProps={{ information: information }}
+                closeButtonFunc={handleClose}
+                noOpen={!(user.role === Roles.lender) && !information.accepted}
+              >
+                <MenuItem disabled={!information.accepted}>
+                  <ListItemIcon>
+                    <DeleteIcon color="error" fontSize="small" />
+                  </ListItemIcon>
+                  <Typography
+                    sx={{
+                      color: palette.error.main,
+                      fontWeight: 350,
+                      fontSize: "0.8rem",
+                    }}
+                  >
+                    Stop investment
+                  </Typography>
+                </MenuItem>
+              </CreateModal>
+            )}
+          </Box>
         )}
 
-        {user.role !== Roles.lender && (
-          <CreateModal
-            ModalContent={CheckInvestment}
-            closeButton
-            contentProps={{ information: information }}
-            closeButtonFunc={handleClose}
-            noOpen={
-              ![Roles.moderator, Roles.admin].includes(user.role) ||
-              information.accepted
-            }
-          >
-            <MenuItem
-              color="info"
-              disabled={
-                ![Roles.moderator, Roles.admin].includes(user.role) ||
-                information.accepted
-              }
-            >
-              <ListItemIcon>
-                <VerifiedUserIcon fontSize="small" color="info" />
-              </ListItemIcon>
-              <Typography
-                sx={{ fontWeight: 350, fontSize: "0.8rem" }}
-                color={palette.info.main}
+        {/* Customers Items */}
+        {route === routes.customers && (
+          <Box>
+            {user.role !== Roles.lender && (
+              <CreateModal
+                ModalContent={ChangeRole}
+                closeButton
+                contentProps={{ information: information }}
+                closeButtonFunc={handleClose}
+                noOpen={
+                  ![Roles.moderator, Roles.admin].includes(user.role) ||
+                  information.accepted
+                }
               >
-                Activate investment
-              </Typography>
-            </MenuItem>
-          </CreateModal>
-        )}
-
-        {user.role !== Roles.lender && (
-          <CreateModal
-            ModalContent={Refund}
-            closeButton
-            contentProps={{ information: information }}
-            closeButtonFunc={handleClose}
-            noOpen={
-              ![Roles.moderator, Roles.admin].includes(user.role) ||
-              !information.accepted
-            }
-          >
-            <MenuItem
-              color="warning"
-              disabled={
-                ![Roles.moderator, Roles.admin].includes(user.role) ||
-                !information.accepted
-              }
-            >
-              <ListItemIcon>
-                <ChangeCircleIcon fontSize="small" color="warning" />
-              </ListItemIcon>
-              <Typography
-                sx={{ fontWeight: 350, fontSize: "0.8rem" }}
-                color={palette.warning.main}
-              >
-                Refund investment
-              </Typography>
-            </MenuItem>
-          </CreateModal>
-        )}
-
-        {user.role === Roles.lender && (
-          <CreateModal
-            ModalContent={DeleteInvestment}
-            closeButton
-            contentProps={{ information: information }}
-            closeButtonFunc={handleClose}
-            noOpen={!(user.role === Roles.lender) && !information.accepted}
-          >
-            <MenuItem disabled={!information.accepted}>
-              <ListItemIcon>
-                <DeleteIcon color="error" fontSize="small" />
-              </ListItemIcon>
-              <Typography
-                sx={{
-                  color: palette.error.main,
-                  fontWeight: 350,
-                  fontSize: "0.8rem",
-                }}
-              >
-                Stop investment
-              </Typography>
-            </MenuItem>
-          </CreateModal>
+                <MenuItem
+                  color="info"
+                  disabled={
+                    ![Roles.moderator, Roles.admin].includes(user.role) ||
+                    information.accepted
+                  }
+                >
+                  <ListItemIcon>
+                    <ChangeCircleIcon fontSize="small" color="info" />
+                  </ListItemIcon>
+                  <Typography
+                    sx={{ fontWeight: 350, fontSize: "0.8rem" }}
+                    color={palette.info.main}
+                  >
+                    Change Role
+                  </Typography>
+                </MenuItem>
+              </CreateModal>
+            )}
+          </Box>
         )}
       </Menu>
     </div>

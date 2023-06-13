@@ -2,16 +2,10 @@ import React from "react";
 import CreateRowData from "../Helpers/CreateRowData";
 import { ADMINKEY, LENDERKEY } from "../Components/Table/TableKeys";
 import {
-  Paper,
-  TableContainer,
-  TableHead,
-  Table,
   Box,
   Skeleton,
   Chip,
 } from "@mui/material";
-import CreateHead from "../Components/Table/CreateHead";
-import CreateBody from "../Components/Table/CreateBody";
 import { OverViewContext } from "../Context/OverViewContext";
 import Action from "../Components/Table/Action";
 import FormatMoney from "../Helpers/FormatMoney";
@@ -19,12 +13,13 @@ import FormatDate from "../Helpers/FormatDate";
 import { useSelector } from "react-redux";
 import { selectLogin } from "../Toolkit/Login/LoginSlice";
 import Roles from "../Seeds/Roles";
+import TableCustomze from "../Components/Table/TableCustomze";
 
 interface TABLECUSTOMZE {
   information: any;
 }
 
-const TableCustomze: React.FC<TABLECUSTOMZE> = ({ information }) => {
+const OverViewTable: React.FC<TABLECUSTOMZE> = ({ information }) => {
   const CreateData = new CreateRowData(LENDERKEY().body);
   const { user } = useSelector(selectLogin);
   const [rows, setRows] = React.useState<Array<{}>>([]);
@@ -57,12 +52,12 @@ const TableCustomze: React.FC<TABLECUSTOMZE> = ({ information }) => {
                 variant="outlined"
                 color={
                   item.status.toLowerCase() === "pending"
-                  ? "info"
-                  : item.status.toLowerCase() === "confirmed"
-                  ? "success"
-                  : item.status.toLowerCase() === "rejected"
-                  ? "error"
-                  : "warning"
+                    ? "info"
+                    : item.status.toLowerCase() === "confirmed"
+                    ? "success"
+                    : item.status.toLowerCase() === "rejected"
+                    ? "error"
+                    : "warning"
                 }
               />,
               item.accepted ? (
@@ -130,23 +125,14 @@ const TableCustomze: React.FC<TABLECUSTOMZE> = ({ information }) => {
 
   return (
     <Box mt={4}>
-      <TableContainer component={Paper}>
-        <Table sx={{ minWidth: 700 }}>
-          <TableHead>
-            <CreateHead
-              head={
-                user.role === Roles.lender ? LENDERKEY().head : ADMINKEY().head
-              }
-            />
-          </TableHead>
-
-          {rows.map((row, key) => (
-            <CreateBody key={key} row={row} mode={true} />
-          ))}
-        </Table>
-      </TableContainer>
+      <TableCustomze
+        headKey={
+          user.role === Roles.lender ? LENDERKEY().head : ADMINKEY().head
+        }
+        rows={rows}
+      />
     </Box>
   );
 };
 
-export default TableCustomze;
+export default OverViewTable;

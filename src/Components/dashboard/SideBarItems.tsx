@@ -36,7 +36,7 @@ const List: NAVBARITEMSCONFIG = [
   },
   {
     title: "Customers",
-    path: "/customers",
+    path: routes.customers,
     icon: (
       <SvgIcon fontSize="small">
         <UsersIcon />

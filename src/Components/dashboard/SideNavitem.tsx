@@ -1,16 +1,17 @@
 import { Box, ButtonBase, Typography, useTheme } from "@mui/material";
 import { ReactNode } from "react";
 import Redirect from "../../Helpers/Redirect";
+import { useLocation } from "react-router-dom";
 
 interface SIDENAVITEM {
   icon: ReactNode;
-  path: string;
+  path: any;
   title: string;
 }
 
 export const SideNavItem: React.FC<SIDENAVITEM> = ({ icon, path, title }) => {
   const { palette } = useTheme();
-
+  const location = useLocation();
   return (
     <li>
       <Redirect link={path}>
@@ -25,8 +26,11 @@ export const SideNavItem: React.FC<SIDENAVITEM> = ({ icon, path, title }) => {
             py: "6px",
             textAlign: "left",
             width: "100%",
-            ...(window.location.pathname === path && {
-              backgroundColor: palette.secondary.main,
+            ...(location.pathname
+              .split("/")
+              .at(-1)
+              ?.includes(path?.split("/")?.at(-1)) && {
+              backgroundColor: palette.secondary.light,
             }),
             "&:hover": {
               backgroundColor: palette.secondary.main,

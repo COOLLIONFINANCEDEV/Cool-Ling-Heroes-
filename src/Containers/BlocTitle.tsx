@@ -6,7 +6,7 @@ import { OVERVIEWCONTEXT, OverViewContext } from "../Context/OverViewContext";
 interface BLOCKTITLE {
   title: string;
   handleClick?: React.MouseEventHandler<HTMLButtonElement> | undefined;
-  buttonContent: string;
+  buttonContent?: string;
   disabled: boolean;
 }
 

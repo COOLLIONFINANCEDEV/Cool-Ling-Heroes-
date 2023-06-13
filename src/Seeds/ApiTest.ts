@@ -86,3 +86,61 @@ export const InvestmentData = [
     ChangeRequest: [],
   },
 ];
+
+
+export const usersData = [
+    {
+      id: 1,
+      email: "user1@example.com",
+      phone_number: "+22512345678",
+      full_name: "John Doe",
+      role: "lender",
+      deleted: false,
+      email_verified: true,
+      phone_number_verified: true,
+      account_activated: true,
+      created_at: new Date(),
+      updated_at: null,
+    },
+    {
+      id: 2,
+      email: "user2@example.com",
+      phone_number: "+22598765432",
+      full_name: "Jane Smith",
+      role: "lender",
+      deleted: false,
+      email_verified: true,
+      phone_number_verified: true,
+      account_activated: true,
+      created_at: new Date(),
+      updated_at: null,
+    },
+    {
+      id: 3,
+      email: "user3@example.com",
+      phone_number: "+22555555555",
+      full_name: null,
+      role: "moderator",
+      deleted: true,
+      email_verified: false,
+      phone_number_verified: true,
+      account_activated: false,
+      created_at: new Date(),
+      updated_at: new Date(),
+    },
+    {
+      id: 4,
+      email: "user4@example.com",
+      phone_number: "+22544444444",
+      full_name: "Mike Johnson",
+      role: "customer advisor",
+      deleted: false,
+      email_verified: true,
+      phone_number_verified: false,
+      account_activated: true,
+      created_at: new Date(),
+      updated_at: new Date(),
+    },
+  ];
+  
+  

@@ -49,3 +49,25 @@ export const ADMINKEY = () => {
     ],
   };
 };
+
+
+export const CUSTOMERSKEY = () => {
+  return {
+    head: [
+      "id",
+      "name",
+      "phone",
+      "role",
+      "Status",
+      "Action",
+    ],
+    body: [
+      "id",
+      "name",
+      "phone",
+      "role",
+      "Status",
+      "Action",
+    ],
+  };
+};

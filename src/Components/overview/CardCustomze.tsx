@@ -7,19 +7,17 @@ import {
   SvgIcon,
   Typography,
 } from "@mui/material";
-import { useContext } from "react";
-import { OverViewContext } from "../../Context/OverViewContext";
+
 
 export interface CARD {
   title: string;
   value: string;
   Icon: any;
   color: string;
+  state?: boolean;
 }
 
-const CardCustomze: React.FC<CARD> = ({ title, value, Icon, color }) => {
-  const OverViewContextValue = useContext(OverViewContext);
-  const state = OverViewContextValue ? OverViewContextValue.state : false;
+const CardCustomze: React.FC<CARD> = ({ title, value, Icon, color, state }) => {
   return (
     <Card sx={{ height: "100%" }}>
       <CardContent sx={{ height: "70%" }}>
@@ -43,7 +41,7 @@ const CardCustomze: React.FC<CARD> = ({ title, value, Icon, color }) => {
               {" "}
               {title}
             </Typography>
-            {!state ? (
+            {state ? (
               <Typography variant="h4">{value}</Typography>
             ) : (
               <Skeleton variant="rectangular" width={"90px"} height={"30px"} />

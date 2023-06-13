@@ -2,7 +2,7 @@ const Roles = {
   lender: "lender",
   admin: "admin",
   moderator: "moderator",
-  advisor: "advisor",
+  advisor: "customer advisor",
 };
 
 export default Roles;

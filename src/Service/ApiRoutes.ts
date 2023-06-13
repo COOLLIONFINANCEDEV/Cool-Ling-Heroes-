@@ -7,6 +7,7 @@ const ApiRoutes = {
   },
   user: {
     update: "/users",
+    list: "/users/",
   },
   Invest: {
     Create: "/investment/invest",

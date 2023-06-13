@@ -13,8 +13,9 @@ const routes: Routes = {
   contact: "https://wa.me/+2250506430832",
   videoChat: "https://meet.google.com/zkm-vbix-kxr",
   dashboard: "dashbaord",
-  account:"account",
-  setting:"settings"
+  account: "account",
+  setting: "settings",
+  customers: "customers",
 };
 
 export default routes;

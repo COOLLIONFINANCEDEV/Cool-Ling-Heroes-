@@ -99,7 +99,7 @@ const Register: React.FC<REGISTER> = ({ hanbleChange }) => {
             .string()
             .matches(/^\d{8,12}$/, "Invalid phone number")
             .required(),
-          password: yup.string().min(8).required(),
+          password: yup.string().min(10).required(),
           confirmPassword: yup
             .string()
             .oneOf([yup.ref("password"), "ll"], "Passwords must match")
