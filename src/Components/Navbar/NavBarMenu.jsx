@@ -12,13 +12,13 @@ import { Settings, Logout } from "@mui/icons-material";
 import BackupTableIcon from "@mui/icons-material/BackupTable";
 import AccountTreeIcon from "@mui/icons-material/AccountTree";
 
-interface NAVBARMENU {
-  handleClose: (event: {}, reason: "backdropClick" | "escapeKeyDown") => void;
-  open: boolean;
-  anchorEl: Element | ((element: Element) => Element) | null | undefined;
-}
+// interface NAVBARMENU {
+//   handleClose: (event: {}, reason: "backdropClick" | "escapeKeyDown") => void;
+//   open: boolean;
+//   anchorEl: Element | ((element: Element) => Element) | null | undefined;
+// }
 
-const NavBarMenu: React.FC<NAVBARMENU> = ({ anchorEl, open, handleClose }) => {
+const NavBarMenu = ({ anchorEl, open, handleClose }) => {
   const logout = React.useCallback(() => {}, []);
 
   return (
