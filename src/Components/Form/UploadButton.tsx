@@ -1,13 +1,15 @@
 import { PhotoCamera } from "@mui/icons-material";
-import { Button, Typography } from "@mui/material";
+import { Button, Chip, Typography } from "@mui/material";
 import React from "react";
 import ConvertFileInBase64 from "../../Helpers/ConvertFileInBase64";
 
 interface UPLOADEFORM {
   imageSelected: Function;
-  defaultImage: string;
+  defaultImage?: string;
   title: string;
   error?: boolean;
+  buttonMode?: boolean;
+  disabled?: boolean;
 }
 
 const UploadForm: React.FC<UPLOADEFORM> = ({
@@ -15,11 +17,14 @@ const UploadForm: React.FC<UPLOADEFORM> = ({
   defaultImage,
   title,
   error = false,
+  buttonMode = false,
+  disabled = false,
 }) => {
-  const [baseImage, setBaseImage] = React.useState(defaultImage);
+  const [fileName, setFileName] = React.useState("");
   const uploadImg = async (e: any) => {
     if (e.target) {
       const file = e.target.files[0];
+      setFileName(file.name);
       if (!validateFileType(file)) {
         alert("Only image, PDF, or document files are allowed.");
         return;
@@ -29,13 +34,18 @@ const UploadForm: React.FC<UPLOADEFORM> = ({
         return;
       }
       const base64 = await ConvertFileInBase64(file);
-      setBaseImage(base64);
       imageSelected(base64);
     }
   };
 
   const validateFileType = (file: File) => {
-    const allowedTypes = ["image/jpeg", "image/png", "application/pdf", "application/msword", "application/vnd.openxmlformats-officedocument.wordprocessingml.document"];
+    const allowedTypes = [
+      "image/jpeg",
+      "image/png",
+      "application/pdf",
+      "application/msword",
+      "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+    ];
     return allowedTypes.includes(file.type);
   };
 
@@ -49,17 +59,25 @@ const UploadForm: React.FC<UPLOADEFORM> = ({
         rowGap: "5px",
       }}
     >
-      <img
-        src={baseImage ? baseImage : ""}
-        style={{ width: "200px", margin: "10px auto" }}
-        alt=""
-      />
+      {fileName && (
+        <Chip
+          color="info"
+          label={fileName}
+          variant="outlined"
+          sx={{ width: "100%" }}
+        />
+      )}
       <Button
         variant="outlined"
         component="label"
         color={error ? "error" : "primary"}
-        sx={{ width: "100%", height: "100px", borderRadius: "5px" }}
+        sx={{
+          width: "100%",
+          height: buttonMode ? "initial" : "100px",
+          borderRadius: "5px",
+        }}
         startIcon={<PhotoCamera />}
+        disabled={disabled}
       >
         <Typography textAlign={"center"} component={"span"} fontSize={"0.8rem"}>
           {title} <br /> (Only image, PDF, or document files)

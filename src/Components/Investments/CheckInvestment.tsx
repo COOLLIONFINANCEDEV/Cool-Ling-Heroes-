@@ -24,7 +24,7 @@ const CheckInvestment: React.FC<CHECKINVESTMENT> = ({
 }) => {
   const dispatch = useDispatch();
   const initialValues: INITIALVALUES = {
-    CheckInvestment: "false",
+    CheckInvestment: "true",
   };
 
   const overViewContextValue = React.useContext(OverViewContext);
@@ -99,8 +99,8 @@ const CheckInvestment: React.FC<CHECKINVESTMENT> = ({
                 select
                 component={FormTextField}
               >
-                <MenuItem value={"true"}>check and confirm.</MenuItem>
-                <MenuItem value={"false"}>cancel</MenuItem>
+                <MenuItem value={"true"}>Verify and confirm this investment</MenuItem>
+                <MenuItem value={"false"}>Cancel</MenuItem>
               </Field>
             </Stack>
             <LoadingButton

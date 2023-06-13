@@ -4,25 +4,13 @@
   --duration: 3000ms;
   --container-size: calc(var(--dot-size) * 10);
 }
-/* For Webkit based browsers (e.g., Chrome, Safari) */
-::-webkit-scrollbar {
-    width: 0px; /* Width of the scrollbar */
-  }
-  
-  ::-webkit-scrollbar-track {
-    background: #000; /* Background color of the scrollbar track */
-  }
-  
-  ::-webkit-scrollbar-thumb {
-    background: #000; /* Color of the scrollbar thumb */
-  }
-  
-  /* For Firefox */
-  /* Note: Firefox currently does not support styling the scrollbar */
-  
-  /* For IE and Edge */
-  /* Note: IE and Edge currently do not support styling the scrollbar */
-  
+
+
+/* For Firefox */
+/* Note: Firefox currently does not support styling the scrollbar */
+
+/* For IE and Edge */
+/* Note: IE and Edge currently do not support styling the scrollbar */
 
 /* Styles */
 .wrapper {

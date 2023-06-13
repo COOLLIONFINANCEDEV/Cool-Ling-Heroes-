@@ -17,6 +17,9 @@ import FormatMoney from "../../Helpers/FormatMoney";
 import FormatDate from "../../Helpers/FormatDate";
 import Dowloadile from "../../Helpers/DowloadFile";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import { useSelector } from "react-redux";
+import { selectLogin } from "../../Toolkit/Login/LoginSlice";
+import Roles from "../../Seeds/Roles";
 
 interface INVESTMENTINFORMATION {
   interetInformation: any;
@@ -28,6 +31,7 @@ const ShowInvestment: React.FC<INVESTMENTINFORMATION> = ({
   const amountWithPercentage =
     interetInformation.amount + interetInformation?.gain;
   const amountInteret = amountWithPercentage - interetInformation.amount;
+  const { user } = useSelector(selectLogin);
   return (
     <Box mt={4}>
       <Typography
@@ -42,179 +46,212 @@ const ShowInvestment: React.FC<INVESTMENTINFORMATION> = ({
         }}
         textTransform={"capitalize"}
       >
-        all the information about your investment
+        all the information about this investment
       </Typography>
       <Paper
         elevation={1}
         sx={{
           width: { xs: "calc(100% - 20px)", sm: "calc(100% - 100px)" },
           minHeight: "50vh",
-          p: { xs: "10px", sm: "50px" },
+          p: { xs: "10px", sm: "10px 50px 50px 50px" },
         }}
       >
-        <Typography variant="h5" fontWeight={500} fontSize={"1.5rem"}>
-          Investment details
-        </Typography>
-        <Divider sx={{ fontWeight: 500, mb: 5 }} />
-        <List>
-          <Row
-            title="Investment term"
-            value={interetInformation?.term + " months"}
-          />
-          <Row
-            title="Investment amount"
-            value={interetInformation?.amount + " $"}
-          />{" "}
-          <Row
-            title="Investment Status"
-            value={
-              <Chip
-                label={interetInformation.status}
-                variant="outlined"
-                color={
-                  interetInformation.status.toLowerCase() === "pending"
-                    ? "info"
-                    : interetInformation.status.toLowerCase() === "completed"
-                    ? "success"
-                    : "warning"
-                }
-              />
-            }
-          />
-          <Row
-            title="Maturity date"
-            value={
-              interetInformation.accepted ? (
-                FormatDate(interetInformation.refunded_at)
-              ) : (
-                <Chip label={"pending"} color="warning" variant="outlined" />
-              )
-            }
-          />
-          <Row
-            title="Investment proof"
-            value={
-              <Button
-                variant="contained"
-                color="info"
-                onClick={() =>
-                  Dowloadile(interetInformation.proof, "receitp.png")
-                }
-                sx={{ borderRadius: "5px" }}
-              >
-                Download your receipt
-              </Button>
-            }
-          />
-          <Row
-            title="Created at"
-            value={FormatDate(interetInformation.created_at)}
-          />
-          <Row
-            title="Accepted at"
-            value={
-              interetInformation.accepted ? (
-                FormatDate(interetInformation.accepted_at)
-              ) : (
-                <Chip label={"pending"} variant="outlined" color="warning" />
-              )
-            }
-          />
-          <Row
-            title="Refunded"
-            value={
-              interetInformation.refunded ? (
-                <Chip label={"completed"} variant="outlined" color="success" />
-              ) : (
-                <Chip label={"pending"} variant="outlined" color="warning" />
-              )
-            }
-          />
-          <Row
-            title="Investment interet"
-            value={
-              (interetInformation?.gain / interetInformation.amount) * 100 +
-                " $" ?? 0
-            }
-          />
-          <Row title="Earnings" value={FormatMoney(amountInteret) + " $"} />
-        </List>
-        <Row
-          title="Total Return"
-          value={FormatMoney(amountWithPercentage) + " $"}
-          dark
-        />
-        {interetInformation.ChangeRequest.length >= 1 && (
-          <>
-            <Divider sx={{ fontWeight: 500, mb: 5 }} />
-            <Typography
-              variant="h5"
-              fontWeight={500}
-              fontSize={"1.5rem"}
-              mt={1}
-            >
-              withdrawal request
+        {user.role !== Roles.lender && (
+          <Box>
+            <Typography variant="h5" fontWeight={500} fontSize={"1.5rem"}>
+              User information
             </Typography>
-          </>
+            <Divider sx={{ fontWeight: 500, mb: 1 }} />
+            <List sx={{ mb: 5 }}>
+              <Row
+                title="Name"
+                value={interetInformation?.User.full_name ?? ""}
+              />
+              <Row title="Email" value={interetInformation?.User.email} />{" "}
+              <Row
+                title="User phone number"
+                value={interetInformation.User.phone_number}
+              />
+              <Row
+                title="Created at"
+                value={FormatDate(interetInformation.User.created_at)}
+              />
+            </List>
+          </Box>
         )}
-
-        <Divider sx={{ fontWeight: 500 }} />
-        {interetInformation.ChangeRequest?.map((item: any, key: number) => {
-          return (
-            <Accordion key={key}>
-              <AccordionSummary
-                expandIcon={<ExpandMoreIcon />}
-                aria-controls="panel1a-content"
-                id="panel1a-header"
+        <Box>
+          <Typography variant="h5" fontWeight={500} fontSize={"1.5rem"}>
+            Investment details
+          </Typography>
+          <Divider sx={{ fontWeight: 500, mb: 1 }} />
+          <List>
+            <Row
+              title="Investment term"
+              value={interetInformation?.term + " months"}
+            />
+            <Row
+              title="Investment amount"
+              value={interetInformation?.amount + " $"}
+            />{" "}
+            <Row
+              title="Investment Status"
+              value={
+                <Chip
+                  label={interetInformation.status}
+                  variant="outlined"
+                  color={
+                    interetInformation.status.toLowerCase() === "pending"
+                      ? "info"
+                      : interetInformation.status.toLowerCase() === "completed"
+                      ? "success"
+                      : "warning"
+                  }
+                />
+              }
+            />
+            <Row
+              title="Maturity date"
+              value={
+                interetInformation.accepted ? (
+                  FormatDate(interetInformation.refunded_at)
+                ) : (
+                  <Chip label={"pending"} color="warning" variant="outlined" />
+                )
+              }
+            />
+            <Row
+              title="Investment proof"
+              value={
+                <Button
+                  variant="contained"
+                  color="info"
+                  onClick={() =>
+                    Dowloadile(interetInformation.proof, "receitp.png")
+                  }
+                  sx={{ borderRadius: "5px" }}
+                >
+                  Download your receipt
+                </Button>
+              }
+            />
+            <Row
+              title="Created at"
+              value={FormatDate(interetInformation.created_at)}
+            />
+            <Row
+              title="Accepted at"
+              value={
+                interetInformation.accepted ? (
+                  FormatDate(interetInformation.accepted_at)
+                ) : (
+                  <Chip label={"pending"} variant="outlined" color="warning" />
+                )
+              }
+            />
+            <Row
+              title="Refunded"
+              value={
+                interetInformation.refunded ? (
+                  <Chip
+                    label={"completed"}
+                    variant="outlined"
+                    color="success"
+                  />
+                ) : (
+                  <Chip label={"pending"} variant="outlined" color="warning" />
+                )
+              }
+            />
+            <Row
+              title="Investment interet"
+              value={
+                (interetInformation?.gain / interetInformation.amount) * 100 +
+                  " $" ?? 0
+              }
+            />
+            <Row title="Earnings" value={FormatMoney(amountInteret) + " $"} />
+          </List>
+          <Row
+            title="Total Return"
+            value={FormatMoney(amountWithPercentage) + " $"}
+            dark
+          />
+          {interetInformation.ChangeRequest.length >= 1 && (
+            <>
+              <Divider sx={{ fontWeight: 500, mb: 5 }} />
+              <Typography
+                variant="h5"
+                fontWeight={500}
+                fontSize={"1.5rem"}
+                mt={1}
               >
-                <Typography>request {item?.id}</Typography>
-              </AccordionSummary>
-              <AccordionDetails>
-                <Row
-                  title="Request amount"
-                  value={interetInformation?.amount + " $"}
-                />
-                <Row
-                  title="amount receivable"
-                  value={interetInformation?.amount_to_refund + " $"}
-                />
-                <Row
-                  title="Request status"
-                  value={
-                    !interetInformation?.treated ? (
-                      <Chip label={"pending"} variant="outlined" color="info" />
-                    ) : (
-                      <Chip
-                        label={"completed"}
-                        variant="outlined"
-                        color="success"
-                      />
-                    )
-                  }
-                />
-                <Row
-                  title="Refund proof"
-                  value={
-                    <Button
-                      variant="contained"
-                      color="info"
-                      onClick={() =>
-                        Dowloadile(
-                          interetInformation.refund_proof,
-                          "receitp.png"
-                        )
-                      }
-                      sx={{ borderRadius: "5px" }}
-                    >
-                      Download your receipt
-                    </Button>
-                  }
-                />
-                <Row title="Created at" value={FormatDate(item.created_at)} />
-              </AccordionDetails>
-            </Accordion>
-          );
-        })}
+                withdrawal request
+              </Typography>
+            </>
+          )}
+
+          <Divider sx={{ fontWeight: 500 }} />
+          {interetInformation.ChangeRequest?.map((item: any, key: number) => {
+            return (
+              <Accordion key={key}>
+                <AccordionSummary
+                  expandIcon={<ExpandMoreIcon />}
+                  aria-controls="panel1a-content"
+                  id="panel1a-header"
+                >
+                  <Typography>request {item?.id}</Typography>
+                </AccordionSummary>
+                <AccordionDetails>
+                  <Row
+                    title="Request amount"
+                    value={interetInformation?.amount + " $"}
+                  />
+                  <Row
+                    title="amount receivable"
+                    value={interetInformation?.amount_to_refund + " $"}
+                  />
+                  <Row
+                    title="Request status"
+                    value={
+                      !interetInformation?.treated ? (
+                        <Chip
+                          label={"pending"}
+                          variant="outlined"
+                          color="info"
+                        />
+                      ) : (
+                        <Chip
+                          label={"completed"}
+                          variant="outlined"
+                          color="success"
+                        />
+                      )
+                    }
+                  />
+                  <Row
+                    title="Refund proof"
+                    value={
+                      <Button
+                        variant="contained"
+                        color="info"
+                        onClick={() =>
+                          Dowloadile(
+                            interetInformation.refund_proof,
+                            "receitp.png"
+                          )
+                        }
+                        sx={{ borderRadius: "5px" }}
+                      >
+                        Download your receipt
+                      </Button>
+                    }
+                  />
+                  <Row title="Created at" value={FormatDate(item.created_at)} />
+                </AccordionDetails>
+              </Accordion>
+            );
+          })}
+        </Box>
       </Paper>
     </Box>
   );
@@ -225,7 +262,7 @@ interface ROW {
   value: string | ReactNode;
   dark?: boolean;
 }
-const Row: React.FC<ROW> = ({ title, value, dark = false }) => {
+export const Row: React.FC<ROW> = ({ title, value, dark = false }) => {
   return (
     <ListItem sx={{ width: "100%" }}>
       <Stack

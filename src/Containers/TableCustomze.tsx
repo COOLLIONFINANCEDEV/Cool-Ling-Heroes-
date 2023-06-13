@@ -1,6 +1,6 @@
 import React from "react";
 import CreateRowData from "../Helpers/CreateRowData";
-import { LENDERKEY } from "../Components/Table/TableKeys";
+import { ADMINKEY, LENDERKEY } from "../Components/Table/TableKeys";
 import {
   Paper,
   TableContainer,
@@ -16,6 +16,9 @@ import { OverViewContext } from "../Context/OverViewContext";
 import Action from "../Components/Table/Action";
 import FormatMoney from "../Helpers/FormatMoney";
 import FormatDate from "../Helpers/FormatDate";
+import { useSelector } from "react-redux";
+import { selectLogin } from "../Toolkit/Login/LoginSlice";
+import Roles from "../Seeds/Roles";
 
 interface TABLECUSTOMZE {
   information: any;
@@ -23,6 +26,7 @@ interface TABLECUSTOMZE {
 
 const TableCustomze: React.FC<TABLECUSTOMZE> = ({ information }) => {
   const CreateData = new CreateRowData(LENDERKEY().body);
+  const { user } = useSelector(selectLogin);
   const [rows, setRows] = React.useState<Array<{}>>([]);
   const OverViewContextValue = React.useContext(OverViewContext);
   const state = OverViewContextValue ? OverViewContextValue.state : false;
@@ -42,34 +46,74 @@ const TableCustomze: React.FC<TABLECUSTOMZE> = ({ information }) => {
   React.useEffect(() => {
     if (information) {
       const data: any = [];
-      information.forEach((item: any) => {
-        data.push(
-          CreateData.create([
-            item.id,
-            FormatMoney(item.amount) + " $",
-            item.term,
-            FormatMoney(item.gain) + " $",
-            <Chip
-              label={item.status}
-              variant="outlined"
-              color={
-                item.status.toLowerCase() === "pending"
-                  ? "info"
-                  : item.status.toLowerCase() === "completed"
-                  ? "success"
-                  : "warning"
-              }
-            />,
-            item.accepted ? (
-              FormatDate(item.refunded_at)
-            ) : (
-              <Chip label={"unavailable"} color="warning" variant="outlined" />
-            ),
-            FormatMoney(item.amount + item.gain) + " $",
-            <Action information={item} />,
-          ])
-        );
-      });
+      if (user.role === Roles.lender) {
+        information.forEach((item: any) => {
+          data.push(
+            CreateData.create([
+              item.id,
+              FormatMoney(item.amount) + " $",
+              item.term,
+              FormatMoney(item.gain) + " $",
+              <Chip
+                label={item.status}
+                variant="outlined"
+                color={
+                  item.status.toLowerCase() === "pending"
+                    ? "info"
+                    : item.status.toLowerCase() === "completed"
+                    ? "success"
+                    : "warning"
+                }
+              />,
+              item.accepted ? (
+                FormatDate(item.refunded_at)
+              ) : (
+                <Chip
+                  label={"unavailable"}
+                  color="warning"
+                  variant="outlined"
+                />
+              ),
+              FormatMoney(item.amount + item.gain) + " $",
+              <Action information={item} />,
+            ])
+          );
+        });
+      } else {
+        information.forEach((item: any) => {
+          data.push(
+            CreateData.create([
+              item.id,
+              item.User.phone_number,
+              FormatMoney(item.amount) + "$",
+              item.term,
+              FormatMoney(item.gain) + "$",
+              <Chip
+                label={item.status}
+                variant="outlined"
+                color={
+                  item.status.toLowerCase() === "pending"
+                    ? "info"
+                    : item.status.toLowerCase() === "completed"
+                    ? "success"
+                    : "warning"
+                }
+              />,
+              item.accepted ? (
+                FormatDate(item.refunded_at)
+              ) : (
+                <Chip
+                  label={"unavailable"}
+                  color="warning"
+                  variant="outlined"
+                />
+              ),
+              FormatMoney(item.amount + item.gain) + "$",
+              <Action information={item} />,
+            ])
+          );
+        });
+      }
       setRows(data);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -88,7 +132,11 @@ const TableCustomze: React.FC<TABLECUSTOMZE> = ({ information }) => {
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 700 }}>
           <TableHead>
-            <CreateHead head={LENDERKEY().head} />
+            <CreateHead
+              head={
+                user.role === Roles.lender ? LENDERKEY().head : ADMINKEY().head
+              }
+            />
           </TableHead>
 
           {rows.map((row, key) => (
