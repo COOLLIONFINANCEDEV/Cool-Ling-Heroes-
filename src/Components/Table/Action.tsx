@@ -100,23 +100,21 @@ const Action: React.FC<ACTION> = ({ information }) => {
         {/* overView Items */}
         {route === routes.dashboard && (
           <Box>
-            {user.role === Roles.admin && (
-              <CreateModal
-                ModalContent={ShowInvestment}
-                closeButton
-                contentProps={{ interetInformation: information }}
-                closeButtonFunc={handleClose}
-              >
-                <MenuItem>
-                  <ListItemIcon>
-                    <OpenInNewIcon fontSize="small" />
-                  </ListItemIcon>
-                  <Typography sx={{ fontWeight: 350, fontSize: "0.8rem" }}>
-                    See more info
-                  </Typography>
-                </MenuItem>
-              </CreateModal>
-            )}
+            <CreateModal
+              ModalContent={ShowInvestment}
+              closeButton
+              contentProps={{ interetInformation: information }}
+              closeButtonFunc={handleClose}
+            >
+              <MenuItem>
+                <ListItemIcon>
+                  <OpenInNewIcon fontSize="small" />
+                </ListItemIcon>
+                <Typography sx={{ fontWeight: 350, fontSize: "0.8rem" }}>
+                  See more info
+                </Typography>
+              </MenuItem>
+            </CreateModal>
 
             {user.role === Roles.lender && (
               <CreateModal
@@ -178,14 +176,14 @@ const Action: React.FC<ACTION> = ({ information }) => {
                 contentProps={{ information: information }}
                 closeButtonFunc={handleClose}
                 noOpen={
-                  ![Roles.moderator, Roles.admin].includes(user.role) ||
+                  ![Roles.admin].includes(user.role) ||
                   !information.accepted
                 }
               >
                 <MenuItem
                   color="warning"
                   disabled={
-                    ![Roles.moderator, Roles.admin].includes(user.role) ||
+                    ![Roles.admin].includes(user.role) ||
                     !information.accepted
                   }
                 >

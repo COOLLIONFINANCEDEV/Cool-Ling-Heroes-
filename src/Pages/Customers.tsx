@@ -25,28 +25,28 @@ const Customers = () => {
       value: formatNumberWithLeadingZero(),
       Icon: <UserIcon />,
       color: "primary.main",
-      state: !Loader,
+      state: Loader,
     },
     {
       title: "Customers",
       value: formatNumberWithLeadingZero(),
       Icon: <ArrowTrendingUpIcon />,
       color: "warning.main",
-      state: !Loader,
+      state: Loader,
     },
     {
       title: "Moderators",
       value: formatNumberWithLeadingZero(),
       Icon: <EyeDropperIcon />,
       color: "info.main",
-      state: !Loader,
+      state: Loader,
     },
     {
       title: "Advisor",
       value: formatNumberWithLeadingZero(),
       Icon: <MicrophoneIcon />,
       color: "error.main",
-      state: !Loader,
+      state: Loader,
     },
   ]);
   const { user } = useSelector(selectLogin);
@@ -55,13 +55,13 @@ const Customers = () => {
     if (information?.length >= 1) {
       setCard([
         {
-          title: "Users",
+          title: "Admin",
           value: formatNumberWithLeadingZero(
             information.filter((item: any) => item.role === Roles.admin).length
           ),
           Icon: <UserIcon />,
           color: "primary.main",
-          state: !Loader,
+          state: Loader,
         },
         {
           title: "Customers",
@@ -70,7 +70,7 @@ const Customers = () => {
           ),
           Icon: <ArrowTrendingUpIcon />,
           color: "warning.main",
-          state: !Loader,
+          state: Loader,
         },
         {
           title: "Moderators",
@@ -80,7 +80,7 @@ const Customers = () => {
           ),
           Icon: <EyeDropperIcon />,
           color: "info.main",
-          state: !Loader,
+          state: Loader,
         },
         {
           title: "Advisor",
@@ -90,7 +90,7 @@ const Customers = () => {
           ),
           Icon: <MicrophoneIcon />,
           color: "error.main",
-          state: !Loader,
+          state: Loader,
         },
       ]);
     }

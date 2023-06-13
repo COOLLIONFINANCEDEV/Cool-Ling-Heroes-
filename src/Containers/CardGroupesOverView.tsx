@@ -1,7 +1,6 @@
 import React from "react";
 import CardCustomze, { CARD } from "../Components/overview/CardCustomze";
 import { Grid } from "@mui/material";
-import { OverViewContext } from "../Context/OverViewContext";
 
 interface CARDGROUPESOVERVIEW {
   CardItemInfo: Array<CARD>;
@@ -10,11 +9,6 @@ interface CARDGROUPESOVERVIEW {
 const CardGroupesOverView: React.FC<CARDGROUPESOVERVIEW> = ({
   CardItemInfo,
 }) => {
-  const OverViewContextValue = React.useContext(OverViewContext);
-  const state = OverViewContextValue ? OverViewContextValue.state : false;
-  React.useEffect(() => {
-    CardItemInfo.forEach((item) => (item.state = state));
-  }, [CardItemInfo, state]);
   return (
     <Grid
       container

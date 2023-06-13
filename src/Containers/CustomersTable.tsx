@@ -40,6 +40,7 @@ const CustomersTable: React.FC<TABLECUSTOMZE> = ({ information }) => {
               <Chip label={"unavailable"} color="warning" variant="outlined" />
             ),
             item.phone_number,
+            item.email,
             item.role,
             <Chip
               label={item.account_activated ? "active" : "disable"}

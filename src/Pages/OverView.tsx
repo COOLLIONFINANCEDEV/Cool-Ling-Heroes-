@@ -28,24 +28,28 @@ const OverView = () => {
       value: formatNumberWithLeadingZero(),
       Icon: <ArrowTrendingUpIcon />,
       color: "primary.main",
+      state: Loader,
     },
     {
       title: "Total investment amount",
       value: formatNumberWithLeadingZero(),
       Icon: <CurrencyDollarIcon />,
       color: "warning.main",
+      state: Loader,
     },
     {
       title: "Total interest-free investment",
       value: formatNumberWithLeadingZero(),
       Icon: <BanknotesIcon />,
       color: "info.main",
+      state: Loader,
     },
     {
       title: "total interest of all",
       value: formatNumberWithLeadingZero(),
       Icon: <GifIcon />,
       color: "error.main",
+      state: Loader,
     },
   ]);
   const { user } = useSelector(selectLogin);
@@ -63,6 +67,7 @@ const OverView = () => {
           value: formatNumberWithLeadingZero(information.length),
           Icon: <ArrowTrendingUpIcon />,
           color: "primary.main",
+          state: Loader,
         },
         {
           title: "Total investment amount",
@@ -76,14 +81,13 @@ const OverView = () => {
           ),
           Icon: <CurrencyDollarIcon />,
           color: "warning.main",
+          state: Loader,
         },
         {
           title: "Total investment with interest,",
           value: formatNumberWithLeadingZero(
             information
-              ?.map(
-                (item: any) => item?.amount + item?.gain
-              )
+              ?.map((item: any) => item?.amount + item?.gain)
               ?.reduce(
                 (accumulator: any, current: any) => accumulator + current,
                 0
@@ -91,6 +95,7 @@ const OverView = () => {
           ),
           Icon: <BanknotesIcon />,
           color: "info.main",
+          state: Loader,
         },
         {
           title: "Total change in investment",
@@ -104,10 +109,11 @@ const OverView = () => {
           ),
           Icon: <GifIcon />,
           color: "error.main",
+          state: Loader,
         },
       ]);
     }
-  }, [information]);
+  }, [Loader, information]);
 
   return (
     <Box
@@ -134,7 +140,7 @@ const OverView = () => {
           />
           <CardGroupesOverView CardItemInfo={card} />
           <CustomersSearch />
-          <OverViewTable information={information}/>
+          <OverViewTable information={information} />
         </Container>
         {investState && (
           <CreateModal

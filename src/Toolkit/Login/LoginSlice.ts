@@ -31,6 +31,10 @@ export const LoginSlice = createSlice({
           const information: any = TokenDecode(accessToken);
           if (information.user.role === Roles.admin) {
             state.user.role = Roles.admin;
+          } else if (information.user.role === Roles.moderator) {
+            state.user.role = Roles.moderator;
+          } else if (information.user.role === Roles.advisor) {
+            state.user.role = Roles.advisor;
           }
           if (information && !state.isUpdating) {
             state.user.email = information?.user?.email;

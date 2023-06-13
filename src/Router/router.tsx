@@ -9,20 +9,37 @@ import OverView from "../Pages/OverView";
 import Account from "../Pages/Account";
 import Settings from "../Pages/Settings";
 import Customers from "../Pages/Customers";
+import { useSelector } from "react-redux";
+import { selectLogin } from "../Toolkit/Login/LoginSlice";
+import RequireAuth from "../Helpers/RequireAuth";
+import Roles from "../Seeds/Roles";
 
 const Router = () => {
+  const { isAuthenticated } = useSelector(selectLogin);
   return (
     <Routes>
-      <Route path={routes.home} element={<Home />}>
-        <Route path={routes.home} element={<Landing />} />
-        <Route path={routes.login} element={<Login />} />
-      </Route>
-      <Route path={routes.dashboard} element={<Dashboard />}>
-        <Route index element={<OverView />} />
-        <Route path={routes.account} element={<Account />} />
-        <Route path={routes.setting} element={<Settings />} />
-        <Route path={routes.customers} element={<Customers />} />
-      </Route>
+      {!isAuthenticated && (
+        <Route path={routes.home} element={<Home />}>
+          <Route path={routes.home} element={<Landing />} />
+          <Route path={routes.login} element={<Login />} />
+        </Route>
+      )}
+
+      {isAuthenticated && (
+        <Route path={routes.dashboard} element={<Dashboard />}>
+          <Route index element={<OverView />} />
+          <Route path={routes.account} element={<Account />} />
+          <Route path={routes.setting} element={<Settings />} />
+          <Route
+            path={routes.customers}
+            element={
+              <RequireAuth allowedRole={Roles.admin}>
+                <Customers />
+              </RequireAuth>
+            }
+          />
+        </Route>
+      )}
 
       <Route path={routes.notFound} element={<NotFound />} />
     </Routes>
