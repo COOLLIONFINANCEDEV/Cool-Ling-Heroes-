@@ -125,7 +125,7 @@ const OverViewTable: React.FC<TABLECUSTOMZE> = ({ information }) => {
         headKey={
           user.role === Roles.lender ? LENDERKEY().head : ADMINKEY().head
         }
-        rows={rows.reverse()}
+        rows={rows}
       />
     </Box>
   );

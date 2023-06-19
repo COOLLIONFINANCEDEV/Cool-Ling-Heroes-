@@ -237,8 +237,7 @@ const ShowInvestment: React.FC<INVESTMENTINFORMATION> = ({
                         color="info"
                         onClick={() =>
                           window.open(
-                            "https:api.investKori.com" + item.refund_proof,
-                            "_blank"
+                            "https://api.investkori.com" + item.refund_proof
                           )
                         }
                         sx={{ borderRadius: "5px" }}

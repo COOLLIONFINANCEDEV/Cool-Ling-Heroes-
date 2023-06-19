@@ -65,7 +65,7 @@ const CustomersTable: React.FC<TABLECUSTOMZE> = ({ information }) => {
 
   return (
     <Box mt={4}>
-      <TableCustomze headKey={CUSTOMERSKEY().head} rows={rows.reverse()} />
+      <TableCustomze headKey={CUSTOMERSKEY().head} rows={rows} />
     </Box>
   );
 };
