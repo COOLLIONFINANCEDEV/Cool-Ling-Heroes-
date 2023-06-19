@@ -235,11 +235,8 @@ const ShowInvestment: React.FC<INVESTMENTINFORMATION> = ({
                       <Button
                         variant="contained"
                         color="info"
-                        onClick={() =>
-                          window.open(
-                            "https://api.investkori.com" + item.refund_proof
-                          )
-                        }
+                        LinkComponent={'a'}
+                        href={"https://api.investkori.com" + item.refund_proof}
                         sx={{ borderRadius: "5px" }}
                         disabled={!item.treated}
                       >

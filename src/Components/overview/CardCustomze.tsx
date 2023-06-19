@@ -42,7 +42,7 @@ const CardCustomze: React.FC<CARD> = ({ title, value, Icon, color, state }) => {
               {title}
             </Typography>
             {!state ? (
-              <Typography variant="h4">{value}</Typography>
+              <Typography variant="h5">{value}</Typography>
             ) : (
               <Skeleton variant="rectangular" width={"90px"} height={"30px"} />
             )}

@@ -63,7 +63,7 @@ const theme = createTheme({
           [`& .${tableCellClasses.root}`]: {
             borderBottom: "none",
             backgroundColor: "#fff",
-            fontSize: "1rem",
+            fontSize: "0.9rem",
             fontWeight: 400,
             lineHeight: 1,
             letterSpacing: 0.5,
