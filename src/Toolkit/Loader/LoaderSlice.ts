@@ -5,9 +5,7 @@ export type LOADERSLICE = Array<LOADERSLICEITEM>;
 export type LOADERSLICEITEM = { key: string };
 
 const initialState: LOADERSLICE = [
-  {
-    key: "Loader",
-  },
+ 
 ];
 
 const LoaderSlice = createSlice({

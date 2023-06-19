@@ -22,12 +22,12 @@ function App() {
 
   // Here it's the First Auto Loader
   React.useEffect(() => {
-    window.addEventListener("load", (event) => {
-      setTimeout(() => {
-        dispatch(deleteLoader({ key: "Loader" }));
-        setVisible(true);
-      }, 2000);
-    });
+    // window.addEventListener("load", (event) => {
+    //   setTimeout(() => {
+    //     dispatch(deleteLoader({ key: "Loader" }));
+    //     setVisible(true);
+    //   }, 2000);
+    // });
   }, [dispatch]);
 
   React.useEffect(() => {
