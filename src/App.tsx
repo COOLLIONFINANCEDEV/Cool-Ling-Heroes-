@@ -20,16 +20,16 @@ import isExpired from "./Helpers/IsExpired";
 
 function App() {
   const dispatch = useDispatch();
-  const [visible, setVisible] = React.useState(true);
+  const [visible, setVisible] = React.useState(false);
   const { isAuthenticated, user, isUpdating } = useSelector(selectLogin);
   const location = useLocation();
 
   // Here it's the First Auto Loader
   React.useEffect(() => {
-    // window.addEventListener("load", (event) => {
-    //   dispatch(deleteLoader({ key: "Loader" }));
-    //   setVisible(true);
-    // });
+    setTimeout(() => {
+      dispatch(deleteLoader({ key: "Loader" }));
+      setVisible(true);
+    }, 1000);
   }, [dispatch]);
 
   React.useEffect(() => {
