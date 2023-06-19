@@ -18,12 +18,10 @@ const Router = () => {
   const { isAuthenticated } = useSelector(selectLogin);
   return (
     <Routes>
-      {!isAuthenticated && (
-        <Route path={routes.home} element={<Home />}>
-          <Route path={routes.home} element={<Landing />} />
-          <Route path={routes.login} element={<Login />} />
-        </Route>
-      )}
+      <Route path={routes.home} element={<Home />}>
+        <Route path={routes.home} element={<Landing />} />
+        <Route path={routes.login} element={<Login />} />
+      </Route>
 
       {isAuthenticated && (
         <Route path={routes.dashboard} element={<Dashboard />}>
