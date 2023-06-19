@@ -1,7 +1,7 @@
 export default function generateSimulatorData() {
   const objects = [];
 
-  for (let month = 3; month < 5; month+=2) {
+  for (let month = 3; month < 5; month+=1) {
     objects.push({
       month: month,
       interet: 4,
@@ -9,7 +9,7 @@ export default function generateSimulatorData() {
     });
   }
 
-  for (let month = 6; month <= 17; month+=4) {
+  for (let month = 6; month <= 17; month+=1) {
     objects.push({
       month: month,
       interet: 5,
@@ -17,7 +17,7 @@ export default function generateSimulatorData() {
     });
   }
 
-  for (let month = 18; month <= 36; month += 6) {
+  for (let month = 18; month <= 36; month += 1) {
     objects.push({
       month: month,
       interet: 5.5,

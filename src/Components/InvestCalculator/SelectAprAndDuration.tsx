@@ -4,7 +4,7 @@ import { SimulatorData } from "../../Containers/Simulator";
 
 interface SELECAPRANDDURATION {
   SimulatorData: SimulatorData;
-  onChangeSimulatorStatus: (search: number, state: boolean) => void;
+  onChangeSimulatorStatus: (type: "month", month: number) => void;
 }
 
 const SelectAprAndDuration: React.FC<SELECAPRANDDURATION> = ({
@@ -20,14 +20,9 @@ const SelectAprAndDuration: React.FC<SELECAPRANDDURATION> = ({
 
   const handleChangeSimulator = React.useCallback(
     (newValue: any, _auto = false) => {
-      const simlatorItemsSelected = SimulatorData.filter(
-        (_item) => _item.month === newValue[0]
-      );
-      if (simlatorItemsSelected) {
-        onChangeSimulatorStatus(simlatorItemsSelected[0].month, true);
-      }
+      onChangeSimulatorStatus("month", newValue[0]);
     },
-    [SimulatorData, onChangeSimulatorStatus]
+    [onChangeSimulatorStatus]
   );
 
   return (

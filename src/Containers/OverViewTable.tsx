@@ -1,11 +1,7 @@
 import React from "react";
 import CreateRowData from "../Helpers/CreateRowData";
 import { ADMINKEY, LENDERKEY } from "../Components/Table/TableKeys";
-import {
-  Box,
-  Skeleton,
-  Chip,
-} from "@mui/material";
+import { Box, Skeleton, Chip } from "@mui/material";
 import { OverViewContext } from "../Context/OverViewContext";
 import Action from "../Components/Table/Action";
 import FormatMoney from "../Helpers/FormatMoney";
@@ -129,7 +125,7 @@ const OverViewTable: React.FC<TABLECUSTOMZE> = ({ information }) => {
         headKey={
           user.role === Roles.lender ? LENDERKEY().head : ADMINKEY().head
         }
-        rows={rows}
+        rows={rows.reverse()}
       />
     </Box>
   );

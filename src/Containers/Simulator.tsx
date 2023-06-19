@@ -43,14 +43,14 @@ const Simulator: React.FC<SIMULATOR> = ({
 }) => {
   const [SimulatorData, setSimulatorData] = React.useState<SimulatorData>([
     {
-      month: 6,
+      month: 5,
       interet: 4,
-      status: false,
+      status: true,
     },
     {
-      month: 18,
+      month: 17,
       interet: 5,
-      status: true,
+      status: false,
     },
     {
       month: 36,
@@ -60,12 +60,40 @@ const Simulator: React.FC<SIMULATOR> = ({
   ]);
   const [amount, setAmount] = React.useState(1000);
   const [newsLetter, setNewsLetter] = React.useState(0);
+  const [month, setMonth] = React.useState(3);
   const [error, setError] = React.useState<Error>({
     state: false,
     content: "",
   });
   const minAmount = 200;
   const { palette } = useTheme();
+
+  const handleChange = React.useCallback(
+    (month: number) => {
+      const newData: SimulatorData = [];
+      SimulatorData.forEach((item: SimulatorItem, key) => {
+        const newObject: SimulatorItem = {
+          ...item,
+          status: item.month === month ? true : false,
+        };
+        newData.push(newObject);
+      });
+      setSimulatorData(newData);
+    },
+    [SimulatorData]
+  );
+
+  const handleInvest = () => {
+    if (handleClick && amount >= 200) {
+      const element = SimulatorData.filter((item) => item.status === true)[0];
+      const newElement: INVESTINNFORMATIONITEM = {
+        ...element,
+        month: month,
+        amount: amount,
+      };
+      handleClick(newElement);
+    }
+  };
 
   const handleChangeAmount = (event: ChangeEvent<HTMLInputElement>) => {
     const content = removeThousandsSeparator(event.target.value);
@@ -82,32 +110,23 @@ const Simulator: React.FC<SIMULATOR> = ({
   };
 
   const handleChangeSimalatorStatus = React.useCallback(
-    (search: number, state: boolean) => {
-      const newData: SimulatorData = [];
-      SimulatorData.forEach((item: SimulatorItem, key) => {
-        const newObject: SimulatorItem = {
-          ...item,
-          status:
-            item.month === search || item.interet === search ? true : false,
-        };
-        newData.push(newObject);
-      });
-      setSimulatorData(newData);
+    (type: "month" | "interet", value: number) => {
+      if (type === "month") {
+        setMonth(value);
+        if (value <= 5) {
+          handleChange(5);
+        } else if (value >= 6 && value <= 17) {
+          handleChange(17);
+        } else if (value >= 18 && value <= 36) {
+          handleChange(36);
+        }
+      } else if (type === "interet") {
+        handleChange(value);
+      }
       if (!backgroundColorState) setNewsLetter((state) => state + 1);
     },
-    [SimulatorData, backgroundColorState]
+    [backgroundColorState, handleChange]
   );
-
-  const handleInvest = () => {
-    if (handleClick && amount >= 200) {
-      const element = SimulatorData.filter((item) => item.status === true)[0];
-      const newElement: INVESTINNFORMATIONITEM = {
-        ...element,
-        amount: amount,
-      };
-      handleClick(newElement);
-    }
-  };
 
   return (
     <Stack
@@ -140,7 +159,7 @@ const Simulator: React.FC<SIMULATOR> = ({
           spacing={5}
         >
           <Typography variant="h4" color={"primary"} fontWeight={600}>
-            Invest in real estate and make your money grow
+            r Invest in real estate and make your money grow
           </Typography>
 
           <Stack
@@ -187,11 +206,12 @@ const Simulator: React.FC<SIMULATOR> = ({
             </FormControl>
           </Stack>
 
+          {/* select apr */}
           <Stack
             spacing={2}
             sx={{
               width: "100%",
-              display: { xs: "flex", sm: "none !important" },
+              display: "none",
             }}
           >
             <Typography fontWeight={"600"}>APR & Duration</Typography>
@@ -201,28 +221,37 @@ const Simulator: React.FC<SIMULATOR> = ({
             />
           </Stack>
 
+          {/* select duration */}
           <Stack
             spacing={2}
             sx={{
               width: "100%",
-              display: { xs: "none", sm: "flex" },
             }}
           >
-            <Typography fontWeight={"600"}>Duration</Typography>
+            <Typography fontWeight={"600"}>Percentage Rate</Typography>
             <SelectDuration
               SimulatorData={SimulatorData}
               onChangeSimulatorStatus={handleChangeSimalatorStatus}
             />
           </Stack>
-
+          {/* select interet */}
           <Stack
             spacing={2}
             sx={{
               width: "100%",
-              display: { xs: "none", sm: "flex" },
             }}
           >
-            <Typography fontWeight={"600"}>Percentage Rate</Typography>
+            <Stack
+              direction={"row"}
+              width={"100%"}
+              justifyContent={"space-between"}
+              alignItems={"center"}
+            >
+              <Typography fontWeight={"600"}>Duration</Typography>
+              <Typography fontWeight={"600"} color={"primary"}>
+                {month} Months
+              </Typography>
+            </Stack>
             <Box alignSelf={"flex-end"} sx={{ width: "100%" }}>
               <SelectInteret
                 SimulatorData={SimulatorData}
@@ -273,6 +302,7 @@ const Simulator: React.FC<SIMULATOR> = ({
           <BarChart
             amount={amount}
             rule={SimulatorData.filter((item) => item.status === true)[0]}
+            month={month}
           />
 
           {backgroundColorState ? (

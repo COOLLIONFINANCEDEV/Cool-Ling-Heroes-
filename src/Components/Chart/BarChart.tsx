@@ -7,9 +7,10 @@ import FormatMoney from "../../Helpers/FormatMoney";
 interface BARCHART {
   amount: number;
   rule: SimulatorItem;
+  month: number;
 }
 
-const BarChart: React.FC<BARCHART> = ({ amount, rule }) => {
+const BarChart: React.FC<BARCHART> = ({ amount, rule,month }) => {
   const amountWithPercentage = amount + amount * (rule.interet / 100);
   return (
     <Paper elevation={3} className="chart_wrapper__K6wh8">
@@ -78,7 +79,7 @@ const BarChart: React.FC<BARCHART> = ({ amount, rule }) => {
             ></Box>
             <Box className="graph_chartItemSecond__rHPgB"></Box>
             <Box className="graph_underChart_label_months__0yCzN">
-              <Typography fontWeight={600}> {rule.month} Months</Typography>
+              <Typography fontWeight={600}> {month} Months</Typography>
             </Box>
           </Box>
         </Box>
