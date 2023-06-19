@@ -159,7 +159,7 @@ const Simulator: React.FC<SIMULATOR> = ({
           spacing={5}
         >
           <Typography variant="h4" color={"primary"} fontWeight={600}>
-            r Invest in real estate and make your money grow
+            Invest in real estate and make your money grow
           </Typography>
 
           <Stack

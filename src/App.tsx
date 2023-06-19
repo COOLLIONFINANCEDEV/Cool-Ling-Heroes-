@@ -8,7 +8,11 @@ import { deleteLoader } from "./Toolkit/Loader/LoaderSlice";
 import ScrollToHashElement from "./Helpers/ScrollToHashElement";
 import AlertCustomize from "./Toolkit/Alert/AlertCustomze";
 import PoppuContext from "./Toolkit/Poppu/PoppuCustomize";
-import { CheckUser, DisalbeUpdating, selectLogin } from "./Toolkit/Login/LoginSlice";
+import {
+  CheckUser,
+  DisalbeUpdating,
+  selectLogin,
+} from "./Toolkit/Login/LoginSlice";
 import routes from "./Router/routes";
 import ApiSession from "./Service/ApiSession";
 import { dehashValue, hashValue } from "./Helpers/Hash/HashValue";
@@ -22,12 +26,10 @@ function App() {
 
   // Here it's the First Auto Loader
   React.useEffect(() => {
-    // window.addEventListener("load", (event) => {
-    //   setTimeout(() => {
-    //     dispatch(deleteLoader({ key: "Loader" }));
-    //     setVisible(true);
-    //   }, 2000);
-    // });
+    window.addEventListener("load", (event) => {
+      dispatch(deleteLoader({ key: "Loader" }));
+      setVisible(true);
+    });
   }, [dispatch]);
 
   React.useEffect(() => {
