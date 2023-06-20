@@ -19,7 +19,6 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { useSelector } from "react-redux";
 import { selectLogin } from "../../Toolkit/Login/LoginSlice";
 import Roles from "../../Seeds/Roles";
-import Redirect from "../../Helpers/Redirect";
 
 interface INVESTMENTINFORMATION {
   interetInformation: any;
@@ -122,17 +121,19 @@ const ShowInvestment: React.FC<INVESTMENTINFORMATION> = ({
             <Row
               title="Investment proof"
               value={
-                <Redirect link={"api.investKori.com"} target>
-                  <Button
-                    variant="contained"
-                    color="info"
-                    sx={{ borderRadius: "5px" }}
-                  >
-                    {user.role === Roles.lender
-                      ? " View your receipt"
-                      : " View this receipt"}
-                  </Button>
-                </Redirect>
+                <Button
+                  variant="contained"
+                  color="info"
+                  component="a" // Use "component" instead of "LinkComponent"
+                  href={`https://api.investKori.com${interetInformation.proof}`} // Make sure to use backticks (`) for template literals
+                  target="_blank"
+                  rel="noopener noreferrer" // Add rel attribute for security purposes
+                  sx={{ borderRadius: "5px" }}
+                >
+                  {user.role === Roles.lender
+                    ? "View your receipt"
+                    : "View this receipt"}
+                </Button>
               }
             />
             <Row
