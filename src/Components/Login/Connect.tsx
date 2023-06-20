@@ -46,7 +46,7 @@ const Connect = () => {
       response: RESPONSELAYOUT,
       setFieldError: (fields: string, message: string | undefined) => void
     ) => {
-      if (response.message.includes('password')) {
+      if (response.message.includes("password")) {
         setFieldError("email", response.message);
         setFieldError("password", response.message);
       }

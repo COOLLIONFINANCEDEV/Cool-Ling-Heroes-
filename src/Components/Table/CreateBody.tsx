@@ -57,7 +57,7 @@ const CreateBody: React.FC<CREATEBODY> = ({ row, mode = false }) => {
         <>
           <TableRow key={row.name}>
             {rows.map((item, key) => (
-              <TableCell sx={{ textTransform: "capitalize" }} key={key}>
+              <TableCell sx={{ textTransform: "capitalize" }} key={key} >
                 {typeof item === "string" ? item.toLowerCase() : item}
               </TableCell>
             ))}

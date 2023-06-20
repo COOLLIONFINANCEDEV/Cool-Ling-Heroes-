@@ -17,7 +17,7 @@ import Investments from "../Components/Investments/Investments";
 import { OverViewContext } from "../Context/OverViewContext";
 import ApiSession from "../Service/ApiSession";
 import OverViewTable from "../Containers/OverViewTable";
-import CardGroupesOverView from "../Containers/CardGroupesOverView";
+import CardGroupes from "../Containers/CardGroupes";
 const OverView = () => {
   const [Loader, setLoader] = React.useState(true);
   const [investState, setInvestState] = React.useState(false);
@@ -137,7 +137,7 @@ const OverView = () => {
             disabled={user.role !== Roles.lender}
             handleClick={handleInvestment}
           />
-          <CardGroupesOverView CardItemInfo={card} />
+          <CardGroupes CardItemInfo={card} />
           <CustomersSearch />
           <OverViewTable information={information} />
         </Container>

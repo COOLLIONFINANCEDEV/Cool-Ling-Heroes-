@@ -32,6 +32,7 @@ const theme = createTheme({
         root: {
           borderBottomColor: palette.secondary.light,
           padding: "15px 16px",
+         
         },
       },
     },

@@ -1,8 +1,4 @@
-interface Routes {
-  [key: string]: string;
-}
-
-const routes: Routes = {
+const routes = {
   home: "/",
   login: "login",
   register: "register",
@@ -18,6 +14,7 @@ const routes: Routes = {
   account: "account",
   setting: "settings",
   customers: "customers",
+  maturity:"maturity"
 };
 
 export default routes;

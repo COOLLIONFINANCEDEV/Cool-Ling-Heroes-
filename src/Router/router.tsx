@@ -13,15 +13,16 @@ import { useSelector } from "react-redux";
 import { selectLogin } from "../Toolkit/Login/LoginSlice";
 import RequireAuth from "../Helpers/RequireAuth";
 import Roles from "../Seeds/Roles";
+import Maturity from "../Pages/Maturity";
 
 const Router = () => {
   const { isAuthenticated } = useSelector(selectLogin);
   return (
     <Routes>
-      <Route path={routes.home} element={<Home />}>
-        <Route path={routes.home} element={<Landing />} />
-        <Route path={routes.login} element={<Login />} />
-      </Route>
+        <Route path={routes.home} element={<Home />}>
+          <Route path={routes.home} element={<Landing />} />
+          <Route path={routes.login} element={<Login />} />
+        </Route>
 
       {isAuthenticated && (
         <Route path={routes.dashboard} element={<Dashboard />}>
@@ -33,6 +34,14 @@ const Router = () => {
             element={
               <RequireAuth allowedRole={Roles.admin}>
                 <Customers />
+              </RequireAuth>
+            }
+          />{" "}
+          <Route
+            path={routes.maturity}
+            element={
+              <RequireAuth allowedRole={Roles.admin}>
+                <Maturity />
               </RequireAuth>
             }
           />

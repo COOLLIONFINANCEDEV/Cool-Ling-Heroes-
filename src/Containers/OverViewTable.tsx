@@ -24,10 +24,20 @@ const OverViewTable: React.FC<TABLECUSTOMZE> = ({ information }) => {
   const skeletonGroupe =
     user.role === Roles.lender
       ? LENDERKEY().head.map((item) => (
-          <Skeleton width={"100%"} height={"50px"} animation="wave" />
+          <Skeleton
+            width={"100%"}
+            height={"50px"}
+            animation="wave"
+            key={item}
+          />
         ))
       : ADMINKEY().head.map((item) => (
-          <Skeleton width={"100%"} height={"50px"} animation="wave" />
+          <Skeleton
+            width={"100%"}
+            height={"50px"}
+            animation="wave"
+            key={item}
+          />
         ));
 
   const LoaderContent = CreateData.create(skeletonGroupe);

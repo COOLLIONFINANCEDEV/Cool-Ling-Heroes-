@@ -3,8 +3,11 @@ import ArrowLeftIcon from "@heroicons/react/24/solid/ArrowLeftIcon";
 import { Box, Button, Container, SvgIcon, Typography } from "@mui/material";
 import Redirect from "../Helpers/Redirect";
 import routes from "../Router/routes";
+import { useSelector } from "react-redux";
+import { selectLogin } from "../Toolkit/Login/LoginSlice";
 
 const NotFound = () => {
+  const { isAuthenticated } = useSelector(selectLogin);
   return (
     <Box
       component="main"
@@ -46,7 +49,11 @@ const NotFound = () => {
             You either tried some shady route or you came here by mistake.
             Whichever it is, try using the navigation
           </Typography>
-          <Redirect link={routes.home}>
+          <Redirect
+            link={
+              isAuthenticated ? routes.home + routes.dashboard : routes.home
+            }
+          >
             <Button
               startIcon={
                 <SvgIcon fontSize="small">

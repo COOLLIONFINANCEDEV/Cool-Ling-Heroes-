@@ -8,6 +8,7 @@ import routes from "../../Router/routes";
 import Roles from "../../Seeds/Roles";
 import { useSelector } from "react-redux";
 import { selectLogin } from "../../Toolkit/Login/LoginSlice";
+import { CalendarDaysIcon } from "@heroicons/react/24/solid";
 
 type NAVBARITEMSCONFIG = Array<{
   title: string;
@@ -18,7 +19,7 @@ type NAVBARITEMSCONFIG = Array<{
 }>;
 
 const lenderActiveList = ["overview", "account", "settings"];
-const adminActiveList = ["overview", "account", "settings", "customers"];
+const adminActiveList = ["overview", "account", "settings", "customers",'maturity'];
 const moderatorActiveList = ["overview", "account", "settings"];
 const advisorActiveList = ["overview", "account", "settings"];
 
@@ -26,7 +27,7 @@ const ActiveList = {
   [Roles.lender]: lenderActiveList,
   [Roles.admin]: adminActiveList,
   [Roles.moderator]: moderatorActiveList,
-  [Roles.advisor] : advisorActiveList
+  [Roles.advisor]: advisorActiveList,
 };
 const List: NAVBARITEMSCONFIG = [
   {
@@ -35,6 +36,15 @@ const List: NAVBARITEMSCONFIG = [
     icon: (
       <SvgIcon fontSize="small">
         <ChartBarIcon />
+      </SvgIcon>
+    ),
+  },
+  {
+    title: "Maturity",
+    path: routes.maturity,
+    icon: (
+      <SvgIcon fontSize="small">
+        <CalendarDaysIcon />
       </SvgIcon>
     ),
   },

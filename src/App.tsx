@@ -75,7 +75,7 @@ function App() {
   React.useEffect(() => {
     if (isAuthenticated) {
       if (!location.pathname.includes(routes.dashboard)) {
-        window.location.pathname = routes.dashboard;
+        // window.location.pathname = routes.dashboard;
       }
     }
   }, [isAuthenticated, location]);

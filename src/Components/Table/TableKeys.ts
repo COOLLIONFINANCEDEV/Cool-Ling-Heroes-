@@ -50,26 +50,30 @@ export const ADMINKEY = () => {
   };
 };
 
-
 export const CUSTOMERSKEY = () => {
+  return {
+    head: ["id", "name", "phone", "email", "role", "Status", "Action"],
+    body: ["id", "name", "phone", "email", "role", "Status", "Action"],
+  };
+};
+
+export const MATURITYKEY = () => {
   return {
     head: [
       "id",
-      "name",
-      "phone",
-      "email",
-      "role",
-      "Status",
-      "Action",
+      "user number",
+      "refunded",
+      "Amount",
+      "Total Return",
+      "Maturity Date",
     ],
     body: [
       "id",
-      "name",
-      "phone",
-      "email",
-      "role",
-      "Status",
-      "Action",
+      "user number",
+      "refunded",
+      "Amount",
+      "Total Return",
+      "Maturity Date",
     ],
   };
 };

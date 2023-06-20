@@ -15,7 +15,7 @@ import React, { useContext } from "react";
 import ApiSession from "../Service/ApiSession";
 import CustomersTable from "../Containers/CustomersTable";
 import { CustomersContext } from "../Context/CustomersContext";
-import CardGroupesCustomers from "../Containers/CardGroupesCustomers";
+import CardGroupes from "../Containers/CardGroupes";
 const Customers = () => {
   const [Loader, setLoader] = React.useState(true);
   const [information, setInformation] = React.useState([]);
@@ -117,7 +117,7 @@ const Customers = () => {
             title={"Manage users"}
             disabled={user.role !== Roles.lender}
           />
-          <CardGroupesCustomers CardItemInfo={card} />
+          <CardGroupes CardItemInfo={card} />
           <CustomersSearch />
           <CustomersTable information={information} />
         </Container>

@@ -1,14 +1,12 @@
 import React from "react";
-import CardCustomze, { CARD } from "../Components/overview/CardCustomze";
+import CardCustomze, { CARD } from "../Components/dashboard/CardCustomze";
 import { Grid } from "@mui/material";
 
 interface CARDGROUPESOVERVIEW {
   CardItemInfo: Array<CARD>;
 }
 
-const CardGroupesOverView: React.FC<CARDGROUPESOVERVIEW> = ({
-  CardItemInfo,
-}) => {
+const CardGroupes: React.FC<CARDGROUPESOVERVIEW> = ({ CardItemInfo }) => {
   return (
     <Grid
       container
@@ -26,4 +24,4 @@ const CardGroupesOverView: React.FC<CARDGROUPESOVERVIEW> = ({
   );
 };
 
-export default CardGroupesOverView;
+export default CardGroupes;
