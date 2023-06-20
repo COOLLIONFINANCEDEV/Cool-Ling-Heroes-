@@ -19,6 +19,7 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { useSelector } from "react-redux";
 import { selectLogin } from "../../Toolkit/Login/LoginSlice";
 import Roles from "../../Seeds/Roles";
+import Redirect from "../../Helpers/Redirect";
 
 interface INVESTMENTINFORMATION {
   interetInformation: any;
@@ -121,18 +122,20 @@ const ShowInvestment: React.FC<INVESTMENTINFORMATION> = ({
             <Row
               title="Investment proof"
               value={
-                <Button
-                  variant="contained"
-                  color="info"
-                  LinkComponent={"a"}
-                  href={"https:api.investKori.com" + interetInformation.proof}
-                  target="_blank"
-                  sx={{ borderRadius: "5px" }}
+                <Redirect
+                  link={"https:api.investKori.com" + interetInformation.proof}
+                  target
                 >
-                  {user.role === Roles.lender
-                    ? " View your receipt"
-                    : " View this receipt"}
-                </Button>
+                  <Button
+                    variant="contained"
+                    color="info"
+                    sx={{ borderRadius: "5px" }}
+                  >
+                    {user.role === Roles.lender
+                      ? " View your receipt"
+                      : " View this receipt"}
+                  </Button>
+                </Redirect>
               }
             />
             <Row
