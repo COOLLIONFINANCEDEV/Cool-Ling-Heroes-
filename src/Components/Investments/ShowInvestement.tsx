@@ -124,12 +124,9 @@ const ShowInvestment: React.FC<INVESTMENTINFORMATION> = ({
                 <Button
                   variant="contained"
                   color="info"
-                  onClick={() =>
-                    window.open(
-                      "https:api.investKori.com" + interetInformation.proof,
-                      "_blank"
-                    )
-                  }
+                  LinkComponent={"a"}
+                  href={"https:api.investKori.com" + interetInformation.proof}
+                  target="_blank"
                   sx={{ borderRadius: "5px" }}
                 >
                   {user.role === Roles.lender
@@ -235,8 +232,9 @@ const ShowInvestment: React.FC<INVESTMENTINFORMATION> = ({
                       <Button
                         variant="contained"
                         color="info"
-                        LinkComponent={'a'}
-                        href={"https://api.investkori.com" + item.refund_proof}
+                        LinkComponent={"a"}
+                        href={"https:api.investKori.com" + item.refund_proof}
+                        target="_blank"
                         sx={{ borderRadius: "5px" }}
                         disabled={!item.treated}
                       >
