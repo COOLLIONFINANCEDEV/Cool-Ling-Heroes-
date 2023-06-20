@@ -122,10 +122,7 @@ const ShowInvestment: React.FC<INVESTMENTINFORMATION> = ({
             <Row
               title="Investment proof"
               value={
-                <Redirect
-                  link={"https:api.investKori.com" + interetInformation.proof}
-                  target
-                >
+                <Redirect link={"api.investKori.com"} target>
                   <Button
                     variant="contained"
                     color="info"
