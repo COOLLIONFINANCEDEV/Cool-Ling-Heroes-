@@ -233,9 +233,10 @@ const ShowInvestment: React.FC<INVESTMENTINFORMATION> = ({
                       <Button
                         variant="contained"
                         color="info"
-                        LinkComponent={"a"}
-                        href={"https:api.investKori.com" + item.refund_proof}
+                        component="a" // Use "component" instead of "LinkComponent"
+                        href={`https://api.investKori.com${item.refund_proof}`} // Make sure to use backticks (`) for template literals
                         target="_blank"
+                        rel="noopener noreferrer" // Add rel attribute for security purposes
                         sx={{ borderRadius: "5px" }}
                         disabled={!item.treated}
                       >

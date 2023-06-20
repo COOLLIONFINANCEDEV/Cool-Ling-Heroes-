@@ -9,8 +9,9 @@ import { useDispatch } from "react-redux";
 import { RESPONSELAYOUT } from "../../Helpers/FormatResponse";
 import { setAlert } from "../../Toolkit/Alert/AlertSlice";
 import { hashValue } from "../../Helpers/Hash/HashValue";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { CheckUser } from "../../Toolkit/Login/LoginSlice";
+import routes from "../../Router/routes";
 
 interface INITIALVALUES {
   email: string;
@@ -25,9 +26,11 @@ const Connect = () => {
   const dispatch = useDispatch();
   const location = useLocation();
   const [loading, setLoading] = React.useState(false);
+  const navigate = useNavigate();
 
   const handleSubmitSuccess = React.useCallback(
     (response: RESPONSELAYOUT) => {
+      navigate(routes.home + routes.dashboard);
       dispatch(setAlert({ state: "success", message: response.message }));
       const accessToken = hashValue(response.data[0].access_token);
       const refreshToken = hashValue(response.data[0].refresh_token);
@@ -38,7 +41,7 @@ const Connect = () => {
       }
       dispatch(CheckUser({}));
     },
-    [dispatch]
+    [dispatch, navigate]
   );
 
   const handleSubmitError = React.useCallback(
