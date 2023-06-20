@@ -85,6 +85,10 @@ const ApiSession = {
     list: (): Promise<RESPONSELAYOUT> =>
       ApiService(ApiRoutes.user.list, "get", {}),
   },
+  newsLetter: {
+    create: (body: { email: string }): Promise<RESPONSELAYOUT> =>
+      ApiService(ApiRoutes.auth.register, "post", body),
+  },
 };
 
 export default ApiSession;

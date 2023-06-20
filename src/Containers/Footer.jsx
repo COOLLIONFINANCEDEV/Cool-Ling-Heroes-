@@ -15,6 +15,13 @@ import TwitterIcon from "@mui/icons-material/Twitter";
 import Redirect from "../Helpers/Redirect";
 import { menuList } from "./NavBar";
 import routes from "../Router/routes";
+
+const ContactList = [
+  { name: "+225 0708064848", link: routes.tel },
+  { name: "team@coollionfi.com", link: routes.email },
+  { name: "WhatsApp", link: routes.contact },
+];
+
 const Footer = () => {
   const { palette } = useTheme();
   return (
@@ -65,14 +72,7 @@ const Footer = () => {
               flexDirection: "column",
             }}
           >
-            <FooterBlock
-              Title={"CONTACT US"}
-              Items={[
-                "Real-Time Chat on WhatsApp",
-                "Video Chat with Our Expert",
-                "team@investkori.com",
-              ]}
-            />
+            <FooterBlock Title={"CONTACT US"} Items={ContactList} target />
           </Box>
 
           <Box
@@ -104,14 +104,16 @@ const Footer = () => {
             <Typography color="secondary">
               Invest in real estate and make your money grow
             </Typography>
-            <Button
-              fontSize="large"
-              color="secondary"
-              variant="contained"
-              sx={{ borderRadius: "5px" }}
-            >
-              START INVESTING
-            </Button>
+            <Redirect link={routes.simulator}>
+              <Button
+                fontSize="large"
+                color="secondary"
+                variant="contained"
+                sx={{ borderRadius: "5px", width: "100%" }}
+              >
+                START INVESTING
+              </Button>
+            </Redirect>
           </Box>
         </Box>
 
@@ -173,7 +175,7 @@ const Footer = () => {
               alignItems: "center",
             }}
           >
-            <Typography sx={{ fontSize: "0.6em", margin: "10px 0 10px 0" }}>
+            <Typography sx={{ fontSize: "0.7rem", margin: "10px 0 10px 0" }} color={'secondary'}>
               © 2023- 2022 Kori ®.
             </Typography>
           </Box>
@@ -183,7 +185,7 @@ const Footer = () => {
   );
 };
 
-const FooterItems = ({ Items }) => {
+const FooterItems = ({ Items ,target}) => {
   return (
     <>
       {Items.map((item, key) => {
@@ -191,7 +193,7 @@ const FooterItems = ({ Items }) => {
           <Redirect
             link={item.link}
             key={key}
-            target={[routes.contact, routes.videoChat].includes(item.link)}
+            target={[routes.contact, routes.videoChat].includes(item.link) || target}
           >
             <Typography
               sx={{
@@ -211,13 +213,13 @@ const FooterItems = ({ Items }) => {
   );
 };
 
-const FooterBlock = ({ Title, Items }) => {
+const FooterBlock = ({ Title, Items, target = false }) => {
   return (
     <>
       <Typography variant="h6" fontWeight={800} color={"secondary"}>
         {Title}
       </Typography>
-      <FooterItems Items={Items} />
+      <FooterItems Items={Items} target={target} />
     </>
   );
 };

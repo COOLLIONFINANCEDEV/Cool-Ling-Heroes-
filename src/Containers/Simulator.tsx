@@ -107,6 +107,7 @@ const Simulator: React.FC<SIMULATOR> = ({
     } else {
       setError({ state: false });
     }
+    if (!backgroundColorState) setNewsLetter((state) => state + 1);
   };
 
   const handleChangeSimalatorStatus = React.useCallback(
@@ -347,7 +348,7 @@ const Simulator: React.FC<SIMULATOR> = ({
           )}
         </Stack>
       </Stack>
-      {newsLetter >= 2 && (
+      {newsLetter >= 4 && (
         <CreateModal makeOpen ModalContent={NewsLetter} closeButton />
       )}
     </Stack>

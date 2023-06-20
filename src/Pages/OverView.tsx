@@ -120,7 +120,6 @@ const OverView = () => {
       component="main"
       sx={{
         flexGrow: 1,
-        py: 4,
       }}
     >
       <OverViewContext.Provider

@@ -17,6 +17,9 @@ const ApiRoutes = {
     refund: "/investment/change-check-up",
     disable: "/investment/abort",
   },
+  NewsLetter: {
+    Create: "/newsletter/create",
+  },
 };
 
 export default ApiRoutes;

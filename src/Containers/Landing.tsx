@@ -64,7 +64,7 @@ const Landing = () => {
               width={"100%"}
               sx={{ zIndex: "1" }}
             >
-              <Redirect link={routes.videoChat} target>
+              <Redirect link={routes.tel} target>
                 <Button color="secondary" variant="outlined" size="large">
                   Connect With Experts
                 </Button>

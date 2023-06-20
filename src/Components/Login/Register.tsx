@@ -136,7 +136,7 @@ const Register: React.FC<REGISTER> = ({ hanbleChange }) => {
               <Field
                 sx={{ width: "22%" }}
                 as={Select}
-                label={"code"}
+                label={"Code"}
                 name={"prefixe"}
                 select
                 component={FormTextField}
@@ -162,7 +162,7 @@ const Register: React.FC<REGISTER> = ({ hanbleChange }) => {
                 })}
               </Field>
               <Field
-                label="Phone number"
+                label="WhatsApp number"
                 type={"phone"}
                 name={"phone"}
                 sx={{ width: "75%" }}
