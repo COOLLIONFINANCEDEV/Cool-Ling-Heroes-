@@ -279,14 +279,18 @@ export const Row: React.FC<ROW> = ({ title, value, dark = false }) => {
         >
           {title}
         </Typography>
-        <Typography
-          sx={{
-            fontWeight: dark ? 800 : "inital",
-            fontSize: dark ? "1.6rem" : "intial",
-          }}
-        >
-          {value}
-        </Typography>
+        {typeof value === "string" ? (
+          <Typography
+            sx={{
+              fontWeight: dark ? 800 : "inital",
+              fontSize: dark ? "1.6rem" : "intial",
+            }}
+          >
+            {value}
+          </Typography>
+        ) : (
+          value
+        )}
       </Stack>
     </ListItem>
   );
