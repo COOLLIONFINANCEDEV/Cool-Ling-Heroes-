@@ -8,3 +8,4 @@ export interface CUSTOMERSCONTEXT {
 export const CustomersContext = React.createContext<CUSTOMERSCONTEXT | undefined>(
   undefined
 );
+  

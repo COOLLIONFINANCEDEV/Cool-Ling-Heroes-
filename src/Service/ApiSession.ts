@@ -89,6 +89,14 @@ const ApiSession = {
     create: (body: { email: string }): Promise<RESPONSELAYOUT> =>
       ApiService(ApiRoutes.auth.register, "post", body),
   },
+  annoucement: {
+    create: (body: {
+      title: string;
+      status: boolean;
+      image: string;
+    }): Promise<RESPONSELAYOUT> =>
+      ApiService(ApiRoutes.Annoucement.Create, "post", body),
+  },
 };
 
 export default ApiSession;

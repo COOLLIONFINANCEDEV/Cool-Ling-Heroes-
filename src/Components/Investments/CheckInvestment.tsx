@@ -93,7 +93,7 @@ const CheckInvestment: React.FC<CHECKINVESTMENT> = ({
             <Stack spacing={3} sx={{ width: "100%" }}>
               <Field
                 label="CheckInvestment"
-                type={"CheckInvestment"}
+                type={"select"}
                 name={"CheckInvestment"}
                 sx={{ width: "100%" }}
                 select

@@ -77,3 +77,10 @@ export const MATURITYKEY = () => {
     ],
   };
 };
+
+export const ANNOUCEMENTKEYS = () => {
+  return {
+    head: ["id", "Title", "Status", "Created At", "Update At", "Action"],
+    body: ["id", "Title", "Status", "Created At", "Update At", "Action"],
+  };
+};

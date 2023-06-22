@@ -20,6 +20,9 @@ const ApiRoutes = {
   NewsLetter: {
     Create: "/newsletter/create",
   },
+  Annoucement: {
+    Create: "/annoucement/create",
+  },
 };
 
 export default ApiRoutes;
