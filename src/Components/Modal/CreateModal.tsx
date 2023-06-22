@@ -83,7 +83,7 @@ const CreateModal: React.FC<CREATEMODAL> = ({
                 justifyContent={"flex-end"}
                 alignItems={"flex-end"}
                 direction={"row"}
-                sx={{ m: 0, p: "5px", pl: "10px", position: "absolute" }}
+                sx={{ m: 0, p: "5px", pl: "5px", position: "absolute" }}
               >
                 <IconButton onClick={handleClose}>
                   <CancelOutlinedIcon color={"primary"} fontSize="large" />

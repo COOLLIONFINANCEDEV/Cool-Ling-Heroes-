@@ -31,6 +31,7 @@ const AnnoucementDashboard = () => {
           direction={"row"}
           justifyContent={"space-between"}
           alignItems={"center"}
+          flexWrap={'wrap'}
         >
           <CardHeader
             subheader="Update or add annoucements"

@@ -71,7 +71,7 @@ const InvestmentInformtion: React.FC<INVESTMENTINFORMATION> = ({
           />
           <Row
             title="Base APY"
-            value={interetInformation?.interet + " %" ?? 0}
+            value={interetInformation?.interet +  " %" ?? 0}
           />
           <Row title="Earnings" value={FormatMoney(amountInteret) + " $"} />
         </List>

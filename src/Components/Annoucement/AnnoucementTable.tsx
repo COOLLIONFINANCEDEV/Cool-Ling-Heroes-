@@ -2,9 +2,10 @@ import React from "react";
 import CreateRowData from "../../Helpers/CreateRowData";
 import { ANNOUCEMENTKEYS } from "../Table/TableKeys";
 import { AnnoucementContext } from "../../Context/AnnoucementContext";
-import { Box, Chip, Skeleton } from "@mui/material";
+import {  Chip, Skeleton } from "@mui/material";
 import Action from "../Table/Action";
 import TableCustomze from "../Table/TableCustomze";
+import FormatDate from "../../Helpers/FormatDate";
 
 interface ANNOUCEMENTTABLE {
   information: any;
@@ -29,30 +30,25 @@ const AnnoucementTable: React.FC<ANNOUCEMENTTABLE> = ({ information }) => {
 
   React.useEffect(() => {
     if (information) {
-      const data: any = [];
-      information.forEach((item: any) => {
-        data.push(
-          CreateData.create([
-            item.id,
-            item.full_name ? (
-              item.full_name
-            ) : (
-              <Chip label={"unavailable"} color="warning" variant="outlined" />
-            ),
-            item.phone_number,
-            item.email,
-            item.role,
-            <Chip
-              label={item.account_activated ? "active" : "disable"}
-              variant="outlined"
-              color={item.account_activated ? "success" : "error"}
-              key={item.id}
-            />,
-            <Action information={item} key={item.id} />,
-          ])
-        );
-      });
-      setRows(data);
+    const data: any = [];
+    information.forEach((item: any) => {
+      data.push(
+        CreateData.create([
+          item.id,
+          item.title,
+          <Chip
+            label={item.status ? "Active" : "disable"}
+            color={item.status ? "success" : "error"}
+            key={item.id}
+            variant="outlined"
+          />,
+          FormatDate(item.created_at),
+          FormatDate(item.updated_at),
+          <Action information={item} key={item.id} />,
+        ])
+      );
+    });
+    setRows(data);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [information]);
