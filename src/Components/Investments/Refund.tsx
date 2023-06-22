@@ -141,7 +141,9 @@ const Refund: React.FC<REFUND> = ({ information, handleClose }) => {
               Be careful with any actions you take here, as they are
               irreversible.
             </Alert>
-            {information.ChangeRequest?.filter((item:any) => item.treated === false)?.length >= 1 && (
+            {information.ChangeRequest?.filter(
+              (item: any) => item.treated === false
+            )?.length >= 1 && (
               <Box sx={{ width: "100%" }} mb={5}>
                 <Accordion expanded>
                   <AccordionSummary expandIcon={<ExpandMoreIcon />}>
@@ -154,7 +156,7 @@ const Refund: React.FC<REFUND> = ({ information, handleClose }) => {
                     {information.ChangeRequest?.map(
                       (item: any, key: number) => {
                         return (
-                          <Accordion key={key}>
+                          <Accordion key={item.id}>
                             <AccordionSummary
                               expandIcon={<ExpandMoreIcon />}
                               aria-controls="panel1a-content"
@@ -227,10 +229,7 @@ const Refund: React.FC<REFUND> = ({ information, handleClose }) => {
                 </Accordion>
               </Box>
             )}
-            <Stack
-              spacing={1}
-              sx={{ width: "100%" }}
-            >
+            <Stack spacing={1} sx={{ width: "100%" }}>
               <UploadForm
                 imageSelected={(file: React.SetStateAction<string>) => {
                   if (file) {

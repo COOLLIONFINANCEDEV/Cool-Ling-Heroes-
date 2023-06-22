@@ -1,18 +1,8 @@
-import ChevronUpDownIcon from "@heroicons/react/24/solid/ChevronUpDownIcon";
-import {
-  Box,
-  Divider,
-  Drawer,
-  Stack,
-  SvgIcon,
-  Typography,
-  useMediaQuery,
-  useTheme,
-} from "@mui/material";
+import { Box, Divider, Drawer, Stack, useMediaQuery } from "@mui/material";
 import { SideNavItem } from "./SideNavitem";
-import { Scrollbar } from "../scrollbar";
 import Logo from "../Navbar/Logo";
 import SideBarItems from "./SideBarItems";
+import Annoucement from "../Annoucement/Annoucement";
 
 interface SIDENAV {
   open: boolean;
@@ -23,91 +13,50 @@ interface SIDENAV {
 
 export const SideNav: React.FC<SIDENAV> = ({ open, onClose }) => {
   const lgUp = useMediaQuery((theme: any) => theme.breakpoints.up("sm"));
-  const { palette } = useTheme();
 
   const content = (
-    <Scrollbar
+    <Box
       sx={{
-        height: "100%",
-        "& .simplebar-content": {
-          height: "100%",
-        },
-        "& .simplebar-scrollbar:before": {
-          background: palette.primary.main,
-        },
+        display: "flex",
+        flexDirection: "column",
       }}
     >
+      <Box sx={{ p: 3 }}>
+        <Stack justifyContent={"center"}>
+          <Logo dark />
+        </Stack>
+      </Box>
+      <Divider sx={{ borderColor: "neutral.700" }} />
       <Box
+        component="nav"
         sx={{
-          display: "flex",
-          flexDirection: "column",
-          height: "100%",
+          px: 2,
+          py: 3,
         }}
       >
-        <Box sx={{ p: 3 }}>
-          <Stack justifyContent={"center"}>
-            <Logo dark />
-          </Stack>
-          <Box
-            sx={{
-              alignItems: "center",
-              backgroundColor: palette.secondary.light,
-              borderRadius: 1,
-              cursor: "pointer",
-              display: "flex",
-              justifyContent: "space-between",
-              mt: 2,
-              p: "12px",
-            }}
-          >
-            <div>
-              <Typography color={palette.primary.main}>Invest Kori</Typography>
-              <Typography color={palette.primary.main}>Production</Typography>
-            </div>
-            <SvgIcon fontSize="small" sx={{ color: palette.primary.main }}>
-              <ChevronUpDownIcon />
-            </SvgIcon>
-          </Box>
-        </Box>
-        <Divider sx={{ borderColor: "neutral.700" }} />
-        <Box
-          component="nav"
+        <Stack
+          component="ul"
+          spacing={0.5}
           sx={{
-            flexGrow: 1,
-            px: 2,
-            py: 3,
+            listStyle: "none",
+            p: 0,
+            m: 0,
           }}
         >
-          <Stack
-            component="ul"
-            spacing={0.5}
-            sx={{
-              listStyle: "none",
-              p: 0,
-              m: 0,
-            }}
-          >
-            {SideBarItems().map((item) => {
-              return (
-                <SideNavItem
-                  icon={item.icon}
-                  key={item.title}
-                  path={item.path}
-                  title={item.title}
-                />
-              );
-            })}
-          </Stack>
-        </Box>
-        <Divider sx={{ borderColor: "neutral.700" }} />
-        <Box
-          sx={{
-            px: 2,
-            py: 3,
-          }}
-        ></Box>
+          {SideBarItems().map((item) => {
+            return (
+              <SideNavItem
+                icon={item.icon}
+                key={item.title}
+                path={item.path}
+                title={item.title}
+              />
+            );
+          })}
+        </Stack>
       </Box>
-    </Scrollbar>
+      <Divider sx={{ borderColor: "neutral.700" }} />
+    </Box>
   );
 
   if (lgUp) {
@@ -119,12 +68,16 @@ export const SideNav: React.FC<SIDENAV> = ({ open, onClose }) => {
           sx: {
             backgroundColor: "neutral.800",
             color: "common.white",
-            width: 280,
+            width: 250,
+            overflow: "scroll !important",
           },
         }}
         variant="permanent"
       >
-        {content}
+        <Stack justifyContent={"space-between"} sx={{ height: "100%" }}>
+          {content}
+          <Annoucement />
+        </Stack>
       </Drawer>
     );
   }
@@ -139,12 +92,16 @@ export const SideNav: React.FC<SIDENAV> = ({ open, onClose }) => {
           backgroundColor: "neutral.800",
           color: "common.white",
           width: 280,
+          overflow: "scroll !important",
         },
       }}
-      sx={{zIndex:0}}
+      sx={{ zIndex: 0 }}
       variant="temporary"
     >
-      {content}
+      <Stack justifyContent={"space-between"} sx={{ height: "100%" }}>
+        {content}
+        <Annoucement />
+      </Stack>
     </Drawer>
   );
 };

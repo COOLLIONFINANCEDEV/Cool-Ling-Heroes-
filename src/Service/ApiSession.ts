@@ -89,6 +89,21 @@ const ApiSession = {
     create: (body: { email: string }): Promise<RESPONSELAYOUT> =>
       ApiService(ApiRoutes.auth.register, "post", body),
   },
+  annoucement: {
+    create: (body: {
+      title: string;
+      status: boolean;
+      image: string;
+    }): Promise<RESPONSELAYOUT> =>
+      ApiService(ApiRoutes.Annoucement.Create, "post", body),
+    update: (body: {
+      AnnoucementId: number;
+      status: boolean;
+    }): Promise<RESPONSELAYOUT> =>
+      ApiService(ApiRoutes.Annoucement.Update, "put", body),
+    delete: (body: { AnnoucementId: number }): Promise<RESPONSELAYOUT> =>
+      ApiService(ApiRoutes.Annoucement.Delete, "post", body),
+  },
 };
 
 export default ApiSession;

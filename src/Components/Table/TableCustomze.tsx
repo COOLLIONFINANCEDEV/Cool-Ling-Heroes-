@@ -11,7 +11,7 @@ interface TABLECUSTOMZE {
 
 const TableCustomze: React.FC<TABLECUSTOMZE> = ({ headKey, rows }) => {
   return (
-    <Box mt={4}>
+    <Box>
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 700 }}>
           <TableHead>

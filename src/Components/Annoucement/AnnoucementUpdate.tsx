@@ -10,34 +10,30 @@ import { FormTextField } from "../Formik/FormTextField";
 import { OverViewContext } from "../../Context/OverViewContext";
 
 interface INITIALVALUES {
-  CheckInvestment: string;
+  handleAd: string;
 }
 
-interface CHECKINVESTMENT {
+interface ANNOUCEMENTUPDATE {
   information: any;
   handleClose: Function;
 }
 
-const CheckInvestment: React.FC<CHECKINVESTMENT> = ({
+const AnnoucementUpdate: React.FC<ANNOUCEMENTUPDATE> = ({
   information,
   handleClose,
 }) => {
   const dispatch = useDispatch();
   const initialValues: INITIALVALUES = {
-    CheckInvestment: "true",
+    handleAd: information.status ? "true" : "false",
   };
 
   const overViewContextValue = React.useContext(OverViewContext);
 
   const handleSubmit = React.useCallback(
     async (values: INITIALVALUES, helper: FormikHelpers<INITIALVALUES>) => {
-      const body = {
-        investmentId: information.id,
-        reducedAmount: values.CheckInvestment === "true",
-      };
-      const response = await ApiSession.invest.checkUp({
-        investmentId: body.investmentId,
-        accepted: body.reducedAmount,
+      const response = await ApiSession.annoucement.update({
+        AnnoucementId: information.id,
+        status: values.handleAd === "true",
       });
 
       if (response.error) {
@@ -50,7 +46,6 @@ const CheckInvestment: React.FC<CHECKINVESTMENT> = ({
     },
     [dispatch, handleClose, information.id, overViewContextValue]
   );
-
   return (
     <Stack
       sx={{
@@ -59,12 +54,13 @@ const CheckInvestment: React.FC<CHECKINVESTMENT> = ({
         width: { xs: "calc(100% - 20px)", sm: "calc(100% - 100px)" },
         minWidth: { xs: "90vw !important", sm: "50vw !important" },
         p: { xs: "10px 10px 0px 10px", sm: "50px 50px 0px 50px" },
+        mt: { xs: 4, sm: "auto" },
       }}
     >
       <Formik
         initialValues={initialValues}
         validationSchema={yup.object().shape({
-          CheckInvestment: yup.string(),
+          handleAd: yup.string(),
         })}
         onSubmit={handleSubmit}
       >
@@ -81,26 +77,26 @@ const CheckInvestment: React.FC<CHECKINVESTMENT> = ({
             method="post"
           >
             <Typography variant="h6" pt={2}>
-              Verification of investment payment.
+              Activate or deactivate the ad.
             </Typography>
             <Alert
               severity="info"
               sx={{ width: "calc(100% - 20px)", p: "0 10px 10px 10px" }}
             >
-              By clicking on the confirmation button, you can confirm the
-              investment with a receipt provided as proof.
+              Disabling or enabling the ad means that it will not appear on the
+              dashboard or if.
             </Alert>
             <Stack spacing={3} sx={{ width: "100%" }}>
               <Field
-                label="CheckInvestment"
+                label="handleAd"
                 type={"select"}
-                name={"CheckInvestment"}
+                name={"handleAd"}
                 sx={{ width: "100%" }}
                 select
                 component={FormTextField}
               >
-                <MenuItem value={"true"}>Verify and confirm this investment</MenuItem>
-                <MenuItem value={"false"}>Cancel</MenuItem>
+                <MenuItem value={"true"}>Active</MenuItem>
+                <MenuItem value={"false"}>Disable</MenuItem>
               </Field>
             </Stack>
             <LoadingButton
@@ -120,4 +116,4 @@ const CheckInvestment: React.FC<CHECKINVESTMENT> = ({
   );
 };
 
-export default CheckInvestment;
+export default AnnoucementUpdate;

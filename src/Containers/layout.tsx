@@ -4,7 +4,7 @@ import { SideNav } from "../Components/dashboard/SideNav";
 import TopNav from "../Components/dashboard/TopNav";
 import { useLocation } from "react-router-dom";
 
-const SIDE_NAV_WIDTH = 280;
+const SIDE_NAV_WIDTH = 250;
 
 const LayoutRoot = styled("div")(({ theme }) => ({
   display: "flex",
@@ -46,7 +46,7 @@ export const Layout: React.FC<LAYOUT> = ({ children }) => {
 
   return (
     <>
-      <TopNav onNavOpen={() => setOpenNav(true)} />
+      <TopNav onNavOpen={() => setOpenNav((state) => !state)} />
       <SideNav onClose={() => setOpenNav(false)} open={openNav} />
       <LayoutRoot>
         <LayoutContainer>{children}</LayoutContainer>
