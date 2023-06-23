@@ -38,7 +38,13 @@ const Investments: React.FC<INVESTMENTS> = ({
   const [step, setStep] = React.useState(stepper);
   const [interetInformation, setInteretInformation] = React.useState<
     INVESTINNFORMATIONITEM | undefined
-  >();
+  >({
+    amount: investmentInfo?.amount ?? undefined,
+    interet: investmentInfo?.gain / investmentInfo?.amount / 100 ?? undefined,
+    investmentId: investmentInfo?.id ?? undefined,
+    month: investmentInfo?.term ?? undefined,
+    status: true,
+  });
   const [paymentInformation, setPaymentInformation] = React.useState("");
   const [next, setNext] = React.useState(false);
   const [submit, setSumbit] = React.useState(false);
@@ -92,7 +98,7 @@ const Investments: React.FC<INVESTMENTS> = ({
       {isChange && (
         <Alert
           severity="warning"
-          sx={{ width: "98% !important", mb: 3, mt: 2 }}
+          sx={{ width: "90% !important", margin: "auto", mb: 3, mt: 2 }}
           onClose={() => setIsChange(false)}
         >
           <AlertTitle>Changing your investment configuration</AlertTitle>
@@ -108,8 +114,8 @@ const Investments: React.FC<INVESTMENTS> = ({
             justifyContent={"space-between"}
             sx={{
               width: {
-                xs: "calc(80vw) !important",
-                sm: "calc(86.5vw) !important",
+                xs: "calc(100%) !important",
+                sm: "calc(100%) !important",
               },
               flexDirection: {
                 xs: "column",
@@ -119,27 +125,35 @@ const Investments: React.FC<INVESTMENTS> = ({
               m: "10px 0",
             }}
           >
-            <Card sx={{ width: "100%" }}>
+            <Card sx={{ width: "90%" }}>
               <CardHeader
                 title="Old configuration"
                 subheader="the first configuration you made
       "
               />
               <CardContent sx={{ padding: "0 10px" }}>
-                <List>
-                  <ListItem>
+                <List
+                  sx={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    flexWrap: "wrap",
+                    alignItems: "center",
+                    flexDirection: "row",
+                  }}
+                >
+                  <ListItem sx={{ width: "max-content !important" }}>
                     <ListItemText
                       primary="Durée"
                       secondary={`${investment?.term} mois`}
                     />
                   </ListItem>
-                  <ListItem>
+                  <ListItem sx={{ width: "max-content !important" }}>
                     <ListItemText
                       primary="Montant"
                       secondary={`${investment?.amount} dollars`}
                     />
                   </ListItem>
-                  <ListItem>
+                  <ListItem sx={{ width: "max-content !important" }}>
                     <ListItemText
                       primary="Taux d'intérêt"
                       secondary={`${
@@ -151,27 +165,35 @@ const Investments: React.FC<INVESTMENTS> = ({
               </CardContent>
             </Card>
 
-            <Card sx={{ width: "100%" }}>
+            <Card sx={{ width: "90%" }}>
               <CardHeader
                 title="New configuration"
                 subheader="the last configuration you made
       "
               />
-              <CardContent sx={{ padding: "0 10px", width: "100%" }}>
-                <List>
-                  <ListItem>
+              <CardContent sx={{ padding: "0 10px" }}>
+                <List
+                  sx={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    flexWrap: "wrap",
+                    alignItems: "center",
+                    flexDirection: "row",
+                  }}
+                >
+                  <ListItem sx={{ width: "max-content !important" }}>
                     <ListItemText
                       primary="Durée"
                       secondary={`${interetInformation?.month} mois`}
                     />
                   </ListItem>
-                  <ListItem>
+                  <ListItem sx={{ width: "max-content !important" }}>
                     <ListItemText
                       primary="Montant"
                       secondary={`${interetInformation?.amount} dollars`}
                     />
                   </ListItem>
-                  <ListItem>
+                  <ListItem sx={{ width: "max-content !important" }}>
                     <ListItemText
                       primary="Taux d'intérêt"
                       secondary={`${interetInformation?.interet} %`}
@@ -195,6 +217,7 @@ const Investments: React.FC<INVESTMENTS> = ({
           onClick={() => {
             setStep(0);
             setSumbit(false);
+            setNext(false);
           }}
           disabled={step <= 0}
           size="small"
@@ -248,8 +271,8 @@ const Investments: React.FC<INVESTMENTS> = ({
             investment={investment}
             handleInvestment={setInvestment}
             defaultValue={{
-              month: interetInformation?.month ?? investment?.term,
-              amount: interetInformation?.amount ?? investment?.amount,
+              month: interetInformation?.month,
+              amount: interetInformation?.amount,
             }}
           />
         )}

@@ -11,7 +11,7 @@ const CardGroupes: React.FC<CARDGROUPESOVERVIEW> = ({ CardItemInfo }) => {
     <Grid
       container
       spacing={1}
-      rowGap={3}
+      rowGap={1}
       justifyContent={"space-between"}
       columnGap={2}
     >

@@ -5,7 +5,7 @@ import { OVERVIEWCONTEXT, OverViewContext } from "../Context/OverViewContext";
 
 interface BLOCKTITLE {
   title: string;
-  handleClick?: React.MouseEventHandler<HTMLButtonElement> | undefined;
+  handleClick?: React.MouseEventHandler<HTMLButtonElement>;
   buttonContent?: string;
   disabled: boolean;
 }
@@ -20,7 +20,13 @@ const BlocTitle: React.FC<BLOCKTITLE> = ({
     <OverViewContext.Consumer>
       {(ContextValue: OVERVIEWCONTEXT | undefined) => (
         <Stack spacing={3} mb={4}>
-          <Stack direction="row" justifyContent="space-between" spacing={4}>
+          <Stack
+            spacing={4}
+            sx={{
+              flexDirection: { xs: "column", md: "row" },
+              justifyContent: { xs: "center", md: "space-between" },
+            }}
+          >
             <Stack spacing={1}>
               <Typography variant="h4">{title}</Typography>
             </Stack>

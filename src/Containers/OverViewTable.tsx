@@ -56,6 +56,7 @@ const OverViewTable: React.FC<TABLECUSTOMZE> = ({ information }) => {
               <Chip
                 label={item.status}
                 variant="outlined"
+                key={item.id}
                 color={
                   item.status.toLowerCase() === "pending"
                     ? "info"
@@ -76,7 +77,7 @@ const OverViewTable: React.FC<TABLECUSTOMZE> = ({ information }) => {
                 />
               ),
               FormatMoney(item.amount + item.gain) + " $",
-              <Action information={item} />,
+              <Action information={item} key={item.id} />,
             ])
           );
         });
@@ -92,6 +93,7 @@ const OverViewTable: React.FC<TABLECUSTOMZE> = ({ information }) => {
               <Chip
                 label={item.status}
                 variant="outlined"
+                key={item.id}
                 color={
                   item.status.toLowerCase() === "pending"
                     ? "info"
@@ -112,7 +114,7 @@ const OverViewTable: React.FC<TABLECUSTOMZE> = ({ information }) => {
                 />
               ),
               FormatMoney(item.amount + item.gain) + "$",
-              <Action information={item} />,
+              <Action information={item} key={item.id} />,
             ])
           );
         });
@@ -130,7 +132,7 @@ const OverViewTable: React.FC<TABLECUSTOMZE> = ({ information }) => {
   }, [OverViewContextValue?.state]);
 
   return (
-    <Box mt={4}>
+    <Box mt={2}>
       <TableCustomze
         headKey={
           user.role === Roles.lender ? LENDERKEY().head : ADMINKEY().head
