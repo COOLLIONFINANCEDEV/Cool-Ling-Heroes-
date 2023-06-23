@@ -1,5 +1,4 @@
 import {
-  Alert,
   Avatar,
   Box,
   Button,
@@ -7,8 +6,6 @@ import {
   CardContent,
   CardHeader,
   CardMedia,
-  List,
-  ListItem,
   Stack,
   Typography,
   useTheme,
@@ -21,11 +18,16 @@ import PaymentsInformation from "./PaymentsInformation";
 interface PAYMENTS {
   handleImage: Function;
   defaultImage: string;
+  stepper: number;
 }
 
-const Payments: React.FC<PAYMENTS> = ({ handleImage, defaultImage }) => {
-  const [choice, setChoice] = React.useState<number>(1);
-  const [steps, setSteps] = React.useState({ state: 1 });
+const Payments: React.FC<PAYMENTS> = ({
+  handleImage,
+  defaultImage,
+  stepper = 1,
+}) => {
+  const [choice, setChoice] = React.useState<number>(stepper);
+  const [steps, setSteps] = React.useState({ state: stepper });
   const [file, setFile] = React.useState(defaultImage);
   const { palette } = useTheme();
 
@@ -40,14 +42,14 @@ const Payments: React.FC<PAYMENTS> = ({ handleImage, defaultImage }) => {
       img: "Assets/Illustrations/Show.svg",
       title: "different payment methods",
       content:
-        "The Options allow you to view the different payment methods so you can pay.",
+        "You can discover the different payment methods available on our platform. Choose the one that suits you best to make your investment.",
     },
     {
       id: 2,
       img: "Assets/Illustrations/Upload.svg",
       title: "Upload a Payment Record",
       content:
-        "this option allows you to upload the payment receipt to activate your investment.",
+        "If you have already made a payment using one of our supported methods, you can upload the receipt here. This will ensure that your investment is accurately recorded and processed.",
     },
   ];
 
@@ -57,38 +59,6 @@ const Payments: React.FC<PAYMENTS> = ({ handleImage, defaultImage }) => {
       alignItems="center"
       justifyContent={"space-between"}
     >
-      {steps.state === 2 && (
-        <Stack
-          justifyContent={"flex-end"}
-          direction={"row"}
-          alignItems={"flex-end"}
-          sx={{ width: "100%" }}
-        >
-          <Button
-            startIcon={<ArrowBackIcon />}
-            variant="contained"
-            size="small"
-            onClick={() => setSteps({ state: 1 })}
-          >
-            Process modification
-          </Button>
-        </Stack>
-      )}
-      <Alert severity="info" sx={{ m: 1 }}>
-        <List>
-          <ListItem>
-            Explore our platform's various payment methods: You can discover the
-            different payment methods available on our platform. Choose the one
-            that suits you best to make your investment.
-          </ListItem>
-          <ListItem>
-            Upload your payment receipt: If you have already made a payment
-            using one of our supported methods, you can upload the receipt here.
-            This will ensure that your investment is accurately recorded and
-            processed.
-          </ListItem>
-        </List>
-      </Alert>
       {steps.state === 1 && (
         <>
           <Stack
@@ -162,9 +132,10 @@ const Payments: React.FC<PAYMENTS> = ({ handleImage, defaultImage }) => {
 
             <Button
               variant="contained"
-              sx={{ width: "100%", marginTop: "30px" }}
+              sx={{ width: "100%", marginTop: "20px", borderRadius: "5px" }}
               disabled={!choice}
               onClick={() => setSteps({ state: 2 })}
+              size="large"
             >
               I have made my choice
             </Button>
@@ -192,6 +163,25 @@ const Payments: React.FC<PAYMENTS> = ({ handleImage, defaultImage }) => {
             )}
           </Box>
         </>
+      )}
+      {steps.state === 2 &&  (
+        <Stack
+          justifyContent={"flex-start"}
+          direction={"row"}
+          alignItems={"flex-end"}
+          sx={{ width: "100%" }}
+          mt={2}
+        >
+          <Button
+            startIcon={<ArrowBackIcon />}
+            variant="contained"
+            size="small"
+            onClick={() => setSteps({ state: 1 })}
+            sx={{ borderRadius: "5px" }}
+          >
+            Back
+          </Button>
+        </Stack>
       )}
     </Stack>
   );

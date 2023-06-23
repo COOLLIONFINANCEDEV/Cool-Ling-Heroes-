@@ -22,6 +22,11 @@ import CreateModal from "../Components/Modal/CreateModal";
 import { INVESTINNFORMATIONITEM } from "../Components/Investments/InvestmentInformtion";
 import routes from "../Router/routes";
 import Redirect from "../Helpers/Redirect";
+import ApiSession from "../Service/ApiSession";
+import { setAlert } from "../Toolkit/Alert/AlertSlice";
+import { useDispatch } from "react-redux";
+import { LoadingButton } from "@mui/lab";
+import { OverViewContext } from "../Context/OverViewContext";
 
 export type SimulatorData = Array<SimulatorItem>;
 export type SimulatorItem = {
@@ -36,10 +41,16 @@ type Error = {
 interface SIMULATOR {
   backgroundColorState?: boolean;
   handleClick?: Function;
+  investment?: any;
+  handleInvestment?: Function;
+  defaultValue?: { month: number | undefined; amount: number | undefined };
 }
 const Simulator: React.FC<SIMULATOR> = ({
   backgroundColorState = false,
   handleClick,
+  investment = undefined,
+  handleInvestment,
+  defaultValue,
 }) => {
   const [SimulatorData, setSimulatorData] = React.useState<SimulatorData>([
     {
@@ -58,15 +69,18 @@ const Simulator: React.FC<SIMULATOR> = ({
       status: false,
     },
   ]);
-  const [amount, setAmount] = React.useState(1000);
+  const [amount, setAmount] = React.useState(defaultValue?.amount ?? 1000);
   const [newsLetter, setNewsLetter] = React.useState(0);
-  const [month, setMonth] = React.useState(3);
+  const [loader, setLoader] = React.useState(false);
+  const [month, setMonth] = React.useState(defaultValue?.month ?? 3);
   const [error, setError] = React.useState<Error>({
     state: false,
     content: "",
   });
   const minAmount = 200;
   const { palette } = useTheme();
+  const dispatch = useDispatch();
+  const OverViewContextValue = React.useContext(OverViewContext);
 
   const handleChange = React.useCallback(
     (month: number) => {
@@ -83,15 +97,40 @@ const Simulator: React.FC<SIMULATOR> = ({
     [SimulatorData]
   );
 
-  const handleInvest = () => {
+  const handleInvest = async () => {
     if (handleClick && amount >= 200) {
       const element = SimulatorData.filter((item) => item.status === true)[0];
-      const newElement: INVESTINNFORMATIONITEM = {
-        ...element,
-        month: month,
+      const body = {
         amount: amount,
+        term: month,
       };
-      handleClick(newElement);
+      setLoader(true);
+      if (!investment) {
+        const response = await ApiSession.invest.create(body);
+        if (response.error) {
+          dispatch(setAlert({ state: "error", message: response.message }));
+        } else {
+          const newElement: INVESTINNFORMATIONITEM = {
+            ...element,
+            month: month,
+            amount: amount,
+            investmentId: response.data?.at(-1).id,
+          };
+          if (handleInvestment) handleInvestment(response.data?.at(-1));
+          handleClick(newElement);
+          OverViewContextValue?.handle(true);
+          dispatch(setAlert({ state: "success", message: response.message }));
+        }
+      } else {
+        const newElement: INVESTINNFORMATIONITEM = {
+          ...element,
+          month: month,
+          amount: amount,
+          investmentId: investment.id,
+        };
+        handleClick(newElement);
+      }
+      setLoader(false);
     }
   };
 
@@ -257,22 +296,25 @@ const Simulator: React.FC<SIMULATOR> = ({
               <SelectInteret
                 SimulatorData={SimulatorData}
                 onChangeSimulatorStatus={handleChangeSimalatorStatus}
+                defaultValue={defaultValue?.month ?? 3}
               />
             </Box>
           </Stack>
 
           {backgroundColorState ? (
-            <Button
+            <LoadingButton
               color="primary"
               variant="contained"
               size="large"
               sx={{ display: { xs: "none", sm: "initial" } }}
               onClick={handleInvest}
+              loadingPosition="center"
+              loading={loader}
             >
               <Typography m={1} color={"secondary"}>
                 Start Investing
               </Typography>
-            </Button>
+            </LoadingButton>
           ) : (
             <Redirect link={routes.login}>
               <Button
@@ -297,7 +339,7 @@ const Simulator: React.FC<SIMULATOR> = ({
             borderRadius: "15px",
           }}
           justifyContent={"flex-end"}
-          alignItems={"center"}
+          alignItems={"flex-end"}
           rowGap={3}
         >
           <BarChart
@@ -307,7 +349,7 @@ const Simulator: React.FC<SIMULATOR> = ({
           />
 
           {backgroundColorState ? (
-            <Button
+            <LoadingButton
               color="primary"
               variant="contained"
               size="large"
@@ -321,11 +363,13 @@ const Simulator: React.FC<SIMULATOR> = ({
               fullWidth
               LinkComponent={backgroundColorState ? undefined : "a"}
               href={backgroundColorState ? undefined : routes.login}
+              loadingPosition="center"
+              loading={loader}
             >
               <Typography m={1} color={"secondary"}>
                 Start Investing
               </Typography>
-            </Button>
+            </LoadingButton>
           ) : (
             <Redirect link={routes.login}>
               <Button

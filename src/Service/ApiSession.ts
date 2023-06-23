@@ -33,12 +33,16 @@ const ApiSession = {
       ApiService(ApiRoutes.auth.updatePassword, "post", body),
   },
   invest: {
-    create: (body: {
-      amount: number;
-      term: number;
-      proof: string;
-    }): Promise<RESPONSELAYOUT> =>
+    create: (
+      body:
+        | {
+            amount: number;
+            term: number;
+          }
+        | { amount: number; term: number; investmentId: number; proof: string }
+    ): Promise<RESPONSELAYOUT> =>
       ApiService(ApiRoutes.Invest.Create, "post", body),
+
     list: (id: number): Promise<RESPONSELAYOUT> =>
       ApiService(ApiRoutes.Invest.List(id), "get", {}),
     reduce: (body: {

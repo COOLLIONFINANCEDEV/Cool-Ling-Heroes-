@@ -29,6 +29,8 @@ import ChangeRole from "../Customers/ChangeRole";
 import AnnoucementInfos from "../Annoucement/AnnoucementInfos";
 import AnnoucementUpdate from "../Annoucement/AnnoucementUpdate";
 import AnnoucementDelete from "../Annoucement/AnnoucementDelete";
+import NoteAddIcon from "@mui/icons-material/NoteAdd";
+import Investments from "../Investments/Investments";
 
 interface ACTION {
   information: any;
@@ -121,6 +123,28 @@ const Action: React.FC<ACTION> = ({ information }) => {
 
             {user.role === Roles.lender && (
               <CreateModal
+                ModalContent={Investments}
+                closeButton
+                contentProps={{ investmentInfo: information, stepper: 1 }}
+                closeButtonFunc={handleClose}
+                noOpen={!!information.proof}
+              >
+                <MenuItem color="info" disabled={!!information.proof}>
+                  <ListItemIcon>
+                    <NoteAddIcon fontSize="small" color="warning" />
+                  </ListItemIcon>
+                  <Typography
+                    sx={{ fontWeight: 350, fontSize: "0.8rem" }}
+                    color={palette.warning.main}
+                  >
+                    Upload Record
+                  </Typography>
+                </MenuItem>
+              </CreateModal>
+            )}
+
+            {user.role === Roles.lender && (
+              <CreateModal
                 ModalContent={ReduceInvest}
                 closeButton
                 contentProps={{ information: information }}
@@ -207,7 +231,7 @@ const Action: React.FC<ACTION> = ({ information }) => {
                 closeButton
                 contentProps={{ information: information }}
                 closeButtonFunc={handleClose}
-                noOpen={user.role !== Roles.lender && !information.accepted}
+                noOpen={user.role === Roles.lender && !information.accepted}
               >
                 <MenuItem disabled={!information.accepted}>
                   <ListItemIcon>

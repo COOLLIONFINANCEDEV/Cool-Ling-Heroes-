@@ -14,6 +14,7 @@ import FormatMoney from "../../Helpers/FormatMoney";
 
 export interface INVESTINNFORMATIONITEM extends SimulatorItem {
   amount: number;
+  investmentId: number;
 }
 
 interface INVESTMENTINFORMATION {
@@ -71,7 +72,7 @@ const InvestmentInformtion: React.FC<INVESTMENTINFORMATION> = ({
           />
           <Row
             title="Base APY"
-            value={interetInformation?.interet +  " %" ?? 0}
+            value={interetInformation?.interet + " %" ?? 0}
           />
           <Row title="Earnings" value={FormatMoney(amountInteret) + " $"} />
         </List>
