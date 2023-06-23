@@ -195,7 +195,7 @@ const ShowInvestment: React.FC<INVESTMENTINFORMATION> = ({
           <Divider sx={{ fontWeight: 500 }} />
           {interetInformation.ChangeRequest?.map((item: any, key: number) => {
             return (
-              <Accordion key={key}>
+              <Accordion key={item.id}>
                 <AccordionSummary
                   expandIcon={<ExpandMoreIcon />}
                   aria-controls="panel1a-content"

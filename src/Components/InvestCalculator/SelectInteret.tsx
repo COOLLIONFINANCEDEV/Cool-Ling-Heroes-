@@ -1,16 +1,18 @@
 import * as React from "react";
 import Slider from "@mui/material/Slider";
-import { SimulatorData} from "../../Containers/Simulator";
+import { SimulatorData } from "../../Containers/Simulator";
 interface SELECTINTERET {
   SimulatorData: SimulatorData;
   onChangeSimulatorStatus: (type: "month", month: number) => void;
+  defaultValue?: number;
 }
 
 const SelectInteret: React.FC<SELECTINTERET> = ({
   SimulatorData,
   onChangeSimulatorStatus,
+  defaultValue = 3,
 }) => {
-  const [value, setValue] = React.useState(0);
+  const [value, setValue] = React.useState(defaultValue);
 
   const handleChange = (event: Event, newValue: number | number[]) => {
     if (typeof newValue === "number") {

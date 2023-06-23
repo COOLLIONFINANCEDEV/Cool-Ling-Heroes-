@@ -14,6 +14,7 @@ import FormatMoney from "../../Helpers/FormatMoney";
 
 export interface INVESTINNFORMATIONITEM extends SimulatorItem {
   amount: number;
+  investmentId: number;
 }
 
 interface INVESTMENTINFORMATION {

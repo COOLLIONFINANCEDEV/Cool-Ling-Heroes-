@@ -26,6 +26,11 @@ import DeleteInvestment from "../Investments/DeleteInvestment";
 import { useLocation } from "react-router-dom";
 import routes from "../../Router/routes";
 import ChangeRole from "../Customers/ChangeRole";
+import AnnoucementInfos from "../Annoucement/AnnoucementInfos";
+import AnnoucementUpdate from "../Annoucement/AnnoucementUpdate";
+import AnnoucementDelete from "../Annoucement/AnnoucementDelete";
+import NoteAddIcon from "@mui/icons-material/NoteAdd";
+import Investments from "../Investments/Investments";
 
 interface ACTION {
   information: any;
@@ -118,6 +123,28 @@ const Action: React.FC<ACTION> = ({ information }) => {
 
             {user.role === Roles.lender && (
               <CreateModal
+                ModalContent={Investments}
+                closeButton
+                contentProps={{ investmentInfo: information, stepper: 1 }}
+                closeButtonFunc={handleClose}
+                noOpen={!!information.proof}
+              >
+                <MenuItem color="info" disabled={!!information.proof}>
+                  <ListItemIcon>
+                    <NoteAddIcon fontSize="small" color="warning" />
+                  </ListItemIcon>
+                  <Typography
+                    sx={{ fontWeight: 350, fontSize: "0.8rem" }}
+                    color={palette.warning.main}
+                  >
+                    Upload Record
+                  </Typography>
+                </MenuItem>
+              </CreateModal>
+            )}
+
+            {user.role === Roles.lender && (
+              <CreateModal
                 ModalContent={ReduceInvest}
                 closeButton
                 contentProps={{ information: information }}
@@ -176,15 +203,13 @@ const Action: React.FC<ACTION> = ({ information }) => {
                 contentProps={{ information: information }}
                 closeButtonFunc={handleClose}
                 noOpen={
-                  ![Roles.admin].includes(user.role) ||
-                  !information.accepted
+                  ![Roles.admin].includes(user.role) || !information.accepted
                 }
               >
                 <MenuItem
                   color="warning"
                   disabled={
-                    ![Roles.admin].includes(user.role) ||
-                    !information.accepted
+                    ![Roles.admin].includes(user.role) || !information.accepted
                   }
                 >
                   <ListItemIcon>
@@ -206,7 +231,7 @@ const Action: React.FC<ACTION> = ({ information }) => {
                 closeButton
                 contentProps={{ information: information }}
                 closeButtonFunc={handleClose}
-                noOpen={!(user.role === Roles.lender) && !information.accepted}
+                noOpen={user.role === Roles.lender && !information.accepted}
               >
                 <MenuItem disabled={!information.accepted}>
                   <ListItemIcon>
@@ -260,6 +285,68 @@ const Action: React.FC<ACTION> = ({ information }) => {
                 </MenuItem>
               </CreateModal>
             )}
+          </Box>
+        )}
+
+        {/* Annoucement Items */}
+        {route === routes.setting && (
+          <Box>
+            <CreateModal
+              ModalContent={AnnoucementInfos}
+              closeButton
+              contentProps={{ information: information }}
+              closeButtonFunc={handleClose}
+            >
+              <MenuItem>
+                <ListItemIcon>
+                  <OpenInNewIcon fontSize="small" />
+                </ListItemIcon>
+                <Typography sx={{ fontWeight: 350, fontSize: "0.8rem" }}>
+                  Show
+                </Typography>
+              </MenuItem>
+            </CreateModal>
+
+            <CreateModal
+              ModalContent={AnnoucementUpdate}
+              closeButton
+              contentProps={{ information: information }}
+              closeButtonFunc={handleClose}
+            >
+              <MenuItem color="info">
+                <ListItemIcon>
+                  <VerifiedUserIcon fontSize="small" color="info" />
+                </ListItemIcon>
+                <Typography
+                  sx={{ fontWeight: 350, fontSize: "0.8rem" }}
+                  color={palette.info.main}
+                >
+                  Update
+                </Typography>
+              </MenuItem>
+            </CreateModal>
+
+            <CreateModal
+              ModalContent={AnnoucementDelete}
+              closeButton
+              contentProps={{ information: information }}
+              closeButtonFunc={handleClose}
+            >
+              <MenuItem>
+                <ListItemIcon>
+                  <DeleteIcon color="error" fontSize="small" />
+                </ListItemIcon>
+                <Typography
+                  sx={{
+                    color: palette.error.main,
+                    fontWeight: 350,
+                    fontSize: "0.8rem",
+                  }}
+                >
+                  Delete
+                </Typography>
+              </MenuItem>
+            </CreateModal>
           </Box>
         )}
       </Menu>

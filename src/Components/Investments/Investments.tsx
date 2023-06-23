@@ -1,4 +1,16 @@
-import { Box, Button, Stack } from "@mui/material";
+import {
+  Alert,
+  AlertTitle,
+  Box,
+  Button,
+  Card,
+  CardContent,
+  CardHeader,
+  List,
+  ListItem,
+  ListItemText,
+  Stack,
+} from "@mui/material";
 import React from "react";
 import CustomizedSteppers from "../CutomzedSteppers";
 import Simulator from "../../Containers/Simulator";
@@ -14,10 +26,16 @@ import { OverViewContext } from "../../Context/OverViewContext";
 
 interface INVESTMENTS {
   handleClose: any;
+  investmentInfo: any;
+  stepper: number;
 }
 
-const Investments: React.FC<INVESTMENTS> = ({ handleClose }) => {
-  const [step, setStep] = React.useState(0);
+const Investments: React.FC<INVESTMENTS> = ({
+  handleClose,
+  investmentInfo,
+  stepper = 0,
+}) => {
+  const [step, setStep] = React.useState(stepper);
   const [interetInformation, setInteretInformation] = React.useState<
     INVESTINNFORMATIONITEM | undefined
   >();
@@ -25,6 +43,8 @@ const Investments: React.FC<INVESTMENTS> = ({ handleClose }) => {
   const [next, setNext] = React.useState(false);
   const [submit, setSumbit] = React.useState(false);
   const [loader, setLoader] = React.useState(false);
+  const [investment, setInvestment] = React.useState<any>(investmentInfo);
+  const [isChange, setIsChange] = React.useState(false);
 
   const dispatch = useDispatch();
   const OverViewContextValue = React.useContext(OverViewContext);
@@ -38,6 +58,7 @@ const Investments: React.FC<INVESTMENTS> = ({ handleClose }) => {
         amount: interetInformation.amount,
         term: interetInformation.month,
         proof: paymentInformation,
+        investmentId: interetInformation.investmentId,
       };
       const response = await ApiSession.invest.create(body);
       if (response.error) {
@@ -50,6 +71,13 @@ const Investments: React.FC<INVESTMENTS> = ({ handleClose }) => {
     }
   };
 
+  React.useEffect(() => {
+    if (investment && interetInformation) {
+      if (investment.term !== interetInformation.month) setIsChange(true);
+      else setIsChange(false);
+    }
+  }, [interetInformation, investment]);
+
   return (
     <Stack
       sx={{
@@ -61,43 +89,105 @@ const Investments: React.FC<INVESTMENTS> = ({ handleClose }) => {
       }}
     >
       <CustomizedSteppers step={step} />
-
-      <Box sx={{ width: "calc(100% - 15px)" }} p={"auto 7.5px"}>
-        {step === 0 && (
-          <Simulator
-            backgroundColorState
-            handleClick={(
-              information: React.SetStateAction<
-                INVESTINNFORMATIONITEM | undefined
-              >
-            ) => {
-              setStep(1);
-              if (information) setInteretInformation(information);
+      {isChange && (
+        <Alert
+          severity="warning"
+          sx={{ width: "98% !important", mb: 3, mt: 2 }}
+          onClose={() => setIsChange(false)}
+        >
+          <AlertTitle>Changing your investment configuration</AlertTitle>
+          You have just changed your investment configuration please ensure that
+          your receipt corresponds to your investment configuration. <br />{" "}
+          <strong>
+            By default, the new configuration will be taken into account
+          </strong>
+          . If you wish to use the old method, please configure with the old
+          process.
+          <Stack
+            alignItems={"center"}
+            justifyContent={"space-between"}
+            sx={{
+              width: {
+                xs: "calc(80vw) !important",
+                sm: "calc(86.5vw) !important",
+              },
+              flexDirection: {
+                xs: "column",
+                sm: "row",
+              },
+              gap: 2,
+              m: "10px 0",
             }}
-          />
-        )}
+          >
+            <Card sx={{ width: "100%" }}>
+              <CardHeader
+                title="Old configuration"
+                subheader="the first configuration you made
+      "
+              />
+              <CardContent sx={{ padding: "0 10px" }}>
+                <List>
+                  <ListItem>
+                    <ListItemText
+                      primary="Durée"
+                      secondary={`${investment?.term} mois`}
+                    />
+                  </ListItem>
+                  <ListItem>
+                    <ListItemText
+                      primary="Montant"
+                      secondary={`${investment?.amount} dollars`}
+                    />
+                  </ListItem>
+                  <ListItem>
+                    <ListItemText
+                      primary="Taux d'intérêt"
+                      secondary={`${
+                        (investment.gain / investment.amount) * 100
+                      } %`}
+                    />
+                  </ListItem>
+                </List>
+              </CardContent>
+            </Card>
 
-        {step === 1 && (
-          <Payments
-            handleImage={(file: React.SetStateAction<string>) => {
-              setPaymentInformation(file);
-              setNext(file ? true : false);
-            }}
-            defaultImage={paymentInformation}
-          />
-        )}
-
-        {step === 2 && (
-          <InvestmentInformtion interetInformation={interetInformation} />
-        )}
-      </Box>
+            <Card sx={{ width: "100%" }}>
+              <CardHeader
+                title="New configuration"
+                subheader="the last configuration you made
+      "
+              />
+              <CardContent sx={{ padding: "0 10px", width: "100%" }}>
+                <List>
+                  <ListItem>
+                    <ListItemText
+                      primary="Durée"
+                      secondary={`${interetInformation?.month} mois`}
+                    />
+                  </ListItem>
+                  <ListItem>
+                    <ListItemText
+                      primary="Montant"
+                      secondary={`${interetInformation?.amount} dollars`}
+                    />
+                  </ListItem>
+                  <ListItem>
+                    <ListItemText
+                      primary="Taux d'intérêt"
+                      secondary={`${interetInformation?.interet} %`}
+                    />
+                  </ListItem>
+                </List>
+              </CardContent>
+            </Card>
+          </Stack>
+        </Alert>
+      )}
       <Stack
         direction={"row"}
         justifyContent={"flex-end"}
         alignItems={"center"}
         spacing={2}
-        pt={4}
-        pb={4}
       >
         <Button
           variant="outlined"
@@ -107,7 +197,7 @@ const Investments: React.FC<INVESTMENTS> = ({ handleClose }) => {
             setSumbit(false);
           }}
           disabled={step <= 0}
-          size="large"
+          size="small"
         >
           Modify Order Setting
         </Button>
@@ -120,7 +210,7 @@ const Investments: React.FC<INVESTMENTS> = ({ handleClose }) => {
               setStep((state) => (state += 1));
               setSumbit(true);
             }}
-            size="large"
+            size="small"
           >
             Continue
           </Button>
@@ -138,6 +228,47 @@ const Investments: React.FC<INVESTMENTS> = ({ handleClose }) => {
           </LoadingButton>
         )}
       </Stack>
+
+      <Box
+        sx={{ width: "calc(100% - 15px)", pb: isChange ? "100px" : "0" }}
+        p={"auto 7.5px"}
+      >
+        {step === 0 && (
+          <Simulator
+            backgroundColorState
+            handleClick={(
+              information: React.SetStateAction<
+                INVESTINNFORMATIONITEM | undefined
+              >,
+              investmentId: number
+            ) => {
+              setStep(1);
+              if (information) setInteretInformation(information);
+            }}
+            investment={investment}
+            handleInvestment={setInvestment}
+            defaultValue={{
+              month: interetInformation?.month ?? investment?.term,
+              amount: interetInformation?.amount ?? investment?.amount,
+            }}
+          />
+        )}
+
+        {step === 1 && (
+          <Payments
+            handleImage={(file: React.SetStateAction<string>) => {
+              setPaymentInformation(file);
+              setNext(file ? true : false);
+            }}
+            defaultImage={paymentInformation}
+            stepper={stepper === 0 ? 1 : 2}
+          />
+        )}
+
+        {step === 2 && (
+          <InvestmentInformtion interetInformation={interetInformation} />
+        )}
+      </Box>
     </Stack>
   );
 };

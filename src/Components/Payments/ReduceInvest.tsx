@@ -24,6 +24,7 @@ const ReduceInvest: React.FC<REDUCEINVEST> = ({ information, handleClose }) => {
     amount: 0,
   };
 
+
   const overViewContextValue = React.useContext(OverViewContext);
 
   const handleSubmit = React.useCallback(
