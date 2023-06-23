@@ -144,7 +144,7 @@ const Payments: React.FC<PAYMENTS> = ({
       )}
       {steps.state === 2 && (
         <>
-          <Box sx={{ width: "100%" }}>
+          <Box sx={{ width: "100%", mt: 10 }}>
             {choice === 2 ? (
               <UploadButton
                 imageSelected={(file: React.SetStateAction<string>) => {
@@ -164,7 +164,7 @@ const Payments: React.FC<PAYMENTS> = ({
           </Box>
         </>
       )}
-      {steps.state === 2 &&  (
+      {steps.state === 2 && (
         <Stack
           justifyContent={"flex-start"}
           direction={"row"}
@@ -176,7 +176,10 @@ const Payments: React.FC<PAYMENTS> = ({
             startIcon={<ArrowBackIcon />}
             variant="contained"
             size="small"
-            onClick={() => setSteps({ state: 1 })}
+            onClick={() => {
+              setSteps({ state: 1 });
+              handleImage();
+            }}
             sx={{ borderRadius: "5px" }}
           >
             Back

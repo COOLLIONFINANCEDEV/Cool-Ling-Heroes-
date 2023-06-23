@@ -173,14 +173,16 @@ const Action: React.FC<ACTION> = ({ information }) => {
                 closeButtonFunc={handleClose}
                 noOpen={
                   ![Roles.moderator, Roles.admin].includes(user.role) ||
-                  information.accepted
+                  information.accepted ||
+                  !information.proof
                 }
               >
                 <MenuItem
                   color="info"
                   disabled={
                     ![Roles.moderator, Roles.admin].includes(user.role) ||
-                    information.accepted
+                    information.accepted ||
+                    !information.proof
                   }
                 >
                   <ListItemIcon>
