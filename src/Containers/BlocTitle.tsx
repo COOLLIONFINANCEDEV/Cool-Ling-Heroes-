@@ -3,8 +3,9 @@ import { Button, Stack, SvgIcon, Typography } from "@mui/material";
 import { PlusIcon } from "@heroicons/react/24/solid";
 import { OVERVIEWCONTEXT, OverViewContext } from "../Context/OverViewContext";
 
+
 interface BLOCKTITLE {
-  title: string;
+title: string;
   handleClick?: React.MouseEventHandler<HTMLButtonElement>;
   buttonContent?: string;
   disabled: boolean;

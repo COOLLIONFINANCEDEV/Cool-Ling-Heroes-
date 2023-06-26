@@ -21,7 +21,7 @@ const ApiRoutes = {
     Create: "/newsletter/create",
   },
   Annoucement: {
-    Create: "/annoucement/create",
+    Create: "/announcement",
     Update: "/annoucement/update",
     Delete: "/annoucement/delete",
   },

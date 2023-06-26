@@ -13,7 +13,6 @@ import React, { ChangeEvent } from "react";
 import { width } from "../Theme/size";
 import BarChart from "../Components/Chart/BarChart";
 import SelectInteret from "../Components/InvestCalculator/SelectInteret";
-import SelectDuration from "../Components/InvestCalculator/SelectDuration";
 import SelectAprAndDuration from "../Components/InvestCalculator/SelectAprAndDuration";
 import FormatMoney from "../Helpers/FormatMoney";
 import removeThousandsSeparator from "../Helpers/RemoveFormatMoney";
@@ -73,6 +72,7 @@ const Simulator: React.FC<SIMULATOR> = ({
   const [newsLetter, setNewsLetter] = React.useState(0);
   const [loader, setLoader] = React.useState(false);
   const [month, setMonth] = React.useState(defaultValue?.month ?? 3);
+  const [interet, setInteret] = React.useState(1);
   const [error, setError] = React.useState<Error>({
     state: false,
     content: "",
@@ -96,6 +96,13 @@ const Simulator: React.FC<SIMULATOR> = ({
     },
     [SimulatorData]
   );
+
+  React.useEffect(() => {
+    const item = SimulatorData.filter((item) => item.status)[0];
+    const interetPerMonth = item.interet / 12;
+    const globalInteret = interetPerMonth * month;
+    setInteret(globalInteret);
+  }, [SimulatorData, month]);
 
   const handleInvest = async () => {
     if (handleClick && amount >= 200) {
@@ -268,11 +275,25 @@ const Simulator: React.FC<SIMULATOR> = ({
               width: "100%",
             }}
           >
-            <Typography fontWeight={"600"}>Percentage Rate</Typography>
-            <SelectDuration
+            <Stack
+              justifyContent={"space-between"}
+              sx={{ width: "100%", flexDirection: { xs: "column", sm: "row" } }}
+              rowGap={2}
+            >
+              <Typography
+                fontWeight={"600"}
+                sx={{ width: "max-content !important" }}
+              >
+                Annual Percentage Rate
+              </Typography>
+              <Typography fontWeight={"600"} color={"primary"}>
+                {interet} %
+              </Typography>
+            </Stack>
+            {/* <SelectDuration
               SimulatorData={SimulatorData}
               onChangeSimulatorStatus={handleChangeSimalatorStatus}
-            />
+            /> */}
           </Stack>
           {/* select interet */}
           <Stack
