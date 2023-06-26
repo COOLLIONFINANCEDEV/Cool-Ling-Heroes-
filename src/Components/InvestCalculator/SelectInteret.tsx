@@ -25,7 +25,7 @@ const SelectInteret: React.FC<SELECTINTERET> = ({
     <Slider
       aria-label="Restricted values"
       onChange={handleChange}
-      step={1}
+      step={3}
       min={3}
       max={36}
       valueLabelDisplay="auto"

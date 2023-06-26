@@ -17,7 +17,7 @@ interface TABLECUSTOMZE {
 
 const TableCustomze: React.FC<TABLECUSTOMZE> = ({ headKey, rows }) => {
   const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
   const handleChangePage = (event: unknown, newPage: number) => {
     setPage(newPage);
@@ -51,7 +51,7 @@ const TableCustomze: React.FC<TABLECUSTOMZE> = ({ headKey, rows }) => {
         </Table>
       </TableContainer>
       <TablePagination
-        rowsPerPageOptions={[5, 10, 20]}
+        rowsPerPageOptions={[10, 15, 20]}
         component="div"
         count={rows.length}
         rowsPerPage={rowsPerPage}

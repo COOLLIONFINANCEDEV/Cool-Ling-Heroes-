@@ -10,8 +10,10 @@ interface BARCHART {
   month: number;
 }
 
-const BarChart: React.FC<BARCHART> = ({ amount, rule,month }) => {
-  const amountWithPercentage = amount + amount * (rule.interet / 100);
+const BarChart: React.FC<BARCHART> = ({ amount, rule, month }) => {
+  const interetPerMonth = rule.interet / 12;
+  const SelectInteret = interetPerMonth * month;
+  const amountWithPercentage = amount + amount * (SelectInteret / 100);
   return (
     <Paper elevation={3} className="chart_wrapper__K6wh8">
       <Typography className="chart_title__ZlbWg" fontWeight={800}>
