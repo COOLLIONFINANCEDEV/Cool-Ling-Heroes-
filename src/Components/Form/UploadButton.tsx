@@ -30,7 +30,7 @@ const UploadForm: React.FC<UPLOADEFORM> = ({
       if (!validateFileType(file, type)) {
         alert("Only image, PDF, or document files are allowed.");
         return;
-      }
+      } 
       if (file.size > 1024 * 1024) {
         alert("File size exceeds the limit of 1MB.");
         return;

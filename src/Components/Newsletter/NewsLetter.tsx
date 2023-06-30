@@ -29,7 +29,7 @@ const NewsLetter: React.FC<NEWSLETTER> = ({ handleClose }) => {
     ) => {
       handleClose();
       const response = await ApiSession.newsLetter.create(values);
-      if (response.error)
+      if (!response.error)
         dispatch(setAlert({ state: "success", message: response.message }));
     },
     [dispatch, handleClose]

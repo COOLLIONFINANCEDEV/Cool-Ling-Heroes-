@@ -18,12 +18,13 @@ const ApiRoutes = {
     disable: "/investment/abort",
   },
   NewsLetter: {
-    Create: "/newsletter/create",
+    Create: "/newsletter/subscribe",
   },
   Annoucement: {
     Create: "/announcement",
-    Update: "/annoucement/update",
-    Delete: "/annoucement/delete",
+    Update: "/announcement",
+    List: "/announcement",
+    Delete: (id: number) => `/announcement/${id}`,
   },
 };
 

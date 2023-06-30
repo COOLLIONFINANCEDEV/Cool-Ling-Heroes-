@@ -91,7 +91,7 @@ const ApiSession = {
   },
   newsLetter: {
     create: (body: { email: string }): Promise<RESPONSELAYOUT> =>
-      ApiService(ApiRoutes.auth.register, "post", body),
+      ApiService(ApiRoutes.NewsLetter.Create, "post", body),
   },
   annoucement: {
     create: (body: {
@@ -100,13 +100,16 @@ const ApiSession = {
       image: string;
     }): Promise<RESPONSELAYOUT> =>
       ApiService(ApiRoutes.Annoucement.Create, "post", body),
-    update: (body: {
-      AnnoucementId: number;
-      status: boolean;
-    }): Promise<RESPONSELAYOUT> =>
+    update: (body: { id: number; status: boolean }): Promise<RESPONSELAYOUT> =>
       ApiService(ApiRoutes.Annoucement.Update, "put", body),
     delete: (body: { AnnoucementId: number }): Promise<RESPONSELAYOUT> =>
-      ApiService(ApiRoutes.Annoucement.Delete, "post", body),
+      ApiService(
+        ApiRoutes.Annoucement.Delete(body.AnnoucementId),
+        "delete",
+        {}
+      ),
+    list: (): Promise<RESPONSELAYOUT> =>
+      ApiService(ApiRoutes.Annoucement.List, "get", {}),
   },
 };
 
