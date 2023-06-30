@@ -414,7 +414,7 @@ const Simulator: React.FC<SIMULATOR> = ({
         </Stack>
       </Stack>
       {newsLetter >= 4 && (
-        <CreateModal makeOpen ModalContent={NewsLetter} closeButton />
+        <CreateModal makeOpen ModalContent={NewsLetter} closeButton noLeave/>
       )}
     </Stack>
   );

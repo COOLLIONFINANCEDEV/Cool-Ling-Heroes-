@@ -4,7 +4,7 @@ import React from "react";
 import ApiSession from "../../Service/ApiSession";
 import { setAlert } from "../../Toolkit/Alert/AlertSlice";
 import { useDispatch } from "react-redux";
-import { OverViewContext } from "../../Context/OverViewContext";
+import { AnnoucementContext } from "../../Context/AnnoucementContext";
 
 interface ANNOUCEMENTDELET {
   information: any;
@@ -25,7 +25,7 @@ const AnnoucementDelete: React.FC<ANNOUCEMENTDELET> = ({
 
   const [loading, setLoading] = React.useState(false);
   const dispatch = useDispatch();
-  const overViewContextValue = React.useContext(OverViewContext);
+  const AnnoucementContextValue = React.useContext(AnnoucementContext);
 
   const handleSubmit = React.useCallback(async () => {
     setLoading(true);
@@ -36,11 +36,11 @@ const AnnoucementDelete: React.FC<ANNOUCEMENTDELET> = ({
       dispatch(setAlert({ state: "error", message: response.message }));
     } else {
       dispatch(setAlert({ state: "success", message: response.message }));
-      overViewContextValue?.handle(true);
+      AnnoucementContextValue?.handle(true);
     }
     handleClose();
     setLoading(false);
-  }, [dispatch, handleClose, information.id, overViewContextValue]);
+  }, [dispatch, handleClose, information.id, AnnoucementContextValue]);
 
   return (
     <Box sx={deleteStyle}>

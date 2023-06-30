@@ -7,7 +7,7 @@ import { LoadingButton } from "@mui/lab";
 import ApiSession from "../../Service/ApiSession";
 import { setAlert } from "../../Toolkit/Alert/AlertSlice";
 import { FormTextField } from "../Formik/FormTextField";
-import { OverViewContext } from "../../Context/OverViewContext";
+import { AnnoucementContext } from "../../Context/AnnoucementContext";
 
 interface INITIALVALUES {
   handleAd: string;
@@ -27,12 +27,12 @@ const AnnoucementUpdate: React.FC<ANNOUCEMENTUPDATE> = ({
     handleAd: information.status ? "true" : "false",
   };
 
-  const overViewContextValue = React.useContext(OverViewContext);
+  const AnnoucementContextValue = React.useContext(AnnoucementContext);
 
   const handleSubmit = React.useCallback(
     async (values: INITIALVALUES, helper: FormikHelpers<INITIALVALUES>) => {
       const response = await ApiSession.annoucement.update({
-        AnnoucementId: information.id,
+        id: information.id,
         status: values.handleAd === "true",
       });
 
@@ -40,11 +40,11 @@ const AnnoucementUpdate: React.FC<ANNOUCEMENTUPDATE> = ({
         dispatch(setAlert({ state: "error", message: response.message }));
       } else {
         dispatch(setAlert({ state: "success", message: response.message }));
-        overViewContextValue?.handle(true);
+        AnnoucementContextValue?.handle(true);
       }
       handleClose();
     },
-    [dispatch, handleClose, information.id, overViewContextValue]
+    [dispatch, handleClose, information.id, AnnoucementContextValue]
   );
   return (
     <Stack

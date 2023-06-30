@@ -24,16 +24,18 @@ const BarChart: React.FC<BARCHART> = ({ amount, rule, month }) => {
           <Box className="graph_right_labels__6OJ02">
             <Box className="graph_graph_amount_label__ME8m4">
               <Typography>
-                ${FormatMoney(amountWithPercentage + 2000)}
+                ${FormatMoney(Math.floor(amountWithPercentage + 2000))}
               </Typography>
             </Box>
             <Box className="graph_graph_amount_label__ME8m4">
               <Typography>
-                ${FormatMoney(amountWithPercentage + 1000)}
+                ${FormatMoney(Math.floor(amountWithPercentage + 1000))}
               </Typography>
             </Box>
             <Box className="graph_graph_amount_label__ME8m4">
-              <Typography>${FormatMoney(amountWithPercentage)}</Typography>
+              <Typography>
+                ${FormatMoney(Math.floor(amountWithPercentage))}
+              </Typography>
             </Box>
             <Box className="graph_graph_amount_label__ME8m4">
               <Typography>$0</Typography>
