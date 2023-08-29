@@ -82,7 +82,7 @@ const HowItWorks = () => {
               <iframe
                 width="100%"
                 height="315"
-                src="https://www.youtube.com/embed/7f91fGZj3TM"
+                src="https://www.youtube.com/embed/DLgJDk58vh8"
                 title="YouTube Video Player"
                 frameBorder="0"
                 allow="Accelerometer; Autoplay; Clipboard-Write; Encrypted-Media; Gyroscope; Picture-In-Picture; Web-Share"
