@@ -7,14 +7,15 @@ const routes = {
   simulator: "/#simulator",
   howItWorks: "/#howitwork",
   contact: "https://wa.me/+2250708064848",
-  tel:"tel:+2250708064848",
-  email:"mailto:team@coollionfi.com",
+  tel: "tel:+2250708064848",
+  email: "mailto:team@coollionfi.com",
   videoChat: "https://meet.google.com/zkm-vbix-kxr",
   dashboard: "dashbaord",
   account: "account",
   setting: "settings",
   customers: "customers",
-  maturity:"maturity"
+  maturity: "maturity",
+  messenger: "messenger",
 };
 
 export default routes;

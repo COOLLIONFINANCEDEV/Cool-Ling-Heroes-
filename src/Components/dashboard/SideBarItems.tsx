@@ -8,7 +8,10 @@ import routes from "../../Router/routes";
 import Roles from "../../Seeds/Roles";
 import { useSelector } from "react-redux";
 import { selectLogin } from "../../Toolkit/Login/LoginSlice";
-import { CalendarDaysIcon } from "@heroicons/react/24/solid";
+import {
+  CalendarDaysIcon,
+  ChatBubbleBottomCenterTextIcon,
+} from "@heroicons/react/24/solid";
 
 type NAVBARITEMSCONFIG = Array<{
   title: string;
@@ -18,10 +21,11 @@ type NAVBARITEMSCONFIG = Array<{
   external?: boolean;
 }>;
 
-const lenderActiveList = ["overview", "account", "settings"];
-const adminActiveList = ["overview", "account", "settings", "customers",'maturity'];
-const moderatorActiveList = ["overview", "account", "settings"];
-const advisorActiveList = ["overview", "account", "settings"];
+const allUser = ["overview", "account", "settings",'messenger'];
+const lenderActiveList = [...allUser];
+const adminActiveList = [...allUser, "customers", "maturity"];
+const moderatorActiveList = [...allUser];
+const advisorActiveList = [...allUser];
 
 const ActiveList = {
   [Roles.lender]: lenderActiveList,
@@ -63,6 +67,15 @@ const List: NAVBARITEMSCONFIG = [
     icon: (
       <SvgIcon fontSize="small">
         <UserIcon />
+      </SvgIcon>
+    ),
+  },
+  {
+    title: "Messenger",
+    path: routes.messenger,
+    icon: (
+      <SvgIcon fontSize="small">
+        <ChatBubbleBottomCenterTextIcon />
       </SvgIcon>
     ),
   },
