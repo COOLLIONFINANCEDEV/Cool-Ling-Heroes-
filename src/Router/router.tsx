@@ -14,6 +14,7 @@ import { selectLogin } from "../Toolkit/Login/LoginSlice";
 import RequireAuth from "../Helpers/RequireAuth";
 import Roles from "../Seeds/Roles";
 import Maturity from "../Pages/Maturity";
+import Messenger from "../Pages/Messenger";
 
 const Router = () => {
   const { isAuthenticated } = useSelector(selectLogin);
@@ -31,6 +32,7 @@ const Router = () => {
           <Route index element={<OverView />} />
           <Route path={routes.account} element={<Account />} />
           <Route path={routes.setting} element={<Settings />} />
+          <Route path={routes.messenger} element={<Messenger />} />
           <Route
             path={routes.customers}
             element={
