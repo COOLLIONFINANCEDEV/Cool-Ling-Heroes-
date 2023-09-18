@@ -1,0 +1,57 @@
+cool-lion-heroes/
+├── node_modules/
+├── public/
+│   ├── vite.svg
+│   └── ...
+├── src/
+│   ├── assets/
+│   │   └── images/
+│   │       └── logo.png
+│   ├── components/
+│   │   ├── common/
+│   │   │   ├── Header.js
+│   │   │   └── Footer.js
+│   │   ├── admin/
+│   │   │   ├── AdminDashboard.js
+│   │   │   └── ...
+│   │   ├── requester/
+│   │   │   ├── RequesterDashboard.js
+│   │   │   └── ...
+│   │   ├── donor/
+│   │   │   ├── DonorDashboard.js
+│   │   │   └── ...
+│   ├── pages/
+│   │   ├── Home.js
+│   │   ├── Login.js
+│   │   ├── Register.js
+│   │   └── ...
+│   ├── services/
+│   │   ├── authService.js
+│   │   ├── reservationService.js
+│   │   ├── stockService.js
+│   │   ├── carbonEmissionsService.js
+│   │   └── ...
+│   ├── store/
+│   │   ├── actions/
+│   │   │   ├── authActions.js
+│   │   │   ├── reservationActions.js
+│   │   │   ├── stockActions.js
+│   │   │   ├── carbonEmissionsActions.js
+│   │   │   └── ...
+│   │   ├── reducers/
+│   │   │   ├── authReducer.js
+│   │   │   ├── reservationReducer.js
+│   │   │   ├── stockReducer.js
+│   │   │   ├── carbonEmissionsReducer.js
+│   │   │   └── ...
+│   │   ├── store.js
+│   │   └── types.js
+│   ├── theme/
+│   │   ├── theme.js
+│   ├── App.js
+│   ├── index.js
+├── .gitignore
+├── index.html
+├── package.json
+├── README.md
+└── ...
