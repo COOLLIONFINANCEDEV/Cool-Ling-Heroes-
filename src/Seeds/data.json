@@ -1,0 +1,31 @@
+{
+    "investments": [
+      {
+        "id": 1,
+        "amount": 5000,
+        "gain": 1000,
+        "ChangeRequest": [
+          {
+            "id": 1,
+            "description": "Request 1"
+          },
+          {
+            "id": 2,
+            "description": "Request 2"
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "amount": 3000,
+        "gain": 800,
+        "ChangeRequest": [
+          {
+            "id": 3,
+            "description": "Request 3"
+          }
+        ]
+      }
+    ]
+  }
+  

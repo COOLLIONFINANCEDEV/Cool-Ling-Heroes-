@@ -1,26 +1,16 @@
-import { Container, Box, Typography, Button } from '@mui/material';
-import Banner from '../components/home/Banner';
-import About from '../components/home/About';
-import CardList from '../components/home/CardList';
-import Footer from '../layouts/components/Footer';
-import Donate from '../core/components/DonateBtn';
-import Newsletter from '../core/components/Newsletter';
+import React from "react";
+import { Outlet } from "react-router-dom";
+import Navbar from "../Containers/NavBar";
+import Footer from "../Containers/Footer";
 
-
-
-function Home() {
-
+const Home: React.FC = () => {
   return (
-    <Box component={"div"} sx={{ overflow: "hidden" }}>
-   
-        <Banner/>
-        <About/>
-       <CardList/>
-        <Donate/>
-        <Newsletter/>
-       <Footer/>
-    </Box>
+    <>
+      <Navbar />
+      <Outlet />
+      <Footer />
+    </>
   );
-}
+};
 
 export default Home;
