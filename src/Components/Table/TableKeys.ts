@@ -1,4 +1,4 @@
-export const DONATOR_KEY = () => {
+export const DONOR_KEY = () => {
   return {
     head: ['id', 'name', 'quantity (kg)', 'delivery date'],
     body: ['id', 'name', 'quantity', 'delivery_date'],
@@ -18,11 +18,11 @@ export const ADMIN_KEY = () => {
       'id',
       'name',
       'quantity (kg)',
-      'donator',
+      'donor',
       'delivery date',
       'expiry date',
     ],
-    body: ['id', 'name', 'quantity', 'donator', 'delivery_date', 'expiry_date'],
+    body: ['id', 'name', 'quantity', 'donor', 'delivery_date', 'expiry_date'],
   };
 };
 

@@ -187,7 +187,7 @@ export const GivenFoodsSeed = [
           delivery_date: '2023/08/26',
           expiry_date: '2023/08/26',
           received_date: '2023/09/26',
-          donator: {
+          donor: {
             name: 'Donator 1',
           },
         },
@@ -199,7 +199,7 @@ export const GivenFoodsSeed = [
           delivery_date: '2023/08/26',
           expiry_date: '2024/02/26',
           received_date: '2023/09/26',
-          donator: {
+          donor: {
             name: 'Donator 1',
           },
         },
@@ -211,7 +211,7 @@ export const GivenFoodsSeed = [
           delivery_date: '2023/08/26',
           expiry_date: '2023/08/26',
           received_date: '2023/09/26',
-          donator: {
+          donor: {
             name: 'Donator 1',
           },
         },
@@ -223,7 +223,7 @@ export const GivenFoodsSeed = [
           delivery_date: '2023/08/26',
           expiry_date: '2023/08/26',
           received_date: '2023/09/26',
-          donator: {
+          donor: {
             name: 'Donator 1',
           },
         },
@@ -235,7 +235,7 @@ export const GivenFoodsSeed = [
           delivery_date: '2023/08/26',
           expiry_date: '2023/08/26',
           received_date: '2023/09/26',
-          donator: {
+          donor: {
             name: 'Donator 1',
           },
         },

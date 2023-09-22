@@ -1,17 +1,17 @@
-import ChartBarIcon from "@heroicons/react/24/solid/ChartBarIcon";
-import CogIcon from "@heroicons/react/24/solid/CogIcon";
-import UserIcon from "@heroicons/react/24/solid/UserIcon";
-import UsersIcon from "@heroicons/react/24/solid/UsersIcon";
-import { SvgIcon } from "@mui/material";
-import { ReactNode } from "react";
-import routes from "../../Router/routes";
-import Roles from "../../Seeds/Roles";
-import { useSelector } from "react-redux";
-import { selectLogin } from "../../Toolkit/Login/LoginSlice";
+import ChartBarIcon from '@heroicons/react/24/solid/ChartBarIcon';
+import CogIcon from '@heroicons/react/24/solid/CogIcon';
+import UserIcon from '@heroicons/react/24/solid/UserIcon';
+import UsersIcon from '@heroicons/react/24/solid/UsersIcon';
+import { SvgIcon } from '@mui/material';
+import { ReactNode } from 'react';
+import routes from '../../Router/routes';
+import Roles from '../../Seeds/Roles';
+import { useSelector } from 'react-redux';
+import { selectLogin } from '../../Toolkit/Login/LoginSlice';
 import {
   CalendarDaysIcon,
   ChatBubbleBottomCenterTextIcon,
-} from "@heroicons/react/24/solid";
+} from '@heroicons/react/24/solid';
 
 type NAVBARITEMSCONFIG = Array<{
   title: string;
@@ -21,67 +21,67 @@ type NAVBARITEMSCONFIG = Array<{
   external?: boolean;
 }>;
 
-const allUser = ["overview", "account", "settings"];
+const allUser = ['overview', 'account', 'settings'];
 const donatorActiveList = [...allUser];
-const adminActiveList = [...allUser, "customers", "maturity"];
+const adminActiveList = [...allUser, 'customers', 'maturity'];
 const applicantActiveList = [...allUser];
 
 const ActiveList = {
-  [Roles.donator]: donatorActiveList,
+  [Roles.donor]: donatorActiveList,
   [Roles.admin]: adminActiveList,
   [Roles.applicant]: applicantActiveList,
 };
 const List: NAVBARITEMSCONFIG = [
   {
-    title: "Overview",
+    title: 'Overview',
     path: routes.home + routes.dashboard,
     icon: (
-      <SvgIcon fontSize="small">
+      <SvgIcon fontSize='small'>
         <ChartBarIcon />
       </SvgIcon>
     ),
   },
   {
-    title: "Maturity",
+    title: 'Maturity',
     path: routes.maturity,
     icon: (
-      <SvgIcon fontSize="small">
+      <SvgIcon fontSize='small'>
         <CalendarDaysIcon />
       </SvgIcon>
     ),
   },
   {
-    title: "Customers",
+    title: 'Customers',
     path: routes.customers,
     icon: (
-      <SvgIcon fontSize="small">
+      <SvgIcon fontSize='small'>
         <UsersIcon />
       </SvgIcon>
     ),
   },
   {
-    title: "Account",
+    title: 'Account',
     path: routes.account,
     icon: (
-      <SvgIcon fontSize="small">
+      <SvgIcon fontSize='small'>
         <UserIcon />
       </SvgIcon>
     ),
   },
   {
-    title: "Messenger",
+    title: 'Messenger',
     path: routes.messenger,
     icon: (
-      <SvgIcon fontSize="small">
+      <SvgIcon fontSize='small'>
         <ChatBubbleBottomCenterTextIcon />
       </SvgIcon>
     ),
   },
   {
-    title: "Settings",
+    title: 'Settings',
     path: routes.setting,
     icon: (
-      <SvgIcon fontSize="small">
+      <SvgIcon fontSize='small'>
         <CogIcon />
       </SvgIcon>
     ),

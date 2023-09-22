@@ -16,7 +16,7 @@ const Dashboard = () => {
       <Layout>
         <Outlet />
       </Layout>
-      {user.role === Roles.donator && (
+      {user.role === Roles.donor && (
         <Redirect link={routes.contact} target>
           <SpeedDial
             ariaLabel={'speedDial WhatsApp'}

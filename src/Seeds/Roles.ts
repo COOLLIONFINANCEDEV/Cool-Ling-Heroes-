@@ -1,5 +1,5 @@
 const Roles = {
-  donator: 'donator',
+  donor: 'donor',
   admin: 'admin',
   applicant: 'applicant',
 };

@@ -3,7 +3,7 @@ import CreateRowData from '../Helpers/CreateRowData';
 import {
   ADMIN_KEY,
   APPLICANT_KEY,
-  DONATOR_KEY,
+  DONOR_KEY,
 } from '../Components/Table/TableKeys';
 import { Box, Skeleton, Chip } from '@mui/material';
 import { OverViewContext } from '../Context/OverViewContext';
@@ -29,13 +29,13 @@ const OverViewTable: React.FC<TABLECUSTOMZE> = ({
   const [rows, setRows] = React.useState<Array<{}>>([]);
   const OverViewContextValue = React.useContext(OverViewContext);
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  const createSkeletonGroupe = (key: ReturnType<typeof DONATOR_KEY>) =>
+  const createSkeletonGroupe = (key: ReturnType<typeof DONOR_KEY>) =>
     key.head.map((item) => (
       <Skeleton width={'100%'} height={'50px'} animation='wave' key={item} />
     ));
-  let skeletonGroupe = createSkeletonGroupe(DONATOR_KEY());
-  let headKeys = DONATOR_KEY().head;
-  let bodyKey = DONATOR_KEY().body;
+  let skeletonGroupe = createSkeletonGroupe(DONOR_KEY());
+  let headKeys = DONOR_KEY().head;
+  let bodyKey = DONOR_KEY().body;
 
   if (user.role === Roles.admin) {
     skeletonGroupe = createSkeletonGroupe(ADMIN_KEY());
@@ -57,7 +57,7 @@ const OverViewTable: React.FC<TABLECUSTOMZE> = ({
       const foods = information?.[0].foods.data;
 
       const data: any = [];
-      if (user.role === Roles.donator) {
+      if (user.role === Roles.donor) {
         for (const item of foods)
           data.push(
             CreateData.create([
@@ -85,7 +85,7 @@ const OverViewTable: React.FC<TABLECUSTOMZE> = ({
               item.id,
               item.name,
               item.quantity,
-              item.donator.name,
+              item.donor.name,
               item.delivery_date,
               item.expiry_date,
             ])

@@ -56,7 +56,7 @@ const OverView = () => {
   ]);
   const { user } = useSelector(selectLogin);
   const title = {
-    [Roles.donator]: 'Your donations',
+    [Roles.donor]: 'Your donations',
     [Roles.applicant]: 'Donations received',
     [Roles.admin]: 'Stock',
   };
@@ -66,14 +66,14 @@ const OverView = () => {
   const wishAction = () => alert('make a wish');
 
   const handleActionButton =
-    user.role === Roles.donator ? donateAction : wishAction;
+    user.role === Roles.donor ? donateAction : wishAction;
 
   React.useEffect(() => {
     if (information?.[0]?.KPIs) {
       console.log(information?.[0]);
       const KPIs = information?.[0].KPIs;
 
-      if (user.role === Roles.donator)
+      if (user.role === Roles.donor)
         setCard([
           {
             title: 'Quantity of product given (Kg)',
@@ -185,9 +185,7 @@ const OverView = () => {
         <Container maxWidth='xl'>
           <BlocTitle
             title={''}
-            buttonContent={
-              user.role === Roles.donator ? 'Donate' : 'Make a wish'
-            }
+            buttonContent={user.role === Roles.donor ? 'Donate' : 'Make a wish'}
             disabled={user.role === Roles.admin}
             handleClick={handleActionButton}
           />

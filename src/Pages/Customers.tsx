@@ -1,51 +1,51 @@
-import { Box, Container } from "@mui/material";
+import { Box, Container } from '@mui/material';
 import {
   ArrowTrendingUpIcon,
   UserIcon,
   EyeDropperIcon,
   MicrophoneIcon,
-} from "@heroicons/react/24/solid";
-import { formatNumberWithLeadingZero } from "../Helpers/FormatMoney";
-import BlocTitle from "../Containers/BlocTitle";
-import { CustomersSearch } from "../Components/CustomerSeach";
-import { selectLogin } from "../Toolkit/Login/LoginSlice";
-import { useSelector } from "react-redux";
-import Roles from "../Seeds/Roles";
-import React, { useContext } from "react";
-import ApiSession from "../Service/ApiSession";
-import CustomersTable from "../Containers/CustomersTable";
-import { CustomersContext } from "../Context/CustomersContext";
-import CardGroupes from "../Containers/CardGroupes";
+} from '@heroicons/react/24/solid';
+import { formatNumberWithLeadingZero } from '../Helpers/FormatMoney';
+import BlocTitle from '../Containers/BlocTitle';
+import { CustomersSearch } from '../Components/CustomerSeach';
+import { selectLogin } from '../Toolkit/Login/LoginSlice';
+import { useSelector } from 'react-redux';
+import Roles from '../Seeds/Roles';
+import React, { useContext } from 'react';
+import ApiSession from '../Service/ApiSession';
+import CustomersTable from '../Containers/CustomersTable';
+import { CustomersContext } from '../Context/CustomersContext';
+import CardGroupes from '../Containers/CardGroupes';
 const Customers = () => {
   const [Loader, setLoader] = React.useState(true);
   const [information, setInformation] = React.useState([]);
   const [card, setCard] = React.useState([
     {
-      title: "Admin",
+      title: 'Admin',
       value: formatNumberWithLeadingZero(),
       Icon: <UserIcon />,
-      color: "primary.main",
+      color: 'primary.main',
       state: Loader,
     },
     {
-      title: "Customers",
+      title: 'Customers',
       value: formatNumberWithLeadingZero(),
       Icon: <ArrowTrendingUpIcon />,
-      color: "warning.main",
+      color: 'warning.main',
       state: Loader,
     },
     {
-      title: "Moderators",
+      title: 'Moderators',
       value: formatNumberWithLeadingZero(),
       Icon: <EyeDropperIcon />,
-      color: "info.main",
+      color: 'info.main',
       state: Loader,
     },
     {
-      title: "Advisor",
+      title: 'Advisor',
       value: formatNumberWithLeadingZero(),
       Icon: <MicrophoneIcon />,
-      color: "error.main",
+      color: 'error.main',
       state: Loader,
     },
   ]);
@@ -55,31 +55,31 @@ const Customers = () => {
     if (information?.length >= 1) {
       setCard([
         {
-          title: "Admin",
+          title: 'Admin',
           value: formatNumberWithLeadingZero(
             information.filter((item: any) => item.role === Roles.admin).length
           ),
           Icon: <UserIcon />,
-          color: "primary.main",
+          color: 'primary.main',
           state: Loader,
         },
         {
-          title: "Customers",
+          title: 'Customers',
           value: formatNumberWithLeadingZero(
-            information.filter((item: any) => item.role === Roles.donator).length
+            information.filter((item: any) => item.role === Roles.donor).length
           ),
           Icon: <ArrowTrendingUpIcon />,
-          color: "warning.main",
+          color: 'warning.main',
           state: Loader,
         },
         {
-          title: "Moderators",
+          title: 'Moderators',
           value: formatNumberWithLeadingZero(
             information.filter((item: any) => item.role === Roles.applicant)
               .length
           ),
           Icon: <EyeDropperIcon />,
-          color: "info.main",
+          color: 'info.main',
           state: Loader,
         },
         // {
@@ -98,24 +98,22 @@ const Customers = () => {
 
   return (
     <Box
-      component="main"
+      component='main'
       sx={{
         flexGrow: 1,
         py: 4,
-      }}
-    >
+      }}>
       <CustomersContext.Provider
         value={{
           state: Loader,
           handle: setLoader,
           information: setInformation,
-        }}
-      >
+        }}>
         <GetData />
-        <Container maxWidth="xl">
+        <Container maxWidth='xl'>
           <BlocTitle
-            title={"Manage users"}
-            disabled={user.role !== Roles.donator}
+            title={'Manage users'}
+            disabled={user.role !== Roles.donor}
           />
           <CardGroupes CardItemInfo={card} />
           <CustomersSearch />
