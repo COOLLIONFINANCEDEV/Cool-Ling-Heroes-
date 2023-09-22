@@ -1,4 +1,4 @@
-import { Box, Divider, Drawer, Stack, useMediaQuery } from "@mui/material";
+import { Avatar, Box, Divider, Drawer, Stack, Typography, useMediaQuery } from "@mui/material";
 import { SideNavItem } from "./SideNavitem";
 import Logo from "../Navbar/Logo";
 import SideBarItems from "./SideBarItems";
@@ -10,6 +10,9 @@ interface SIDENAV {
     | ((event: {}, reason: "backdropClick" | "escapeKeyDown") => void)
     | undefined;
 }
+
+const userFirstName = "ADMIN";
+const userImageUrl = "../Assets/Imgs/avatar_default.jpg";
 
 export const SideNav: React.FC<SIDENAV> = ({ open, onClose }) => {
   const lgUp = useMediaQuery((theme: any) => theme.breakpoints.up("sm"));
@@ -26,7 +29,20 @@ export const SideNav: React.FC<SIDENAV> = ({ open, onClose }) => {
           <Logo dark />
         </Stack>
       </Box>
-      <Divider sx={{ borderColor: "neutral.700" }} />
+      {/* <Divider sx={{ borderColor: "neutral.700" }} /> */}
+      <Box sx={{ p: 1, 
+        borderRadius: "4px", 
+        background:"#919EAB1F",
+        width:200,
+        position:"relative",
+        left:10
+        }}>
+      <Stack direction="row" alignItems="center" spacing={2}>
+        <Avatar alt={userFirstName} src={userImageUrl} />
+        <Typography variant="h6">{userFirstName}</Typography>
+      </Stack>
+    </Box>
+      {/* <Divider sx={{ borderColor: "neutral.700" }} /> */}
       <Box
         component="nav"
         sx={{

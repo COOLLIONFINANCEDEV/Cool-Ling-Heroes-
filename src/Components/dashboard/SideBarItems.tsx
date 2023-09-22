@@ -1,17 +1,19 @@
-import ChartBarIcon from '@heroicons/react/24/solid/ChartBarIcon';
-import CogIcon from '@heroicons/react/24/solid/CogIcon';
-import UserIcon from '@heroicons/react/24/solid/UserIcon';
-import UsersIcon from '@heroicons/react/24/solid/UsersIcon';
-import { SvgIcon } from '@mui/material';
-import { ReactNode } from 'react';
-import routes from '../../Router/routes';
-import Roles from '../../Seeds/Roles';
-import { useSelector } from 'react-redux';
-import { selectLogin } from '../../Toolkit/Login/LoginSlice';
 import {
-  CalendarDaysIcon,
+  BellIcon,
   ChatBubbleBottomCenterTextIcon,
-} from '@heroicons/react/24/solid';
+  FolderPlusIcon,
+  ShoppingCartIcon,
+  UserGroupIcon
+} from "@heroicons/react/24/solid";
+import ChartBarIcon from "@heroicons/react/24/solid/ChartBarIcon";
+import CogIcon from "@heroicons/react/24/solid/CogIcon";
+import UserIcon from "@heroicons/react/24/solid/UserIcon";
+import { SvgIcon } from "@mui/material";
+import { ReactNode } from "react";
+import { useSelector } from "react-redux";
+import routes from "../../Router/routes";
+import Roles from "../../Seeds/Roles";
+import { selectLogin } from "../../Toolkit/Login/LoginSlice";
 
 type NAVBARITEMSCONFIG = Array<{
   title: string;
@@ -42,46 +44,64 @@ const List: NAVBARITEMSCONFIG = [
     ),
   },
   {
-    title: 'Maturity',
-    path: routes.maturity,
+    title: "Stocks",
+    path: routes.product,
     icon: (
-      <SvgIcon fontSize='small'>
-        <CalendarDaysIcon />
+      <SvgIcon fontSize="small">
+        <ShoppingCartIcon />
       </SvgIcon>
     ),
   },
   {
-    title: 'Customers',
-    path: routes.customers,
+    title: "Donors",
+    path: routes.donor,
     icon: (
-      <SvgIcon fontSize='small'>
-        <UsersIcon />
+      <SvgIcon fontSize="small">
+        <FolderPlusIcon  />
       </SvgIcon>
     ),
   },
   {
-    title: 'Account',
+    title: "Beneficiary",
+    path: routes.beneficiary,
+    icon: (
+      <SvgIcon fontSize="small">
+        <UserGroupIcon  />
+      </SvgIcon>
+    ),
+  },
+  {
+    title: "Requests",
+    path: routes.request,
+    icon: (
+      <SvgIcon fontSize="small">
+        <BellIcon   />
+      </SvgIcon>
+    ),
+  },
+  {
+    title: "Account",
     path: routes.account,
     icon: (
-      <SvgIcon fontSize='small'>
+      <SvgIcon fontSize="small">
         <UserIcon />
       </SvgIcon>
     ),
   },
   {
-    title: 'Messenger',
+    title: "Messenger",
     path: routes.messenger,
     icon: (
-      <SvgIcon fontSize='small'>
+      <SvgIcon fontSize="small">
         <ChatBubbleBottomCenterTextIcon />
       </SvgIcon>
     ),
   },
   {
-    title: 'Settings',
+    title: "Settings",
     path: routes.setting,
     icon: (
-      <SvgIcon fontSize='small'>
+      <SvgIcon fontSize="small">
         <CogIcon />
       </SvgIcon>
     ),

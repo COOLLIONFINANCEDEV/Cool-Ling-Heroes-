@@ -7,6 +7,7 @@ interface CARDGROUPESOVERVIEW {
 }
 
 const CardGroupes: React.FC<CARDGROUPESOVERVIEW> = ({ CardItemInfo }) => {
+
   return (
     <Grid
       container
@@ -14,10 +15,17 @@ const CardGroupes: React.FC<CARDGROUPESOVERVIEW> = ({ CardItemInfo }) => {
       rowGap={1}
       justifyContent={"space-between"}
       columnGap={2}
+      sx={{
+        height:200
+      }}
+     
     >
       {CardItemInfo.map((item) => (
-        <Grid xs={12} sm={5.8} md={2.8} lg={2.8} item key={item.title}>
-          <CardCustomze {...item} />
+        <Grid  xs={12} sm={5.8} md={2.8} lg={2.8} item key={item.title}>
+          <CardCustomze
+           {...item}
+ />
+          
         </Grid>
       ))}
     </Grid>

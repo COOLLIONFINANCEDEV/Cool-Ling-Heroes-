@@ -15,7 +15,7 @@ export const LoginSlice = createSlice({
       lastName: "",
       email: "",
       phone: "",
-      role: Roles.applicant,
+      role: Roles.admin,
       id: 0,
       exp: 0,
       iat: 0,

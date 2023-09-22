@@ -1,16 +1,16 @@
 import React from "react";
 import CreateRowData from "../Helpers/CreateRowData";
-import { CUSTOMERSKEY, LENDERKEY } from "../Components/Table/TableKeys";
+import { CUSTOMERSKEY, CUSTOMPPRODUCTKEYS, LENDERKEY } from "../Components/Table/TableKeys";
 import { Box, Skeleton, Chip } from "@mui/material";
 import Action from "../Components/Table/Action";
 import TableCustomze from "../Components/Table/TableCustomze";
 import { CustomersContext } from "../Context/CustomersContext";
-
+import '../styles/Products/blink.css'
 interface TABLECUSTOMZE {
   information: any;
 }
 
-const CustomersTable: React.FC<TABLECUSTOMZE> = ({ information }) => {
+const ProductsTable: React.FC<TABLECUSTOMZE> = ({ information }) => {
   const CreateData = new CreateRowData(LENDERKEY().body);
   const [rows, setRows] = React.useState<Array<{}>>([]);
   const CustomersContextValues = React.useContext(CustomersContext);
@@ -33,19 +33,30 @@ const CustomersTable: React.FC<TABLECUSTOMZE> = ({ information }) => {
       information.forEach((item: any) => {
         data.push(
           CreateData.create([
-            item.id,
-            item.full_name ? (
-              item.full_name
+            
+            item.name ? (
+              item.name
             ) : (
               <Chip label={"unavailable"} color="warning" variant="outlined" />
             ),
-            item.phone_number,
-            item.email,
-            item.role,
+            item.quantite,
+          
             <Chip
-              label={item.account_activated ? "active" : "disable"}
+            label={item.quantiterest < item.stockAlert ? item.quantiterest : item.quantiterest}
+            color={item.quantiterest < item.stockAlert ? "error" : "success"}
+            variant="outlined"
+            className={item.quantiterest < item.stockAlert ? "blinking" : ""}
+          />,
+          item.stockAlert,
+            , 
+            item.exp,
+            item.donnateur,
+          
+            <Chip
+              label={item.status ? "active" : "disable"}
               variant="outlined"
-              color={item.account_activated ? "success" : "error"}
+              color={item.status ? "success" : "error"}
+             
             />,
             <Action information={item} />,
           ])
@@ -65,9 +76,9 @@ const CustomersTable: React.FC<TABLECUSTOMZE> = ({ information }) => {
 
   return (
     <Box mt={4}>
-      <TableCustomze headKey={CUSTOMERSKEY().head} rows={rows} />
+      <TableCustomze headKey={CUSTOMPPRODUCTKEYS().head} rows={rows}  />
     </Box>
   );
 };
 
-export default CustomersTable;
+export default ProductsTable;

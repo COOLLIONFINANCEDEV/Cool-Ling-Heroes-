@@ -1,17 +1,17 @@
-import { Box, Typography } from "@mui/material";
-import { Formik, Form, Field, FormikHelpers } from "formik";
-import * as yup from "yup";
-import { FormTextField } from "../Formik/FormTextField";
-import { LoadingButton } from "@mui/lab";
-import React, { useCallback } from "react";
-import ApiSession from "../../Service/ApiSession";
-import { useDispatch } from "react-redux";
-import { RESPONSELAYOUT } from "../../Helpers/FormatResponse";
-import { setAlert } from "../../Toolkit/Alert/AlertSlice";
-import { hashValue } from "../../Helpers/Hash/HashValue";
-import { useLocation, useNavigate } from "react-router-dom";
-import { CheckUser } from "../../Toolkit/Login/LoginSlice";
-import routes from "../../Router/routes";
+import { Box, Typography } from '@mui/material';
+import { Formik, Form, Field, FormikHelpers } from 'formik';
+import * as yup from 'yup';
+import { FormTextField } from '../Formik/FormTextField';
+import { LoadingButton } from '@mui/lab';
+import React, { useCallback } from 'react';
+import ApiSession from '../../Service/ApiSession';
+import { useDispatch } from 'react-redux';
+import { RESPONSELAYOUT } from '../../Helpers/FormatResponse';
+import { setAlert } from '../../Toolkit/Alert/AlertSlice';
+import { hashValue } from '../../Helpers/Hash/HashValue';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { CheckUser } from '../../Toolkit/Login/LoginSlice';
+import routes from '../../Router/routes';
 
 interface INITIALVALUES {
   email: string;
@@ -20,8 +20,8 @@ interface INITIALVALUES {
 
 const Connect = () => {
   const initialValues: INITIALVALUES = {
-    email: "",
-    password: "",
+    email: '',
+    password: '',
   };
   const dispatch = useDispatch();
   const location = useLocation();
@@ -31,13 +31,13 @@ const Connect = () => {
   const handleSubmitSuccess = React.useCallback(
     (response: RESPONSELAYOUT) => {
       navigate(routes.home + routes.dashboard);
-      dispatch(setAlert({ state: "success", message: response.message }));
+      dispatch(setAlert({ state: 'success', message: response.message }));
       const accessToken = hashValue(response.data[0].access_token);
       const refreshToken = hashValue(response.data[0].refresh_token);
 
       if (accessToken && refreshToken) {
-        localStorage.setItem("accessToken", accessToken);
-        localStorage.setItem("refreshToken", refreshToken);
+        localStorage.setItem('accessToken', accessToken);
+        localStorage.setItem('refreshToken', refreshToken);
       }
       dispatch(CheckUser({}));
     },
@@ -49,9 +49,9 @@ const Connect = () => {
       response: RESPONSELAYOUT,
       setFieldError: (fields: string, message: string | undefined) => void
     ) => {
-      if (response.message.includes("password")) {
-        setFieldError("email", response.message);
-        setFieldError("password", response.message);
+      if (response.message.includes('password')) {
+        setFieldError('email', response.message);
+        setFieldError('password', response.message);
       }
     },
     []
@@ -66,7 +66,7 @@ const Connect = () => {
       const response = await ApiSession.auth.connect(values);
       setLoading(false);
       if (response.error) {
-        dispatch(setAlert({ state: "error", message: response.message }));
+        dispatch(setAlert({ state: 'error', message: response.message }));
         if (helpers) {
           handleSubmitError(response, helpers?.setFieldError);
         }
@@ -77,10 +77,14 @@ const Connect = () => {
     [dispatch, handleSubmitError, handleSubmitSuccess]
   );
 
+  const submit = () => {
+    navigate(routes.home + routes.dashboard + '/' + routes.product);
+  };
+
   React.useEffect(() => {
     const search = location.search;
     const UrlParam = new URLSearchParams(search);
-    const param = UrlParam.get("magicLink");
+    const param = UrlParam.get('magicLink');
     if (param) {
       handleSubmit({ magicLink: param }, undefined);
     }
@@ -89,16 +93,15 @@ const Connect = () => {
   return (
     <Box
       style={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        flexDirection: "column",
-        rowGap: "10px",
-        minWidth: "80%",
-      }}
-    >
-      <Typography variant="h2">Sign In</Typography>
-      <Typography sx={{ marginBottom: "5vh", textAlign: "center" }}>
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        flexDirection: 'column',
+        rowGap: '10px',
+        minWidth: '80%',
+      }}>
+      <Typography variant='h2'>Sign In</Typography>
+      <Typography sx={{ marginBottom: '5vh', textAlign: 'center' }}>
         Welcome back! Enter your login details to continue.
       </Typography>
       <Formik
@@ -107,47 +110,44 @@ const Connect = () => {
           email: yup.string().email().required(),
           password: yup.string().min(10).required(),
         })}
-        onSubmit={handleSubmit}
-      >
+        onSubmit={submit}>
         {({ isSubmitting }) => (
           <Form
             style={{
-              width: "100%",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              flexDirection: "column",
-              rowGap: "20px",
+              width: '100%',
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              flexDirection: 'column',
+              rowGap: '20px',
             }}
-            method="post"
-          >
+            method='post'>
             <Field
-              label="Email"
-              type={"email"}
-              name={"email"}
-              id={"email"}
-              variant="outlined"
-              sx={{ width: "95%" }}
+              label='Email'
+              type={'email'}
+              name={'email'}
+              id={'email'}
+              variant='outlined'
+              sx={{ width: '95%' }}
               component={FormTextField}
             />
             <Field
-              label="Password"
-              type={"password"}
-              name={"password"}
-              id={"password"}
-              variant="outlined"
-              sx={{ width: "95%" }}
+              label='Password'
+              type={'password'}
+              name={'password'}
+              id={'password'}
+              variant='outlined'
+              sx={{ width: '95%' }}
               component={FormTextField}
             />
 
             <LoadingButton
-              variant="contained"
-              sx={{ width: "95%" }}
-              type="submit"
+              variant='contained'
+              sx={{ width: '95%' }}
+              type='submit'
               loading={isSubmitting || loading}
-              loadingPosition="center"
-              size="large"
-            >
+              loadingPosition='center'
+              size='large'>
               Sign in
             </LoadingButton>
           </Form>

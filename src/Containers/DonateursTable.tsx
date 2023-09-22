@@ -1,6 +1,6 @@
 import React from "react";
 import CreateRowData from "../Helpers/CreateRowData";
-import { CUSTOMERSKEY, LENDERKEY } from "../Components/Table/TableKeys";
+import { DONATEURSKEY, LENDERKEY } from "../Components/Table/TableKeys";
 import { Box, Skeleton, Chip } from "@mui/material";
 import Action from "../Components/Table/Action";
 import TableCustomze from "../Components/Table/TableCustomze";
@@ -10,11 +10,11 @@ interface TABLECUSTOMZE {
   information: any;
 }
 
-const CustomersTable: React.FC<TABLECUSTOMZE> = ({ information }) => {
+const DonateursTable: React.FC<TABLECUSTOMZE> = ({ information }) => {
   const CreateData = new CreateRowData(LENDERKEY().body);
   const [rows, setRows] = React.useState<Array<{}>>([]);
   const CustomersContextValues = React.useContext(CustomersContext);
-  const skeletonGroupe = CUSTOMERSKEY().head.map((item) => (
+  const skeletonGroupe = DONATEURSKEY().head.map((item) => (
     <Skeleton width={"100%"} height={"50px"} animation="wave" />
   ));
 
@@ -34,18 +34,19 @@ const CustomersTable: React.FC<TABLECUSTOMZE> = ({ information }) => {
         data.push(
           CreateData.create([
             item.id,
-            item.full_name ? (
-              item.full_name
+            item.name ? (
+              item.name
             ) : (
               <Chip label={"unavailable"} color="warning" variant="outlined" />
             ),
-            item.phone_number,
+            item.phone,
             item.email,
-            item.role,
+            item.adresse,
+            item.frequenceDon,
             <Chip
-              label={item.account_activated ? "active" : "disable"}
-              variant="outlined"
-              color={item.account_activated ? "success" : "error"}
+              label={item.status ? "active" : "disable"}
+              
+              color={item.status ? "success" : "error"}
             />,
             <Action information={item} />,
           ])
@@ -65,9 +66,9 @@ const CustomersTable: React.FC<TABLECUSTOMZE> = ({ information }) => {
 
   return (
     <Box mt={4}>
-      <TableCustomze headKey={CUSTOMERSKEY().head} rows={rows} />
+      <TableCustomze headKey={DONATEURSKEY().head} rows={rows} />
     </Box>
   );
 };
 
-export default CustomersTable;
+export default DonateursTable;

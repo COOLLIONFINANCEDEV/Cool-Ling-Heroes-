@@ -31,23 +31,39 @@ const Router = () => {
 
       {isAuthenticated && (
         <Route path={routes.dashboard} element={<Dashboard />}>
-          <Route index element={<OverView />} />
+          {/* <Route index element={<OverViewDash />} /> */}
+          <Route
+            path={routes.product}
+            element={
+              <RequireAuth allowedRole={Roles.admin}>
+                <Products />
+              </RequireAuth>
+            }
+          />
           <Route path={routes.account} element={<Account />} />
           <Route path={routes.setting} element={<Settings />} />
           <Route path={routes.messenger} element={<Messenger />} />
           <Route
-            path={routes.customers}
+            path={routes.donor}
             element={
               <RequireAuth allowedRole={Roles.admin}>
-                <Customers />
+                <Donateurs />
               </RequireAuth>
             }
           />{' '}
           <Route
-            path={routes.maturity}
+            path={routes.beneficiary}
             element={
               <RequireAuth allowedRole={Roles.admin}>
-                <Maturity />
+                <Beneficiaire />
+              </RequireAuth>
+            }
+          />
+          <Route
+            path={routes.request}
+            element={
+              <RequireAuth allowedRole={Roles.admin}>
+                <Requests />
               </RequireAuth>
             }
           />

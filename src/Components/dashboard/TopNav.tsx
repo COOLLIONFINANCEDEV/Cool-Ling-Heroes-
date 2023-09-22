@@ -18,6 +18,7 @@ const TOP_NAV_HEIGHT = 64;
 interface TOPNAV {
   onNavOpen: React.MouseEventHandler<HTMLElement>;
 }
+const userImageUrl = "../Assets/Imgs/avatar_default.jpg";
 
 const TopNav: React.FC<TOPNAV> = ({ onNavOpen }) => {
   const lgUp = useMediaQuery((theme: any) => theme.breakpoints.up("sm"));
@@ -66,6 +67,7 @@ const TopNav: React.FC<TOPNAV> = ({ onNavOpen }) => {
             <Avatar
               onClick={accountPopover.handleOpen}
               ref={accountPopover.anchorRef}
+              src={userImageUrl}
               sx={{
                 cursor: "pointer",
                 height: 40,
