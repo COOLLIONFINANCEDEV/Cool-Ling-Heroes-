@@ -7,7 +7,7 @@ import TokenDecode from "../../Helpers/TokenDecode";
 export const LoginSlice = createSlice({
   name: "login",
   initialState: {
-    isAuthenticated: false,
+    isAuthenticated: true,
     isUpdating: false,
     user: {
       avatar: "",
@@ -15,7 +15,7 @@ export const LoginSlice = createSlice({
       lastName: "",
       email: "",
       phone: "",
-      role: Roles.lender,
+      role: Roles.applicant,
       id: 0,
       exp: 0,
       iat: 0,
@@ -31,11 +31,12 @@ export const LoginSlice = createSlice({
           const information: any = TokenDecode(accessToken);
           if (information.user.role === Roles.admin) {
             state.user.role = Roles.admin;
-          } else if (information.user.role === Roles.moderator) {
-            state.user.role = Roles.moderator;
-          } else if (information.user.role === Roles.advisor) {
-            state.user.role = Roles.advisor;
-          }
+          } else if (information.user.role === Roles.applicant) {
+            state.user.role = Roles.applicant;
+          } 
+          // else if (information.user.role === Roles.advisor) {
+          //   state.user.role = Roles.advisor;
+          // }
           if (information && !state.isUpdating) {
             state.user.email = information?.user?.email;
             state.user.phone = information.user.phone_number;

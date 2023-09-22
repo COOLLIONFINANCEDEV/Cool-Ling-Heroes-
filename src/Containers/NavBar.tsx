@@ -7,11 +7,12 @@ import { width } from "../Theme/size";
 import { useLocation } from "react-router-dom";
 
 
+const LANDING_PAGE_URL = 'https://www.coolingheroes.com/index.html';
+const landingUrlhash = (hash: string | number) => `${LANDING_PAGE_URL}#${hash}`;
 export const menuList = [
-  { name: "about us", link: routes.aboutUs },
-  { name: "how it works", link: routes.howItWorks },
-  { name: "Simulate Investment", link: routes.simulator },
-  { name: "contact us", link: routes.contact },
+  { name: 'about us', link: landingUrlhash(4) },
+  { name: 'get involved', link: landingUrlhash(2) },
+  { name: 'contact us', link: landingUrlhash(3) },
 ];
 
 

@@ -1,8 +1,7 @@
 const Roles = {
-  lender: "lender",
-  admin: "admin",
-  moderator: "moderator",
-  advisor: "customer advisor",
+  donator: 'donator',
+  admin: 'admin',
+  applicant: 'applicant',
 };
 
 export default Roles;

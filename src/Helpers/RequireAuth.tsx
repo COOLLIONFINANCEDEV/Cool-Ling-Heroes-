@@ -11,14 +11,14 @@ type Props = {
 
 const RequireAuth: React.FC<Props> = ({ allowedRole, children }) => {
   const loginState = useSelector(selectLogin);
-  const [role, setRole] = useState(Roles.lender);
+  const [role, setRole] = useState(Roles.donator);
   React.useEffect(() => {
     const isAuthenticated = loginState.isAuthenticated;
     if (isAuthenticated) {
       const userRole = loginState.user.role;
       setRole(userRole);
     } else {
-      setRole(Roles.lender);
+      setRole(Roles.donator);
     }
   }, [loginState, role]);
 

@@ -6,12 +6,11 @@ import {
   Stack,
   SvgIcon,
   Typography,
-} from "@mui/material";
-
+} from '@mui/material';
 
 export interface CARD {
   title: string;
-  value: string;
+  value: string | number;
   Icon: any;
   color: string;
   state?: boolean;
@@ -19,32 +18,29 @@ export interface CARD {
 
 const CardCustomze: React.FC<CARD> = ({ title, value, Icon, color, state }) => {
   return (
-    <Card sx={{ height: "100%" }}>
-      <CardContent sx={{ height: "70%" }}>
+    <Card sx={{ height: '100%' }}>
+      <CardContent sx={{ height: '70%' }}>
         <Stack
-          alignItems="flex-start"
-          direction="row"
-          justifyContent="space-between"
+          alignItems='flex-start'
+          direction='row'
+          justifyContent='space-between'
           spacing={3}
-          height={"100%"}
-        >
+          height={'100%'}>
           <Stack
             spacing={1}
-            justifyContent={"space-between"}
-            sx={{ height: "100%" }}
-          >
+            justifyContent={'space-between'}
+            sx={{ height: '100%' }}>
             <Typography
-              color="text.secondary"
-              variant="overline"
-              textTransform={"capitalize"}
-            >
-              {" "}
+              color='text.secondary'
+              variant='overline'
+              textTransform={'capitalize'}>
+              {' '}
               {title}
             </Typography>
             {!state ? (
-              <Typography variant="h5">{value}</Typography>
+              <Typography variant='h5'>{value}</Typography>
             ) : (
-              <Skeleton variant="rectangular" width={"90px"} height={"30px"} />
+              <Skeleton variant='rectangular' width={'90px'} height={'30px'} />
             )}
           </Stack>
           <Avatar
@@ -52,8 +48,7 @@ const CardCustomze: React.FC<CARD> = ({ title, value, Icon, color, state }) => {
               backgroundColor: color,
               height: 56,
               width: 56,
-            }}
-          >
+            }}>
             <SvgIcon>{Icon}</SvgIcon>
           </Avatar>
         </Stack>

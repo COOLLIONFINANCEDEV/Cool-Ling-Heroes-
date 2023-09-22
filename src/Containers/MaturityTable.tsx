@@ -1,6 +1,6 @@
 import React from "react";
 import CreateRowData from "../Helpers/CreateRowData";
-import { LENDERKEY, MATURITYKEY } from "../Components/Table/TableKeys";
+import { DONATOR_KEY, MATURITYKEY } from "../Components/Table/TableKeys";
 import { Box, Skeleton, Chip, Typography } from "@mui/material";
 import FormatMoney from "../Helpers/FormatMoney";
 import FormatDate from "../Helpers/FormatDate";
@@ -14,7 +14,7 @@ interface TABLECUSTOMZE {
 }
 
 const MaturityTable: React.FC<TABLECUSTOMZE> = ({ information }) => {
-  const CreateData = new CreateRowData(LENDERKEY().body);
+  const CreateData = new CreateRowData(DONATOR_KEY().body);
   const [rows, setRows] = React.useState<Array<{}>>([]);
   const MaturityContextValue = React.useContext(MaturityContext);
   // eslint-disable-next-line react-hooks/exhaustive-deps

@@ -98,7 +98,7 @@ const Connect = () => {
       }}
     >
       <Typography variant="h2">Sign In</Typography>
-      <Typography sx={{ marginBottom: "5vh" }}>
+      <Typography sx={{ marginBottom: "5vh", textAlign: "center" }}>
         Welcome back! Enter your login details to continue.
       </Typography>
       <Formik

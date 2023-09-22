@@ -3,11 +3,13 @@ class CreateRowData {
     this.key = key;
   }
 
-  create(datas) {
+  create(data) {
     const objectWithKey = {};
-    datas.forEach((item, key) => {
-      objectWithKey[this.key[key]] = item;
-    });
+
+    for (let i = 0; i < data.length; i++) {
+      objectWithKey[this.key[i]] = data[i];
+    }
+
     return objectWithKey;
   }
 }

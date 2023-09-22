@@ -50,6 +50,7 @@ const DesktopNavbarContent: React.FC<DESKTOPNAVBARCONTENT> = ({
         {menuList.map((item) => (
           <Link
             to={item.link}
+            target='_blank'
             style={{
               textDecoration: "none",
             }}
@@ -97,16 +98,16 @@ const DesktopNavbarContent: React.FC<DESKTOPNAVBARCONTENT> = ({
               Log In
             </Button>
           </Redirect>
-          <Redirect link={routes.simulator}>
+          {/* <Redirect link={routes.simulator}>
             <Button
               color={
                 location.pathname === routes.home ? "primary" : "secondary"
               }
               variant="contained"
             >
-              Start Investing
+              Donate
             </Button>
-          </Redirect>
+          </Redirect> */}
         </Stack>
       </Stack>
     </>

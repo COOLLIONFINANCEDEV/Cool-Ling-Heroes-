@@ -95,7 +95,7 @@ const Messenger = () => {
   const [userConversation, setUserConversation] = React.useState<
     null | [{ align: "left" | "right"; content: string; date: Date }]
   >(
-    UserInformation.user.role === Roles.lender
+    UserInformation.user.role === Roles.donator
       ? [
           {
             align: "left",
@@ -130,12 +130,12 @@ const Messenger = () => {
       if (message.length >= 1 && socket) {
         console.log(
           userSelectForExchange,
-          UserInformation.user.role !== Roles.lender
+          UserInformation.user.role !== Roles.donator
         );
         socket.emit("private message", {
           content: message,
           to:
-            UserInformation.user.role !== Roles.lender
+            UserInformation.user.role !== Roles.donator
               ? userSelectForExchange
               : userId,
         });
@@ -166,7 +166,7 @@ const Messenger = () => {
       socket.on("session", (sessionData: any) => {
         const { sessionID, userID } = sessionData;
         setUserId(userID);
-        if (UserInformation.user.role === Roles.lender) {
+        if (UserInformation.user.role === Roles.donator) {
           setUserSelectForExchange(userID);
         }
         console.log("session information", sessionData);
@@ -223,7 +223,7 @@ const Messenger = () => {
   }, [socket]);
 
   React.useEffect(() => {
-    if (UserInformation.user.role !== Roles.lender && userSelectForExchange) {
+    if (UserInformation.user.role !== Roles.donator && userSelectForExchange) {
       setUserConversation([
         { align: "left", content: "hello", date: new Date() },
       ]);
@@ -241,7 +241,7 @@ const Messenger = () => {
       <Container maxWidth="lg">
         <Grid container component={Paper} sx={classes.chatSection}>
           {/* User List Section, only for the admin */}
-          {UserInformation.user.role !== Roles.lender && (
+          {UserInformation.user.role !== Roles.donator && (
             <Grid item xs={3.8} sx={classes.borderRight500}>
               {/* User Filter */}
               <Grid item xs={12} style={{ padding: "10px", height: "70px" }}>
@@ -316,7 +316,7 @@ const Messenger = () => {
           {/* Chat section */}
           <Grid
             item
-            xs={UserInformation.user.role !== Roles.lender ? 8.2 : 12}
+            xs={UserInformation.user.role !== Roles.donator ? 8.2 : 12}
             sx={{
               height: "100%",
               minHeight: "78vh",
@@ -378,7 +378,7 @@ const Messenger = () => {
 
             {/* for Notice the user is not choose any user for chat */}
             {!userSelectForExchange &&
-              UserInformation.user.role !== Roles.lender && (
+              UserInformation.user.role !== Roles.donator && (
                 <Stack
                   justifyContent={"center"}
                   alignItems={"center"}

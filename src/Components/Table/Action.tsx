@@ -121,7 +121,7 @@ const Action: React.FC<ACTION> = ({ information }) => {
               </MenuItem>
             </CreateModal>
 
-            {user.role === Roles.lender && (
+            {user.role === Roles.donator && (
               <CreateModal
                 ModalContent={Investments}
                 closeButton
@@ -143,7 +143,7 @@ const Action: React.FC<ACTION> = ({ information }) => {
               </CreateModal>
             )}
 
-            {user.role === Roles.lender && (
+            {user.role === Roles.donator && (
               <CreateModal
                 ModalContent={ReduceInvest}
                 closeButton
@@ -165,14 +165,14 @@ const Action: React.FC<ACTION> = ({ information }) => {
               </CreateModal>
             )}
 
-            {user.role !== Roles.lender && (
+            {user.role !== Roles.donator && (
               <CreateModal
                 ModalContent={CheckInvestment}
                 closeButton
                 contentProps={{ information: information }}
                 closeButtonFunc={handleClose}
                 noOpen={
-                  ![Roles.moderator, Roles.admin].includes(user.role) ||
+                  ![Roles.admin].includes(user.role) ||
                   information.accepted ||
                   !information.proof
                 }
@@ -180,7 +180,7 @@ const Action: React.FC<ACTION> = ({ information }) => {
                 <MenuItem
                   color="info"
                   disabled={
-                    ![Roles.moderator, Roles.admin].includes(user.role) ||
+                    ![Roles.admin].includes(user.role) ||
                     information.accepted ||
                     !information.proof
                   }
@@ -198,7 +198,7 @@ const Action: React.FC<ACTION> = ({ information }) => {
               </CreateModal>
             )}
 
-            {user.role !== Roles.lender && (
+            {user.role !== Roles.donator && (
               <CreateModal
                 ModalContent={Refund}
                 closeButton
@@ -227,13 +227,13 @@ const Action: React.FC<ACTION> = ({ information }) => {
               </CreateModal>
             )}
 
-            {user.role === Roles.lender && (
+            {user.role === Roles.donator && (
               <CreateModal
                 ModalContent={DeleteInvestment}
                 closeButton
                 contentProps={{ information: information }}
                 closeButtonFunc={handleClose}
-                noOpen={user.role === Roles.lender && !information.accepted}
+                noOpen={user.role === Roles.donator && !information.accepted}
               >
                 <MenuItem disabled={!information.accepted}>
                   <ListItemIcon>
@@ -257,21 +257,21 @@ const Action: React.FC<ACTION> = ({ information }) => {
         {/* Customers Items */}
         {route === routes.customers && (
           <Box>
-            {user.role !== Roles.lender && (
+            {user.role !== Roles.donator && (
               <CreateModal
                 ModalContent={ChangeRole}
                 closeButton
                 contentProps={{ information: information }}
                 closeButtonFunc={handleClose}
                 noOpen={
-                  ![Roles.moderator, Roles.admin].includes(user.role) ||
+                  ![Roles.admin].includes(user.role) ||
                   information.accepted
                 }
               >
                 <MenuItem
                   color="info"
                   disabled={
-                    ![Roles.moderator, Roles.admin].includes(user.role) ||
+                    ![Roles.admin].includes(user.role) ||
                     information.accepted
                   }
                 >

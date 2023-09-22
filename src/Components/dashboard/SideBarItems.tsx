@@ -21,17 +21,15 @@ type NAVBARITEMSCONFIG = Array<{
   external?: boolean;
 }>;
 
-const allUser = ["overview", "account", "settings",'messenger'];
-const lenderActiveList = [...allUser];
+const allUser = ["overview", "account", "settings"];
+const donatorActiveList = [...allUser];
 const adminActiveList = [...allUser, "customers", "maturity"];
-const moderatorActiveList = [...allUser];
-const advisorActiveList = [...allUser];
+const applicantActiveList = [...allUser];
 
 const ActiveList = {
-  [Roles.lender]: lenderActiveList,
+  [Roles.donator]: donatorActiveList,
   [Roles.admin]: adminActiveList,
-  [Roles.moderator]: moderatorActiveList,
-  [Roles.advisor]: advisorActiveList,
+  [Roles.applicant]: applicantActiveList,
 };
 const List: NAVBARITEMSCONFIG = [
   {

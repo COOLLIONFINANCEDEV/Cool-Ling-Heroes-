@@ -66,7 +66,7 @@ const Customers = () => {
         {
           title: "Customers",
           value: formatNumberWithLeadingZero(
-            information.filter((item: any) => item.role === Roles.lender).length
+            information.filter((item: any) => item.role === Roles.donator).length
           ),
           Icon: <ArrowTrendingUpIcon />,
           color: "warning.main",
@@ -75,23 +75,23 @@ const Customers = () => {
         {
           title: "Moderators",
           value: formatNumberWithLeadingZero(
-            information.filter((item: any) => item.role === Roles.moderator)
+            information.filter((item: any) => item.role === Roles.applicant)
               .length
           ),
           Icon: <EyeDropperIcon />,
           color: "info.main",
           state: Loader,
         },
-        {
-          title: "Advisor",
-          value: formatNumberWithLeadingZero(
-            information.filter((item: any) => item.role === Roles.advisor)
-              .length
-          ),
-          Icon: <MicrophoneIcon />,
-          color: "error.main",
-          state: Loader,
-        },
+        // {
+        //   title: "Advisor",
+        //   value: formatNumberWithLeadingZero(
+        //     information.filter((item: any) => item.role === Roles.advisor)
+        //       .length
+        //   ),
+        //   Icon: <MicrophoneIcon />,
+        //   color: "error.main",
+        //   state: Loader,
+        // },
       ]);
     }
   }, [Loader, information]);
@@ -115,7 +115,7 @@ const Customers = () => {
         <Container maxWidth="xl">
           <BlocTitle
             title={"Manage users"}
-            disabled={user.role !== Roles.lender}
+            disabled={user.role !== Roles.donator}
           />
           <CardGroupes CardItemInfo={card} />
           <CustomersSearch />

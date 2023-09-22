@@ -92,7 +92,7 @@ const ResponsiveNavbarContent: React.FC<RESPONSIVENAVBARCONTENT> = ({
               {MenuList.map((item) => (
                 <ListItemButton key={item.name}>
                   <ListItemText onClick={toggleDrawer("left", false)}>
-                    <NavLink to={item.link} style={{ textDecoration: "none" }}>
+                    <NavLink to={item.link} target='_blank' style={{ textDecoration: "none" }}>
                       <Typography
                         color={"black"}
                         fontWeight={500}
@@ -119,7 +119,7 @@ const ResponsiveNavbarContent: React.FC<RESPONSIVENAVBARCONTENT> = ({
             spacing={3}
             sx={{
               position: "absolute",
-              bottom: "20%",
+              bottom: "10%",
               left: "50%",
               transform: "translate(-50%,-50%)",
             }}
@@ -133,15 +133,15 @@ const ResponsiveNavbarContent: React.FC<RESPONSIVENAVBARCONTENT> = ({
                 Log In
               </Button>
             </Redirect>
-            <Redirect link={routes.simulator}>
+            {/* <Redirect link={routes.simulator}>
               <Button
                 color="primary"
                 variant="contained"
                 onClick={toggleDrawer("left", false)}
               >
-                Start Investing
+                Donate
               </Button>
-            </Redirect>
+            </Redirect> */}
           </Stack>
         </Box>
       </Drawer>

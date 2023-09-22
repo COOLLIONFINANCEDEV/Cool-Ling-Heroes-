@@ -1,143 +1,199 @@
-import { Box, Container } from "@mui/material";
 import {
-  ArrowTrendingUpIcon,
-  CurrencyDollarIcon,
-  BanknotesIcon,
-  GifIcon,
-} from "@heroicons/react/24/solid";
-import { formatNumberWithLeadingZero } from "../Helpers/FormatMoney";
-import BlocTitle from "../Containers/BlocTitle";
-import { CustomersSearch } from "../Components/CustomerSeach";
-import { selectLogin } from "../Toolkit/Login/LoginSlice";
-import { useSelector } from "react-redux";
-import Roles from "../Seeds/Roles";
-import React, { useContext } from "react";
-import CreateModal from "../Components/Modal/CreateModal";
-import Investments from "../Components/Investments/Investments";
-import { OverViewContext } from "../Context/OverViewContext";
-import ApiSession from "../Service/ApiSession";
-import OverViewTable from "../Containers/OverViewTable";
-import CardGroupes from "../Containers/CardGroupes";
+  GiftIcon,
+  GlobeAmericasIcon,
+  ScaleIcon,
+} from '@heroicons/react/24/solid';
+import StarsIcon from '@mui/icons-material/Stars';
+import { Box, Container } from '@mui/material';
+import React, { useContext } from 'react';
+import { useSelector } from 'react-redux';
+import { CustomersSearch } from '../Components/CustomerSeach';
+import Investments from '../Components/Investments/Investments';
+import CreateModal from '../Components/Modal/CreateModal';
+import BlocTitle from '../Containers/BlocTitle';
+import CardGroupes from '../Containers/CardGroupes';
+import OverViewTable from '../Containers/OverViewTable';
+import { OverViewContext } from '../Context/OverViewContext';
+import { formatNumberWithLeadingZero } from '../Helpers/FormatMoney';
+import { GivenFoodsSeed } from '../Seeds/ApiTest';
+import Roles from '../Seeds/Roles';
+import { selectLogin } from '../Toolkit/Login/LoginSlice';
 const OverView = () => {
   const [Loader, setLoader] = React.useState(true);
   const [investState, setInvestState] = React.useState(false);
-  const [information, setInformation] = React.useState([]);
+  const [information, setInformation] = React.useState<typeof GivenFoodsSeed>(
+    []
+  );
   const [card, setCard] = React.useState([
     {
-      title: "Number of investments",
-      value: formatNumberWithLeadingZero(),
-      Icon: <ArrowTrendingUpIcon />,
-      color: "primary.main",
+      title: 'Quantity of product given/received (Kg)',
+      value: 0,
+      Icon: <ScaleIcon />,
+      color: 'warning.main',
       state: Loader,
     },
     {
-      title: "Total investment amount",
-      value: formatNumberWithLeadingZero(),
-      Icon: <CurrencyDollarIcon />,
-      color: "warning.main",
+      title: 'Environmental impact (Kg of CO2 avoided)',
+      value: 0,
+      Icon: <GlobeAmericasIcon />,
+      color: 'info.main',
       state: Loader,
     },
     {
-      title: "Total interest-free investment",
-      value: formatNumberWithLeadingZero(),
-      Icon: <BanknotesIcon />,
-      color: "info.main",
+      title: 'Beneficiaries of your donations',
+      value: 0,
+      Icon: <GiftIcon />,
+      color: 'error.main',
       state: Loader,
     },
     {
-      title: "total interest of all",
-      value: formatNumberWithLeadingZero(),
-      Icon: <GifIcon />,
-      color: "error.main",
+      title: 'Donator Level',
+      value: 'bronze',
+      Icon: <StarsIcon />,
+      color: 'primary.main',
       state: Loader,
     },
   ]);
   const { user } = useSelector(selectLogin);
-  const title = ["Manage Your Investments", "All Investments"];
-
-  const handleInvestment = () => {
-    setInvestState(true);
+  const title = {
+    [Roles.donator]: 'Your donations',
+    [Roles.applicant]: 'Donations received',
+    [Roles.admin]: 'Stock',
   };
 
+  const donateAction = () => alert('donate');
+
+  const wishAction = () => alert('make a wish');
+
+  const handleActionButton =
+    user.role === Roles.donator ? donateAction : wishAction;
+
   React.useEffect(() => {
-    if (information?.length >= 1) {
-      setCard([
-        {
-          title: "Number of investments",
-          value: formatNumberWithLeadingZero(information.length),
-          Icon: <ArrowTrendingUpIcon />,
-          color: "primary.main",
-          state: Loader,
-        },
-        {
-          title: "Total investment amount",
-          value: formatNumberWithLeadingZero(
-            information
-              ?.map((item: any) => item?.amount)
-              .reduce(
-                (accumulator: any, current: any) => accumulator + current,
-                0
-              )
-          ),
-          Icon: <CurrencyDollarIcon />,
-          color: "warning.main",
-          state: Loader,
-        },
-        {
-          title: "Total investment with interest,",
-          value: formatNumberWithLeadingZero(
-            information
-              ?.map((item: any) => item?.amount + item?.gain)
-              ?.reduce(
-                (accumulator: any, current: any) => accumulator + current,
-                0
-              )
-          ),
-          Icon: <BanknotesIcon />,
-          color: "info.main",
-          state: Loader,
-        },
-        {
-          title: "Total change in investment",
-          value: formatNumberWithLeadingZero(
-            information
-              .map((item: any) => item?.ChangeRequest?.length)
-              .reduce(
-                (accumulator: any, current: any) => accumulator + current,
-                0
-              )
-          ),
-          Icon: <GifIcon />,
-          color: "error.main",
-          state: Loader,
-        },
-      ]);
+    if (information?.[0]?.KPIs) {
+      console.log(information?.[0]);
+      const KPIs = information?.[0].KPIs;
+
+      if (user.role === Roles.donator)
+        setCard([
+          {
+            title: 'Quantity of product given (Kg)',
+            value: KPIs.quantityOfProductGiven,
+            Icon: <ScaleIcon />,
+            color: 'warning.main',
+            state: Loader,
+          },
+          {
+            title: 'Environmental impact (Kg of CO2 avoided)',
+            value: KPIs.environmentalImpact,
+            Icon: <GlobeAmericasIcon />,
+            color: 'info.main',
+            state: Loader,
+          },
+          {
+            title: 'Beneficiaries of your donations',
+            value: KPIs.numberOfBeneficiaries,
+            Icon: <GiftIcon />,
+            color: 'error.main',
+            state: Loader,
+          },
+          {
+            title: 'Donator Level',
+            value: KPIs.donatorLevel,
+            Icon: <StarsIcon />,
+            color: 'primary.main',
+            state: Loader,
+          },
+        ]);
+      else if (user.role === Roles.applicant)
+        setCard([
+          {
+            title: 'Quantity of product received (Kg)',
+            value: KPIs.quantityOfProductGiven,
+            Icon: <ScaleIcon />,
+            color: 'warning.main',
+            state: Loader,
+          },
+          {
+            title: 'Environmental impact (Kg of CO2 avoided)',
+            value: KPIs.environmentalImpact,
+            Icon: <GlobeAmericasIcon />,
+            color: 'info.main',
+            state: Loader,
+          },
+          {
+            title: 'Number of wish',
+            value: KPIs.numberOfWish,
+            Icon: <GiftIcon />,
+            color: 'error.main',
+            state: Loader,
+          },
+          {
+            title: 'Wish granted',
+            value: KPIs.wishGranted,
+            Icon: <StarsIcon />,
+            color: 'primary.main',
+            state: Loader,
+          },
+        ]);
+      else
+        setCard([
+          {
+            title: 'Stock (Kg)',
+            value: KPIs.stock,
+            Icon: <ScaleIcon />,
+            color: 'warning.main',
+            state: Loader,
+          },
+          {
+            title: 'Environmental impact (Kg of CO2 avoided)',
+            value: KPIs.environmentalImpact,
+            Icon: <GlobeAmericasIcon />,
+            color: 'info.main',
+            state: Loader,
+          },
+          {
+            title: 'Beneficiaries of your donations',
+            value: KPIs.numberOfBeneficiaries,
+            Icon: <GiftIcon />,
+            color: 'error.main',
+            state: Loader,
+          },
+          {
+            title: 'Quantity devlivered (Kg)',
+            value: KPIs.quantityOfProductDelivered,
+            Icon: <StarsIcon />,
+            color: 'primary.main',
+            state: Loader,
+          },
+        ]);
     }
-  }, [Loader, information]);
+  }, [Loader, information, user.role]);
 
   return (
     <Box
-      component="main"
+      component='main'
       sx={{
         flexGrow: 1,
-      }}
-    >
+      }}>
       <OverViewContext.Provider
         value={{
           state: Loader,
           handle: setLoader,
           information: setInformation,
-        }}
-      >
+        }}>
         <GetData />
-        <Container maxWidth="xl">
+        <Container maxWidth='xl'>
           <BlocTitle
-            title={user.role !== Roles.lender ? title[1] : title[0]}
-            buttonContent={"invest now"}
-            disabled={user.role !== Roles.lender}
-            handleClick={handleInvestment}
+            title={''}
+            buttonContent={
+              user.role === Roles.donator ? 'Donate' : 'Make a wish'
+            }
+            disabled={user.role === Roles.admin}
+            handleClick={handleActionButton}
           />
           <CardGroupes CardItemInfo={card} />
+          <BlocTitle title={''} disabled={true} />
+          <BlocTitle title={title[user.role]} disabled={true} />
           <CustomersSearch />
           <OverViewTable information={information} />
         </Container>
@@ -147,7 +203,7 @@ const OverView = () => {
             ModalContent={Investments}
             closeButton
             closeButtonFunc={() => setInvestState(false)}
-            style={{ borderRadius: "0px" }}
+            style={{ borderRadius: '0px' }}
           />
         )}
       </OverViewContext.Provider>
@@ -167,7 +223,14 @@ const GetData = () => {
     : false;
 
   const handleGetInformation = React.useCallback(async () => {
-    const response = await ApiSession.invest.list(user.id);
+    // Seeds
+    const response = await Promise.resolve({
+      data: GivenFoodsSeed,
+      error: false,
+    });
+
+    // Prod
+    // const response = await ApiSession.invest.list(user.id);
     if (!response.error && handleInformation) handleInformation(response.data);
     if (handleLoader) handleLoader(false);
   }, [handleInformation, handleLoader, user.id]);

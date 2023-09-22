@@ -1,6 +1,6 @@
 import React from "react";
 import CreateRowData from "../Helpers/CreateRowData";
-import { CUSTOMERSKEY, LENDERKEY } from "../Components/Table/TableKeys";
+import { CUSTOMERSKEY, DONATOR_KEY } from "../Components/Table/TableKeys";
 import { Box, Skeleton, Chip } from "@mui/material";
 import Action from "../Components/Table/Action";
 import TableCustomze from "../Components/Table/TableCustomze";
@@ -11,7 +11,7 @@ interface TABLECUSTOMZE {
 }
 
 const CustomersTable: React.FC<TABLECUSTOMZE> = ({ information }) => {
-  const CreateData = new CreateRowData(LENDERKEY().body);
+  const CreateData = new CreateRowData(DONATOR_KEY().body);
   const [rows, setRows] = React.useState<Array<{}>>([]);
   const CustomersContextValues = React.useContext(CustomersContext);
   const skeletonGroupe = CUSTOMERSKEY().head.map((item) => (

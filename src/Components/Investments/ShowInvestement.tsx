@@ -55,7 +55,7 @@ const ShowInvestment: React.FC<INVESTMENTINFORMATION> = ({
           p: { xs: "10px", sm: "10px 50px 50px 50px" },
         }}
       >
-        {user.role !== Roles.lender && (
+        {user.role !== Roles.donator && (
           <Box>
             <Typography variant="h5" fontWeight={500} fontSize={"1.5rem"}>
               User information
@@ -130,7 +130,7 @@ const ShowInvestment: React.FC<INVESTMENTINFORMATION> = ({
                   rel="noopener noreferrer" // Add rel attribute for security purposes
                   sx={{ borderRadius: "5px" }}
                 >
-                  {user.role === Roles.lender
+                  {user.role === Roles.donator
                     ? "View your receipt"
                     : "View this receipt"}
                 </Button>
@@ -240,7 +240,7 @@ const ShowInvestment: React.FC<INVESTMENTINFORMATION> = ({
                         sx={{ borderRadius: "5px" }}
                         disabled={!item.treated}
                       >
-                        {user.role === Roles.lender
+                        {user.role === Roles.donator
                           ? " View your receipt"
                           : " View this receipt"}
                       </Button>
