@@ -7,7 +7,7 @@ import TokenDecode from "../../Helpers/TokenDecode";
 export const LoginSlice = createSlice({
   name: "login",
   initialState: {
-    isAuthenticated: true,
+    isAuthenticated: false,
     isUpdating: false,
     user: {
       avatar: "",
@@ -15,7 +15,7 @@ export const LoginSlice = createSlice({
       lastName: "",
       email: "",
       phone: "",
-      role: Roles.admin,
+      role: Roles.donor,
       id: 0,
       exp: 0,
       iat: 0,

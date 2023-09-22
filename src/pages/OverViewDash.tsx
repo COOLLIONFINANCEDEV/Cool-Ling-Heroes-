@@ -66,7 +66,7 @@ const OverViewDash = () => {
       backgroundColor: '#D0F2FF',
     },
     {
-      title: 'Disturbed',
+      title: 'delivered',
       value: formatNumberWithLeadingZero(),
       Icon: <TruckIcon />,
       color: 'error.main',
@@ -152,7 +152,7 @@ const OverViewDash = () => {
           backgroundColor: '#D1E9FC',
         },
         {
-          title: 'Disturbed',
+          title: 'delivered',
           value: '1293',
           Icon: <TruckIcon />,
           color: 'warning.main',

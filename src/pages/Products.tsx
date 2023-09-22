@@ -58,7 +58,7 @@ const Products = () => {
       backgroundColor: '#D0F2FF',
     },
     {
-      title: 'Disturbed',
+      title: 'delivered',
       value: formatNumberWithLeadingZero(),
       Icon: <TruckIcon />,
       color: 'error.main',
@@ -124,7 +124,7 @@ const Products = () => {
           backgroundColor: '#D1E9FC',
         },
         {
-          title: 'Disturbed',
+          title: 'delivered',
           value: '12',
           Icon: <TruckIcon />,
           color: 'warning.main',
