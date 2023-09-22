@@ -1,21 +1,21 @@
-import React from "react";
-import CreateRowData from "../Helpers/CreateRowData";
-import { DONATEURSKEY, LENDERKEY, BENEFICIAIRESKEY } from "../Components/Table/TableKeys";
-import { Box, Skeleton, Chip } from "@mui/material";
-import Action from "../Components/Table/Action";
-import TableCustomze from "../Components/Table/TableCustomze";
-import { CustomersContext } from "../Context/CustomersContext";
+import React from 'react';
+import CreateRowData from '../Helpers/CreateRowData';
+import { BENEFICIAIRESKEY } from '../Components/Table/TableKeys';
+import { Box, Skeleton, Chip } from '@mui/material';
+import Action from '../Components/Table/Action';
+import TableCustomze from '../Components/Table/TableCustomze';
+import { CustomersContext } from '../Context/CustomersContext';
 
 interface TABLECUSTOMZE {
   information: any;
 }
 
 const BenefiaiciareTable: React.FC<TABLECUSTOMZE> = ({ information }) => {
-  const CreateData = new CreateRowData(LENDERKEY().body);
+  const CreateData = new CreateRowData(BENEFICIAIRESKEY().body);
   const [rows, setRows] = React.useState<Array<{}>>([]);
   const CustomersContextValues = React.useContext(CustomersContext);
   const skeletonGroupe = BENEFICIAIRESKEY().head.map((item) => (
-    <Skeleton width={"100%"} height={"50px"} animation="wave" />
+    <Skeleton width={'100%'} height={'50px'} animation='wave' />
   ));
 
   const LoaderContent = CreateData.create(skeletonGroupe);
@@ -37,17 +37,16 @@ const BenefiaiciareTable: React.FC<TABLECUSTOMZE> = ({ information }) => {
             item.name ? (
               item.name
             ) : (
-              <Chip label={"unavailable"} color="warning" variant="outlined" />
+              <Chip label={'unavailable'} color='warning' variant='outlined' />
             ),
             item.phone,
             item.email,
             item.adresse,
             <Chip
-              label={item.status ? "active" : "disable"}
-              
-              color={item.status ? "success" : "error"}
+              label={item.status ? 'active' : 'disable'}
+              color={item.status ? 'success' : 'error'}
             />,
-            <Action information={item} />,
+            // <Action information={item} />,
           ])
         );
       });

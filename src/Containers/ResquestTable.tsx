@@ -1,18 +1,17 @@
-import React from "react";
-import CreateRowData from "../Helpers/CreateRowData";
-import { CUSTOMREQUESTKEYS, LENDERKEY } from "../Components/Table/TableKeys";
-import { Box, Skeleton, Chip, IconButton } from "@mui/material";
-import Action from "../Components/Table/Action";
-import TableCustomze from "../Components/Table/TableCustomze";
-import { CustomersContext } from "../Context/CustomersContext";
 import CheckTwoToneIcon from '@mui/icons-material/CheckTwoTone';
 import CloseTwoToneIcon from '@mui/icons-material/CloseTwoTone';
+import { Box, Chip, IconButton, Skeleton } from "@mui/material";
+import React from "react";
+import TableCustomze from "../Components/Table/TableCustomze";
+import { CUSTOMREQUESTKEYS } from "../Components/Table/TableKeys";
+import { CustomersContext } from "../Context/CustomersContext";
+import CreateRowData from "../Helpers/CreateRowData";
 interface TABLECUSTOMZE {
   information: any;
 }
 
 const RequestsTable: React.FC<TABLECUSTOMZE> = ({ information }) => {
-  const CreateData = new CreateRowData(LENDERKEY().body);
+  const CreateData = new CreateRowData(CUSTOMREQUESTKEYS().body);
   const [rows, setRows] = React.useState<Array<{}>>([]);
   const CustomersContextValues = React.useContext(CustomersContext);
   const skeletonGroupe = CUSTOMREQUESTKEYS().head.map((item) => (

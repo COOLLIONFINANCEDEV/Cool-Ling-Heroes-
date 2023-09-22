@@ -1,4 +1,4 @@
-import { Box, Container } from "@mui/material";
+import { Box, Container } from '@mui/material';
 import {
   ArrowTrendingUpIcon,
   UserIcon,
@@ -7,21 +7,21 @@ import {
   ShoppingCartIcon,
   TruckIcon,
   FolderPlusIcon,
-  UserGroupIcon
-} from "@heroicons/react/24/solid";
-import { formatNumberWithLeadingZero } from "../Helpers/FormatMoney";
-import BlocTitle from "../Containers/BlocTitle";
-import { CustomersSearch } from "../Components/CustomerSeach";
-import { selectLogin } from "../Toolkit/Login/LoginSlice";
-import { useSelector } from "react-redux";
-import Roles from "../Seeds/Roles";
-import React, { useContext } from "react";
-import ApiSession from "../Service/ApiSession";
-import CustomersTable from "../Containers/CustomersTable";
-import { CustomersContext } from "../Context/CustomersContext";
-import CardGroupes from "../Containers/CardGroupes";
-import DonateursTable from "../Containers/DonateursTable";
-import RequestsTable from "../Containers/ResquestTable";
+  UserGroupIcon,
+} from '@heroicons/react/24/solid';
+import { formatNumberWithLeadingZero } from '../Helpers/FormatMoney';
+import BlocTitle from '../Containers/BlocTitle';
+import { CustomersSearch } from '../Components/CustomerSeach';
+import { selectLogin } from '../Toolkit/Login/LoginSlice';
+import { useSelector } from 'react-redux';
+import Roles from '../Seeds/Roles';
+import React, { useContext } from 'react';
+import ApiSession from '../Service/ApiSession';
+import CustomersTable from '../Containers/CustomersTable';
+import { CustomersContext } from '../Context/CustomersContext';
+import CardGroupes from '../Containers/CardGroupes';
+import DonateursTable from '../Containers/DonateursTable';
+import RequestsTable from '../Containers/ResquestTable';
 
 interface Donateur {
   id: number;
@@ -38,36 +38,36 @@ const Requests = () => {
 
   const [card, setCard] = React.useState([
     {
-      title: "Produits en stock",
+      title: 'Produits en stock',
       value: formatNumberWithLeadingZero(),
       Icon: <ShoppingCartIcon />,
-      color: "primary.main",
+      color: 'primary.main',
       state: Loader,
-      backgroundColor: "#D0F2FF"
+      backgroundColor: '#D0F2FF',
     },
     {
-      title: "Donatteurs",
+      title: 'Donatteurs',
       value: formatNumberWithLeadingZero(),
       Icon: <FolderPlusIcon />,
-      color: "warning.main",
+      color: 'warning.main',
       state: Loader,
-      backgroundColor: "#D0F2FF"
+      backgroundColor: '#D0F2FF',
     },
     {
-      title: "Beneficiaire",
+      title: 'Beneficiaire',
       value: formatNumberWithLeadingZero(),
       Icon: <UserGroupIcon />,
-      color: "info.main",
+      color: 'info.main',
       state: Loader,
-      backgroundColor: "#D0F2FF"
+      backgroundColor: '#D0F2FF',
     },
     {
-      title: "Distrubié",
+      title: 'Distrubié',
       value: formatNumberWithLeadingZero(),
       Icon: <TruckIcon />,
-      color: "error.main",
+      color: 'error.main',
       state: Loader,
-      backgroundColor: "#D0F2FF"
+      backgroundColor: '#D0F2FF',
     },
   ]);
   const { user } = useSelector(selectLogin);
@@ -76,36 +76,36 @@ const Requests = () => {
     if (information?.length <= 1) {
       setCard([
         {
-          title: " Total requests",
-          value: "2329",
+          title: ' Total requests',
+          value: '2329',
           Icon: <ShoppingCartIcon />,
-          color: "primary.main",
+          color: 'primary.main',
           state: Loader,
-          backgroundColor: "#FFF7CD"
+          backgroundColor: '#FFF7CD',
         },
         {
-          title: "Request approvals",
-          value: "1240",
+          title: 'Request approvals',
+          value: '1240',
           Icon: <FolderPlusIcon />,
-          color: "success.main",
+          color: 'success.main',
           state: Loader,
-          backgroundColor: "#FFF7CD"
+          backgroundColor: '#FFF7CD',
         },
         {
-          title: "Request rejections",
-          value: "150",
+          title: 'Request rejections',
+          value: '150',
           Icon: <ArrowTrendingUpIcon />,
-          color: "info.main",
+          color: 'info.main',
           state: Loader,
-          backgroundColor: "#D1E9FC"
+          backgroundColor: '#D1E9FC',
         },
         {
-          title: "Treatment delays",
-          value:"12h",
+          title: 'Treatment delays',
+          value: '12h',
           Icon: <FolderPlusIcon />,
-          color: "warning.main",
+          color: 'warning.main',
           state: Loader,
-          backgroundColor: "#D0F2FF"
+          backgroundColor: '#D0F2FF',
         },
       ]);
     }
@@ -114,10 +114,34 @@ const Requests = () => {
   React.useEffect(() => {
     if (Loader) {
       const simulatedProducts: Donateur[] = [
-        { id: 1, beneficiaire: "Ong sourire d'afrique", quantityRequest: "10", status: "Delivered", requestDate:"2023-20-10" },
-        { id: 2, beneficiaire: "cun agouro", quantityRequest: "13", status: "Cancel", requestDate:"2023-10-09"},
-        { id: 3, beneficiaire: "Didier drogba", quantityRequest: "3", status: "Delivered", requestDate:"2023-15-06" },
-        { id: 4, beneficiaire: "Jean koffi", quantityRequest: "15", status: "in progress", requestDate:"2023-24-10" },
+        {
+          id: 1,
+          beneficiaire: "Ong sourire d'afrique",
+          quantityRequest: '10',
+          status: 'Delivered',
+          requestDate: '2023-20-10',
+        },
+        {
+          id: 2,
+          beneficiaire: 'cun agouro',
+          quantityRequest: '13',
+          status: 'Cancel',
+          requestDate: '2023-10-09',
+        },
+        {
+          id: 3,
+          beneficiaire: 'Didier drogba',
+          quantityRequest: '3',
+          status: 'Delivered',
+          requestDate: '2023-15-06',
+        },
+        {
+          id: 4,
+          beneficiaire: 'Jean koffi',
+          quantityRequest: '15',
+          status: 'in progress',
+          requestDate: '2023-24-10',
+        },
       ];
 
       setDonateurs(simulatedProducts);
@@ -126,25 +150,20 @@ const Requests = () => {
   }, [Loader]);
   return (
     <Box
-      component="main"
+      component='main'
       sx={{
         flexGrow: 1,
         py: 4,
-      }}
-    >
+      }}>
       <CustomersContext.Provider
         value={{
           state: Loader,
           handle: setLoader,
           information: setInformation,
-        }}
-      >
+        }}>
         <GetData />
-        <Container maxWidth="xl">
-          <BlocTitle
-            title={"Requests"}
-            disabled={user.role !== Roles.lender}
-          />
+        <Container maxWidth='xl'>
+          <BlocTitle title={'Requests'} disabled={user.role !== Roles.donor} />
           <CardGroupes CardItemInfo={card} />
           <RequestsTable information={donateurs} />
         </Container>

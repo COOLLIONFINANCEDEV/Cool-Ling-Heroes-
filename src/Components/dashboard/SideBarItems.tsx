@@ -24,12 +24,12 @@ type NAVBARITEMSCONFIG = Array<{
 }>;
 
 const allUser = ['overview', 'account', 'settings'];
-const donatorActiveList = [...allUser];
-const adminActiveList = [...allUser, 'customers', 'maturity'];
+const donorActiveList = [...allUser];
+const adminActiveList = [...allUser, "donors", "beneficiary","stocks", "requests"];
 const applicantActiveList = [...allUser];
 
 const ActiveList = {
-  [Roles.donor]: donatorActiveList,
+  [Roles.donor]: donorActiveList,
   [Roles.admin]: adminActiveList,
   [Roles.applicant]: applicantActiveList,
 };
@@ -85,15 +85,6 @@ const List: NAVBARITEMSCONFIG = [
     icon: (
       <SvgIcon fontSize="small">
         <UserIcon />
-      </SvgIcon>
-    ),
-  },
-  {
-    title: "Messenger",
-    path: routes.messenger,
-    icon: (
-      <SvgIcon fontSize="small">
-        <ChatBubbleBottomCenterTextIcon />
       </SvgIcon>
     ),
   },

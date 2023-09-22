@@ -3,6 +3,8 @@ import { SideNavItem } from "./SideNavitem";
 import Logo from "../Navbar/Logo";
 import SideBarItems from "./SideBarItems";
 import Annoucement from "../Annoucement/Annoucement";
+import { useSelector } from 'react-redux';
+import { selectLogin } from '../../Toolkit/Login/LoginSlice';
 
 interface SIDENAV {
   open: boolean;
@@ -11,11 +13,13 @@ interface SIDENAV {
     | undefined;
 }
 
-const userFirstName = "ADMIN";
 const userImageUrl = "../Assets/Imgs/avatar_default.jpg";
 
 export const SideNav: React.FC<SIDENAV> = ({ open, onClose }) => {
   const lgUp = useMediaQuery((theme: any) => theme.breakpoints.up("sm"));
+  const { user } = useSelector(selectLogin);
+
+  const pseudo = user.email;
 
   const content = (
     <Box
@@ -38,8 +42,8 @@ export const SideNav: React.FC<SIDENAV> = ({ open, onClose }) => {
         left:10
         }}>
       <Stack direction="row" alignItems="center" spacing={2}>
-        <Avatar alt={userFirstName} src={userImageUrl} />
-        <Typography variant="h6">{userFirstName}</Typography>
+        <Avatar alt={pseudo} src={userImageUrl} />
+        <Typography variant="h6">{pseudo}</Typography>
       </Stack>
     </Box>
       {/* <Divider sx={{ borderColor: "neutral.700" }} /> */}

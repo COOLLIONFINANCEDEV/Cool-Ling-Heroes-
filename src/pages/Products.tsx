@@ -15,15 +15,15 @@ import { formatNumberWithLeadingZero } from '../Helpers/FormatMoney';
 import Roles from '../Seeds/Roles';
 import { selectLogin } from '../Toolkit/Login/LoginSlice';
 
-interface Product {
+export interface Product {
   id: number;
   name: string;
-  exp: number;
-  status: number;
-  quantite: number;
-  donnateur: string;
-  quantiterest: number;
-  stockAlert: number;
+  quantity_delivered: number;
+  quantity_remaining: number;
+  stock_alert: number;
+  expired_date: string;
+  donors: string;
+  status: boolean;
 }
 
 const Products = () => {
@@ -73,42 +73,22 @@ const Products = () => {
         {
           id: 1,
           name: 'Sac de riz',
-          exp: 1,
-          status: 0,
-          quantite: 20,
-          quantiterest: 9,
-          stockAlert: 8,
-          donnateur: " ong soure d'affrique",
+          quantity_delivered: 20,
+          quantity_remaining: 9,
+          stock_alert: 8,
+          expired_date: '2025/04/02',
+          donors: "ong soure d'affrique",
+          status: true,
         },
         {
           id: 2,
           name: 'Carton de bonnet rouge',
-          exp: 2,
-          status: 1,
-          quantite: 15,
-          quantiterest: 3,
-          stockAlert: 4,
-          donnateur: 'gun agouero',
-        },
-        {
-          id: 3,
-          name: '1 carton de patate',
-          exp: 3,
-          status: 0,
-          quantite: 18,
-          quantiterest: 1,
-          stockAlert: 5,
-          donnateur: 'M koffi jean',
-        },
-        {
-          id: 4,
-          name: '2 carton de pomme de terre',
-          exp: 4,
-          status: 0,
-          quantite: 19,
-          quantiterest: 13,
-          stockAlert: 6,
-          donnateur: 'didier drogba',
+          quantity_delivered: 15,
+          quantity_remaining: 3,
+          stock_alert: 4,
+          expired_date: '2025/04/02',
+          donors: 'gun agouero',
+          status: false,
         },
       ];
 

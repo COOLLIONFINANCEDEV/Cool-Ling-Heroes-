@@ -63,22 +63,38 @@ export const ANNOUCEMENTKEYS = () => {
 
 export const CUSTOMPPRODUCTKEYS = () => {
   return {
-    head: [ "name","quantity delivered","quantity remaining","stock alert", "pereption time","donors","Status", "Action"],
-    body: ["id", "name",  "exp", "Status", "Action"],
+    head: [
+      'name',
+      'quantity delivered',
+      'quantity remaining',
+      'stock alert',
+      'expired date',
+      'donors',
+      'Status',
+    ],
+    body: [
+      'name',
+      'quantity_delivered',
+      'quantity_remaining',
+      'stock_alert',
+      'expired_date',
+      'donors',
+      'status',
+    ],
   };
 };
 
 export const DONATEURSKEY = () => {
   return {
-    head: ["id", "name", "phone", "email", "adresse", "donation Frequency", "Status", "Action"],
-    body: ["id", "name", "phone", "email", "adresse","donation Frequency", "Status", "Action"],
+    head: ["id", "name", "phone", "email", "adresse", "donation Frequency", "Status"],
+    body: ["id", "name", "phone", "email", "adresse","donation Frequency", "Status"],
   };
 };
 
 export const BENEFICIAIRESKEY = () => {
   return {
-    head: ["id", "name", "phone", "email", "adresse", "Status", "Action"],
-    body: ["id", "name", "phone", "email", "adresse", "Status", "Action"],
+    head: ["id", "name", "phone", "email", "adresse", "Status"],
+    body: ["id", "name", "phone", "email", "adresse", "Status"],
   };
 };
 
@@ -86,7 +102,8 @@ export const BENEFICIAIRESKEY = () => {
 
 export const CUSTOMREQUESTKEYS = () => {
   return {
-    head: ["id", "beneficiary", "quantity request", "request date", "Status", "Action"],
-    body: ["id", "name", "phone", "email", "adresse", "Status", "Action"],
+    head: ['id', 'beneficiary', 'quantity request', 'request date', 'Status', 'action'],
+    body: ['id', 'beneficiary', 'quantity request', 'request date', 'Status', 'action'],
+    // body: ['id', 'name', 'phone', 'email', 'adresse', 'Status'],
   };
 };

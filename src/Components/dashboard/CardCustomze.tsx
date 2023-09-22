@@ -11,7 +11,7 @@ import {
 
 export interface CARD {
   title: string;
-  value: string;
+  value: string | number;
   Icon: any;
   color: string;
   state?: boolean;

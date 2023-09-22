@@ -1,27 +1,21 @@
-import { Box, Container } from '@mui/material';
 import {
   ArrowTrendingUpIcon,
-  UserIcon,
-  EyeDropperIcon,
-  MicrophoneIcon,
+  FolderPlusIcon,
   ShoppingCartIcon,
   TruckIcon,
-  FolderPlusIcon,
-  UserGroupIcon,
+  UserGroupIcon
 } from '@heroicons/react/24/solid';
-import { formatNumberWithLeadingZero } from '../Helpers/FormatMoney';
-import BlocTitle from '../Containers/BlocTitle';
-import { CustomersSearch } from '../Components/CustomerSeach';
-import { selectLogin } from '../Toolkit/Login/LoginSlice';
-import { useSelector } from 'react-redux';
-import Roles from '../Seeds/Roles';
+import { Box, Container } from '@mui/material';
 import React, { useContext } from 'react';
-import ApiSession from '../Service/ApiSession';
-import CustomersTable from '../Containers/CustomersTable';
-import { CustomersContext } from '../Context/CustomersContext';
+import { useSelector } from 'react-redux';
+import BlocTitle from '../Containers/BlocTitle';
 import CardGroupes from '../Containers/CardGroupes';
 import DonateursTable from '../Containers/DonateursTable';
-import BenefiaiciareTable from '../Containers/BeneficiaireTable';
+import { CustomersContext } from '../Context/CustomersContext';
+import { formatNumberWithLeadingZero } from '../Helpers/FormatMoney';
+import Roles from '../Seeds/Roles';
+import ApiSession from '../Service/ApiSession';
+import { selectLogin } from '../Toolkit/Login/LoginSlice';
 
 interface Donateur {
   id: number;
@@ -30,43 +24,44 @@ interface Donateur {
   status: number;
   adresse: string;
   email: string;
+  frequenceDon: string;
 }
 
-const Beneficiaire = () => {
+const Donateurs = () => {
   const [Loader, setLoader] = React.useState(true);
   const [information, setInformation] = React.useState([]);
-  const [beneficaire, setBeneficiaire] = React.useState<Donateur[]>([]);
+  const [donateurs, setDonateurs] = React.useState<Donateur[]>([]);
 
   const [card, setCard] = React.useState([
     {
-      title: 'Produits en stock',
-      value: formatNumberWithLeadingZero(),
+      title: 'Total donation',
+      value: 0,
       Icon: <ShoppingCartIcon />,
       color: 'primary.main',
       state: Loader,
       backgroundColor: '#FFF7CD',
     },
     {
-      title: 'Donatteurs',
-      value: formatNumberWithLeadingZero(),
+      title: 'Donors',
+      value: 0,
       Icon: <FolderPlusIcon />,
-      color: 'warning.main',
+      color: 'success.main',
       state: Loader,
       backgroundColor: '#FFF7CD',
     },
     {
-      title: 'Beneficiaire',
-      value: formatNumberWithLeadingZero(),
-      Icon: <UserGroupIcon />,
+      title: 'Donation rate',
+      value: '0%',
+      Icon: <ArrowTrendingUpIcon />,
       color: 'info.main',
       state: Loader,
       backgroundColor: '#D0F2FF',
     },
     {
-      title: 'Distrubié',
-      value: formatNumberWithLeadingZero(),
-      Icon: <TruckIcon />,
-      color: 'error.main',
+      title: 'Active donors',
+      value: 0,
+      Icon: <FolderPlusIcon />,
+      color: 'warning.main',
       state: Loader,
       backgroundColor: '#D0F2FF',
     },
@@ -77,26 +72,34 @@ const Beneficiaire = () => {
     if (information?.length <= 1) {
       setCard([
         {
-          title: 'beneficiary',
-          value: '14',
-          Icon: <UserGroupIcon />,
-          color: 'warning.main',
+          title: 'Total donation',
+          value: '23',
+          Icon: <ShoppingCartIcon />,
+          color: 'primary.main',
           state: Loader,
-          backgroundColor: '#D0F2FF',
+          backgroundColor: '#FFF7CD',
         },
         {
-          title: 'New membership',
-          value: '15',
-          Icon: <UserGroupIcon />,
+          title: 'Donors',
+          value: '14',
+          Icon: <FolderPlusIcon />,
           color: 'success.main',
           state: Loader,
           backgroundColor: '#FFF7CD',
         },
         {
-          title: 'beneficiary delivered',
+          title: 'Donation rate',
+          value: '150%',
+          Icon: <ArrowTrendingUpIcon />,
+          color: 'info.main',
+          state: Loader,
+          backgroundColor: '#D0F2FF',
+        },
+        {
+          title: 'Active donors',
           value: '12',
-          Icon: <TruckIcon />,
-          color: 'error.main',
+          Icon: <FolderPlusIcon />,
+          color: 'warning.main',
           state: Loader,
           backgroundColor: '#D0F2FF',
         },
@@ -109,39 +112,43 @@ const Beneficiaire = () => {
       const simulatedProducts: Donateur[] = [
         {
           id: 1,
-          name: 'unicef Afrika',
+          name: "Ong sourire d'afrique",
           phone: '+1 323 3333 324',
           status: 0,
           adresse: 'New york',
           email: 'ongsouredarfique@gmail.com',
+          frequenceDon: 'chaque 2 semain',
         },
         {
           id: 2,
-          name: 'Ong le monde',
+          name: 'cun agouro',
           phone: '+1 003 4448 349',
           status: 1,
           adresse: 'Canada',
           email: 'cunagouro@gmail.com',
+          frequenceDon: 'chaque mois',
         },
         {
           id: 3,
-          name: 'Ong benevole',
+          name: 'Didier drogba',
           phone: '+225 987 3333',
           status: 1,
           adresse: "Cote d'ivoir",
           email: 'didierdrgaba@gmail.com',
+          frequenceDon: 'chauqe 3 mois',
         },
         {
           id: 4,
-          name: 'ong france',
+          name: 'Jean koffi',
           phone: '+225 323 5678',
           status: 0,
           adresse: "Cote d'ivoire",
           email: 'jeankoffie@gmail.com',
+          frequenceDon: 'chaque 21 jours',
         },
       ];
 
-      setBeneficiaire(simulatedProducts);
+      setDonateurs(simulatedProducts);
       setLoader(false);
     }
   }, [Loader]);
@@ -160,12 +167,9 @@ const Beneficiaire = () => {
         }}>
         <GetData />
         <Container maxWidth='xl'>
-          <BlocTitle
-            title={'Beneficiary'}
-            disabled={user.role !== Roles.donor}
-          />
+          <BlocTitle title={'Donors'} disabled={user.role !== Roles.donor} />
           <CardGroupes CardItemInfo={card} />
-          <BenefiaiciareTable information={beneficaire} />
+          <DonateursTable information={donateurs} />
         </Container>
       </CustomersContext.Provider>
     </Box>
@@ -196,4 +200,4 @@ const GetData = () => {
   return <></>;
 };
 
-export default Beneficiaire;
+export default Donateurs;

@@ -1,21 +1,23 @@
-import React from "react";
-import CreateRowData from "../Helpers/CreateRowData";
-import { CUSTOMERSKEY, CUSTOMPPRODUCTKEYS, LENDERKEY } from "../Components/Table/TableKeys";
-import { Box, Skeleton, Chip } from "@mui/material";
-import Action from "../Components/Table/Action";
-import TableCustomze from "../Components/Table/TableCustomze";
-import { CustomersContext } from "../Context/CustomersContext";
-import '../styles/Products/blink.css'
+import React from 'react';
+import CreateRowData from '../Helpers/CreateRowData';
+import {
+  CUSTOMPPRODUCTKEYS,
+} from '../Components/Table/TableKeys';
+import { Box, Skeleton, Chip } from '@mui/material';
+import TableCustomze from '../Components/Table/TableCustomze';
+import { CustomersContext } from '../Context/CustomersContext';
+import '../styles/Products/blink.css';
+import { Product } from '../Pages/Products';
 interface TABLECUSTOMZE {
   information: any;
 }
 
 const ProductsTable: React.FC<TABLECUSTOMZE> = ({ information }) => {
-  const CreateData = new CreateRowData(LENDERKEY().body);
+  const CreateData = new CreateRowData(CUSTOMPPRODUCTKEYS().body);
   const [rows, setRows] = React.useState<Array<{}>>([]);
   const CustomersContextValues = React.useContext(CustomersContext);
-  const skeletonGroupe = CUSTOMERSKEY().head.map((item) => (
-    <Skeleton width={"100%"} height={"50px"} animation="wave" />
+  const skeletonGroupe = CUSTOMPPRODUCTKEYS().head.map((item) => (
+    <Skeleton width={'100%'} height={'50px'} animation='wave' />
   ));
 
   const LoaderContent = CreateData.create(skeletonGroupe);
@@ -30,35 +32,29 @@ const ProductsTable: React.FC<TABLECUSTOMZE> = ({ information }) => {
   React.useEffect(() => {
     if (information) {
       const data: any = [];
-      information.forEach((item: any) => {
+      information.forEach((item: Product) => {
         data.push(
           CreateData.create([
-            
-            item.name ? (
-              item.name
-            ) : (
-              <Chip label={"unavailable"} color="warning" variant="outlined" />
-            ),
-            item.quantite,
-          
+            item.name,
+            item.quantity_delivered,
             <Chip
-            label={item.quantiterest < item.stockAlert ? item.quantiterest : item.quantiterest}
-            color={item.quantiterest < item.stockAlert ? "error" : "success"}
-            variant="outlined"
-            className={item.quantiterest < item.stockAlert ? "blinking" : ""}
-          />,
-          item.stockAlert,
-            , 
-            item.exp,
-            item.donnateur,
-          
-            <Chip
-              label={item.status ? "active" : "disable"}
-              variant="outlined"
-              color={item.status ? "success" : "error"}
-             
+              label={
+                item.quantity_remaining < item.stock_alert
+                  ? item.quantity_remaining
+                  : item.quantity_remaining
+              }
+              color={item.quantity_remaining < item.stock_alert ? 'error' : 'success'}
+              variant='outlined'
+              className={item.quantity_remaining < item.stock_alert ? 'blinking' : ''}
             />,
-            <Action information={item} />,
+            item.stock_alert,
+            item.expired_date,
+            item.donors,
+            <Chip
+              label={item.status ? 'active' : 'disable'}
+              variant='outlined'
+              color={item.status ? 'success' : 'error'}
+            />
           ])
         );
       });
@@ -76,7 +72,7 @@ const ProductsTable: React.FC<TABLECUSTOMZE> = ({ information }) => {
 
   return (
     <Box mt={4}>
-      <TableCustomze headKey={CUSTOMPPRODUCTKEYS().head} rows={rows}  />
+      <TableCustomze headKey={CUSTOMPPRODUCTKEYS().head} rows={rows} />
     </Box>
   );
 };

@@ -1,21 +1,21 @@
-import React from "react";
-import CreateRowData from "../Helpers/CreateRowData";
-import { CUSTOMERSKEY, LENDERKEY } from "../Components/Table/TableKeys";
-import { Box, Skeleton, Chip } from "@mui/material";
-import Action from "../Components/Table/Action";
-import TableCustomze from "../Components/Table/TableCustomze";
-import { CustomersContext } from "../Context/CustomersContext";
+import React from 'react';
+import CreateRowData from '../Helpers/CreateRowData';
+import { CUSTOMERSKEY, DONOR_KEY } from '../Components/Table/TableKeys';
+import { Box, Skeleton, Chip } from '@mui/material';
+import Action from '../Components/Table/Action';
+import TableCustomze from '../Components/Table/TableCustomze';
+import { CustomersContext } from '../Context/CustomersContext';
 
 interface TABLECUSTOMZE {
   information: any;
 }
 
 const CustomersTable: React.FC<TABLECUSTOMZE> = ({ information }) => {
-  const CreateData = new CreateRowData(LENDERKEY().body);
+  const CreateData = new CreateRowData(DONOR_KEY().body);
   const [rows, setRows] = React.useState<Array<{}>>([]);
   const CustomersContextValues = React.useContext(CustomersContext);
   const skeletonGroupe = CUSTOMERSKEY().head.map((item) => (
-    <Skeleton width={"100%"} height={"50px"} animation="wave" />
+    <Skeleton width={'100%'} height={'50px'} animation='wave' />
   ));
 
   const LoaderContent = CreateData.create(skeletonGroupe);
@@ -37,15 +37,15 @@ const CustomersTable: React.FC<TABLECUSTOMZE> = ({ information }) => {
             item.full_name ? (
               item.full_name
             ) : (
-              <Chip label={"unavailable"} color="warning" variant="outlined" />
+              <Chip label={'unavailable'} color='warning' variant='outlined' />
             ),
             item.phone_number,
             item.email,
             item.role,
             <Chip
-              label={item.account_activated ? "active" : "disable"}
-              variant="outlined"
-              color={item.account_activated ? "success" : "error"}
+              label={item.account_activated ? 'active' : 'disable'}
+              variant='outlined'
+              color={item.account_activated ? 'success' : 'error'}
             />,
             <Action information={item} />,
           ])

@@ -15,6 +15,10 @@ import RequireAuth from '../Helpers/RequireAuth';
 import Roles from '../Seeds/Roles';
 import Maturity from '../Pages/Maturity';
 import Messenger from '../Pages/Messenger';
+import Products from '../Pages/Products';
+import Donateurs from '../Pages/Donor';
+import Beneficiaire from '../Pages/Beneficiaires';
+import Requests from '../Pages/Requests';
 
 const Router = () => {
   const { isAuthenticated, user } = useSelector(selectLogin);
@@ -40,6 +44,7 @@ const Router = () => {
               </RequireAuth>
             }
           />
+          <Route index element={<OverView />} />
           <Route path={routes.account} element={<Account />} />
           <Route path={routes.setting} element={<Settings />} />
           <Route path={routes.messenger} element={<Messenger />} />
