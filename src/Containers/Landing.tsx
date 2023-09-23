@@ -3,9 +3,6 @@ import React from 'react';
 import { width } from '../Theme/size';
 import Redirect from '../Helpers/Redirect';
 import routes from '../Router/routes';
-import Simulator from './Simulator';
-import About from './About';
-import HowItWorks from './HowItWorks';
 
 const Landing = () => {
   const LandingStyle = {
@@ -19,7 +16,7 @@ const Landing = () => {
       <Stack
         sx={{
           width: '100%',
-          minHeight: { xs: '80vh', sm: '84vh' },
+          minHeight: { xs: '80vh', sm: '88vh' },
           zIndex: '3',
           background:
             'linear-gradient(0deg, rgba(1, 121, 111, 1) 27%, rgba(1,159,146,0.7) 68%, rgba(238,248,246,1) 100%)',

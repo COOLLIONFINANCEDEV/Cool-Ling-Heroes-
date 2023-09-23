@@ -80,9 +80,7 @@ const Connect = () => {
     [dispatch, handleSubmitError, handleSubmitSuccess]
   );
 
-  const submit = () => {
-    navigate(routes.home + routes.dashboard + '/' + routes.product);
-  };
+  
 
   React.useEffect(() => {
     const search = location.search;

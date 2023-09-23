@@ -1,9 +1,5 @@
 import { Box, Container } from '@mui/material';
 import {
-  ArrowTrendingUpIcon,
-  UserIcon,
-  EyeDropperIcon,
-  MicrophoneIcon,
   ShoppingCartIcon,
   TruckIcon,
   FolderPlusIcon,
@@ -11,16 +7,13 @@ import {
 } from '@heroicons/react/24/solid';
 import { formatNumberWithLeadingZero } from '../Helpers/FormatMoney';
 import BlocTitle from '../Containers/BlocTitle';
-import { CustomersSearch } from '../Components/CustomerSeach';
 import { selectLogin } from '../Toolkit/Login/LoginSlice';
 import { useSelector } from 'react-redux';
 import Roles from '../Seeds/Roles';
 import React, { useContext } from 'react';
 import ApiSession from '../Service/ApiSession';
-import CustomersTable from '../Containers/CustomersTable';
 import { CustomersContext } from '../Context/CustomersContext';
 import CardGroupes from '../Containers/CardGroupes';
-import DonateursTable from '../Containers/DonateursTable';
 import BenefiaiciareTable from '../Containers/BeneficiaireTable';
 
 interface Donateur {

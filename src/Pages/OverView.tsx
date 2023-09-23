@@ -14,7 +14,6 @@ import BlocTitle from '../Containers/BlocTitle';
 import CardGroupes from '../Containers/CardGroupes';
 import OverViewTable from '../Containers/OverViewTable';
 import { OverViewContext } from '../Context/OverViewContext';
-import { formatNumberWithLeadingZero } from '../Helpers/FormatMoney';
 import { GivenFoodsSeed } from '../Seeds/ApiTest';
 import Roles from '../Seeds/Roles';
 import { selectLogin } from '../Toolkit/Login/LoginSlice';
@@ -210,7 +209,6 @@ const OverView = () => {
 };
 
 const GetData = () => {
-  const { user } = useSelector(selectLogin);
   const OverViewContextValue = useContext(OverViewContext);
   const state = OverViewContextValue ? OverViewContextValue.state : false;
   const handleLoader = OverViewContextValue
@@ -227,11 +225,10 @@ const GetData = () => {
       error: false,
     });
 
-    // Prod
-    // const response = await ApiSession.invest.list(user.id);
+
     if (!response.error && handleInformation) handleInformation(response.data);
     if (handleLoader) handleLoader(false);
-  }, [handleInformation, handleLoader, user.id]);
+  }, [handleInformation, handleLoader]);
 
   React.useEffect(() => {
     if (state) {

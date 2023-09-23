@@ -2,7 +2,7 @@
 :root {
   --dot-size: 1em;
   --duration: 3000ms;
-  --container-size: calc(var(--dot-size) * 10);
+  --container-size: 10em;
 }
 
 

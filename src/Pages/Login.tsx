@@ -1,16 +1,10 @@
-import { Box, Stack, Tab, Tabs, useTheme } from '@mui/material';
+import { Box, useTheme } from '@mui/material';
 import React from 'react';
 import Connect from '../Components/Login/Connect';
-import Register from '../Components/Login/Register';
 import Logo from '../Components/Navbar/Logo';
 
 const Login = () => {
-  const [LoginOrRegister, setLoginOrRegister] = React.useState(false);
-  const [value, setValue] = React.useState(0);
-  const hanbleChange = (item: any, userInfo: any): void => {
-    setValue(item);
-    setLoginOrRegister(item);
-  };
+ 
 
   const { palette } = useTheme();
 
@@ -40,62 +34,13 @@ const Login = () => {
     padding: '5vh 3vw',
   };
 
-  const TabWidth = {
-    width: '50%',
-  };
 
   return (
     <Box sx={loginStyle}>
       <Box sx={LoginFormStyle}>
-        {/* <TabSelect
-          items={['Login']}
-          TabWidth={TabWidth}
-          hanbleChange={hanbleChange}
-          value={value}
-        /> */}
-        {/* {LoginOrRegister ? <Register /> : <Connect />} */}
         <Logo dark={true} />
         <Connect />
       </Box>
-    </Box>
-  );
-};
-
-interface TABSELECT {
-  items: string[];
-  TabWidth: { width: string };
-  hanbleChange: Function;
-  value: number;
-}
-const TabSelect: React.FC<TABSELECT> = ({
-  items,
-  TabWidth,
-  hanbleChange,
-  value,
-}) => {
-  const handleChange = (
-    event: React.SyntheticEvent,
-    newValue: number | string
-  ) => {
-    hanbleChange(newValue);
-  };
-  return (
-    <Box sx={{ width: '100%' }}>
-      <Stack direction='row' justifyContent='center' alignItems='center'>
-        <Logo dark={true} />
-      </Stack>
-      <Tabs
-        onChange={handleChange}
-        value={value}
-        variant='scrollable'
-        scrollButtons
-        allowScrollButtonsMobile
-        aria-label='scrollable force tabs example'
-        sx={{ width: '100%' }}>
-        {items.map((item, key) => (
-          <Tab label={item} key={item} sx={TabWidth} />
-        ))}
-      </Tabs>
     </Box>
   );
 };

@@ -1,6 +1,5 @@
 import {
   BellIcon,
-  ChatBubbleBottomCenterTextIcon,
   FolderPlusIcon,
   ShoppingCartIcon,
   UserGroupIcon

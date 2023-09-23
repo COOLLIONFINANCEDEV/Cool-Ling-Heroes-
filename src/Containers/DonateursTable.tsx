@@ -1,10 +1,9 @@
-import React from 'react';
-import CreateRowData from '../Helpers/CreateRowData';
-import { DONATEURSKEY } from '../Components/Table/TableKeys';
-import { Box, Skeleton, Chip } from '@mui/material';
-import Action from '../Components/Table/Action';
-import TableCustomze from '../Components/Table/TableCustomze';
-import { CustomersContext } from '../Context/CustomersContext';
+import React from "react";
+import CreateRowData from "../Helpers/CreateRowData";
+import { DONATEURSKEY } from "../Components/Table/TableKeys";
+import { Box, Skeleton, Chip } from "@mui/material";
+import TableCustomze from "../Components/Table/TableCustomze";
+import { CustomersContext } from "../Context/CustomersContext";
 
 interface TABLECUSTOMZE {
   information: any;
@@ -14,8 +13,8 @@ const DonateursTable: React.FC<TABLECUSTOMZE> = ({ information }) => {
   const CreateData = new CreateRowData(DONATEURSKEY().body);
   const [rows, setRows] = React.useState<Array<{}>>([]);
   const CustomersContextValues = React.useContext(CustomersContext);
-  const skeletonGroupe = DONATEURSKEY().head.map((item) => (
-    <Skeleton width={'100%'} height={'50px'} animation='wave' />
+  const skeletonGroupe = DONATEURSKEY().head.map((item, key) => (
+    <Skeleton width={"100%"} height={"50px"} animation="wave" key={key} />
   ));
 
   const LoaderContent = CreateData.create(skeletonGroupe);
@@ -30,22 +29,23 @@ const DonateursTable: React.FC<TABLECUSTOMZE> = ({ information }) => {
   React.useEffect(() => {
     if (information) {
       const data: any = [];
-      information.forEach((item: any) => {
+      information.forEach((item: any, key: number) => {
         data.push(
           CreateData.create([
             item.id,
             item.name ? (
               item.name
             ) : (
-              <Chip label={'unavailable'} color='warning' variant='outlined' />
+              <Chip label={"unavailable"} color="warning" variant="outlined" />
             ),
             item.phone,
             item.email,
             item.adresse,
             item.frequenceDon,
             <Chip
-              label={item.status ? 'active' : 'disable'}
-              color={item.status ? 'success' : 'error'}
+              label={item.status ? "active" : "disable"}
+              color={item.status ? "success" : "error"}
+              key={key}
             />,
             // <Action information={item} />,
           ])
