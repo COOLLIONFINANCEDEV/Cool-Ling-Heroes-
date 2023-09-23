@@ -1,0 +1,69 @@
+{
+  "name": "kori-app",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@emotion/react": "^11.11.0",
+    "@emotion/styled": "^11.11.0",
+    "@fontsource/roboto": "^5.0.1",
+    "@heroicons/react": "^2.0.18",
+    "@mui/icons-material": "^5.11.16",
+    "@mui/lab": "^5.0.0-alpha.133",
+    "@mui/material": "^5.13.2",
+    "@mui/styled-engine-sc": "^5.12.0",
+    "@reduxjs/toolkit": "^1.9.5",
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/react": "^13.4.0",
+    "@testing-library/user-event": "^13.5.0",
+    "@types/crypto-js": "^4.1.1",
+    "@types/jest": "^27.5.2",
+    "@types/node": "^16.18.32",
+    "@types/react": "^18.2.6",
+    "@types/react-dom": "^18.2.4",
+    "@types/simplebar": "^5.3.3",
+    "@types/socket.io-client": "^3.0.0",
+    "axios": "^1.4.0",
+    "chart.js": "^4.2.1",
+    "crypto-js": "^4.1.1",
+    "date-fns": "^2.30.0",
+    "formik": "^2.4.1",
+    "jwt-decode": "^3.1.2",
+    "react": "^18.2.0",
+    "react-chartjs-2": "^5.2.0",
+    "react-dom": "^18.2.0",
+    "react-material-ui-carousel": "^3.4.2",
+    "react-redux": "^8.0.7",
+    "react-router-dom": "^6.11.2",
+    "react-scripts": "5.0.1",
+    "simplebar-react": "^3.2.4",
+    "socket.io-client": "^4.7.1",
+    "styled-components": "^5.3.11",
+    "typescript": "^4.9.5",
+    "web-vitals": "^2.1.4",
+    "yup": "^1.2.0"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}

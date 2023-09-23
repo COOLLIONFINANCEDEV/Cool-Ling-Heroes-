@@ -1,0 +1,113 @@
+/* Variables */
+:root {
+  --dot-size: 1em;
+  --duration: 3000ms;
+  --container-size: calc(var(--dot-size) * 10);
+}
+
+
+/* For Firefox */
+/* Note: Firefox currently does not support styling the scrollbar */
+
+/* For IE and Edge */
+/* Note: IE and Edge currently do not support styling the scrollbar */
+
+/* Styles */
+.wrapper {
+  width: 100vw;
+  height: 100vh;
+  background: whitesmoke;
+  background: linear-gradient(
+    30deg,
+    rgb(253, 255, 255) 30%,
+    rgb(146, 225, 212) 100%,
+    rgb(77, 208, 186) 100%
+  );
+}
+
+.flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container {
+  width: var(--container-size);
+  height: var(--container-size);
+  position: relative;
+  background: #19bda2;
+  border-radius: 50%;
+}
+
+.dot {
+  background: #033f35;
+  content: "";
+  border-radius: calc(var(--dot-size) * 0.5);
+  margin-top: calc(var(--dot-size) * -0.5);
+  margin-left: auto;
+  margin-right: auto;
+  width: var(--dot-size);
+  height: var(--dot-size);
+  animation-name: bounce;
+  animation-duration: var(--duration);
+  animation-iteration-count: infinite;
+  transition-timing-function: cubic-bezier(0, 0.99, 0, 0.1);
+}
+
+.container-dot {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+}
+
+.dot-a {
+  transform: rotate(0deg);
+  animation-delay: calc(-var(--duration) * 0.5 * 0);
+}
+
+.dot-b {
+  transform: rotate(-36deg);
+  animation-delay: calc(-var(--duration) * 0.5 * 1);
+}
+
+.dot-c {
+  transform: rotate(-72deg);
+  animation-delay: calc(-var(--duration) * 0.5 * 2);
+}
+
+.dot-d {
+  transform: rotate(-108deg);
+  animation-delay: calc(-var(--duration) * 0.5 * 3);
+}
+
+.dot-e {
+  transform: rotate(-144deg);
+  animation-delay: calc(-var(--duration) * 0.5 * 4);
+}
+
+.dot-f {
+  transform: rotate(-180deg);
+  animation-delay: calc(-var(--duration) * 0.5 * 5);
+}
+
+.dot-g {
+  transform: rotate(-216deg);
+  animation-delay: calc(-var(--duration) * 0.5 * 6);
+}
+
+.dot-h {
+  transform: rotate(-252deg);
+  animation-delay: calc(-var(--duration) * 0.5 * 7);
+}
+
+@keyframes bounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(var(--container-size));
+  }
+}
